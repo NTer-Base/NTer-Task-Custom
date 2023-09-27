@@ -65,21 +65,32 @@
     <Reference Include="Npgsql, Version=4.1.7.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Npgsql.4.1.7\lib\net461\Npgsql.dll</HintPath>
     </Reference>
-    <Reference Include="N_Ter_Task_Abstracts, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\References\N_Ter_Task_Abstracts.dll</HintPath>
+    <Reference Include="N_Ter_AD_Authentication">
+      <HintPath>..\..\References\N_Ter_AD_Authentication.dll</HintPath>
     </Reference>
-    <Reference Include="N_Ter_Task_Data, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\References\N_Ter_Task_Data.dll</HintPath>
+    <Reference Include="N_Ter_Task_Abstracts">
+      <HintPath>..\..\References\N_Ter_Task_Abstracts.dll</HintPath>
     </Reference>
-    <Reference Include="N_Ter_Task_Data_Structures, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\References\N_Ter_Task_Data_Structures.dll</HintPath>
+    <Reference Include="N_Ter_Task_Automations">
+      <HintPath>..\..\References\N_Ter_Task_Automations.dll</HintPath>
     </Reference>
-    <Reference Include="N_Ter_Task_License, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\References\N_Ter_Task_License.dll</HintPath>
+    <Reference Include="N_Ter_Task_Common">
+      <HintPath>..\..\References\N_Ter_Task_Common.dll</HintPath>
+    </Reference>
+    <Reference Include="N_Ter_Task_Controllers">
+      <HintPath>..\..\References\N_Ter_Task_Controllers.dll</HintPath>
+    </Reference>
+    <Reference Include="N_Ter_Task_Data">
+      <HintPath>..\..\References\N_Ter_Task_Data.dll</HintPath>
+    </Reference>
+    <Reference Include="N_Ter_Task_Data_Structures">
+      <HintPath>..\..\References\N_Ter_Task_Data_Structures.dll</HintPath>
+    </Reference>
+    <Reference Include="N_Ter_Task_Email_Receiver">
+      <HintPath>..\..\References\N_Ter_Task_Email_Receiver.dll</HintPath>
+    </Reference>
+    <Reference Include="N_Ter_Task_License">
+      <HintPath>..\..\References\N_Ter_Task_License.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -186,6 +197,9 @@
     <EmbeddedResource Include="Reports\rptProductivity.resx">
       <DependentUpon>rptProductivity.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
