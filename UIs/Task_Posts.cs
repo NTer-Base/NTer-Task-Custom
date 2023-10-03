@@ -312,195 +312,246 @@ namespace N_Ter.Customizable.UI
             divMainRowControl.Attributes.Add("class", "row padding-xs-hr");
             int rowWidth = 0;
 
-            List<DS_Tasks.tbltask_historyRow> taskHistoryMatch = dsTask.tbltask_history.Where(x => x.Workflow_Step_ID == 86 && x.Task_ID == dsTask.tbltasks[0].Task_ID)
+            List<DS_Tasks.tbltask_historyRow> taskHistoryMatchInquiry = dsTask.tbltask_history.Where(x => x.Workflow_Step_ID == 86 && x.Task_ID == dsTask.tbltasks[0].Task_ID)
                             .OrderByDescending(o => o.Task_Update_ID)
                             .ToList();
 
-            List<DS_Tasks.tbltask_update_fieldsRow> taskInquiryTypes = dsTask.tbltask_update_fields.Where(x => x.Task_Update_ID == taskHistoryMatch[0].Task_Update_ID && x.Field_Value == "Yes")
+            List<DS_Tasks.tbltask_update_fieldsRow> taskInquiryTypes = dsTask.tbltask_update_fields.Where(x => x.Task_Update_ID == taskHistoryMatchInquiry[0].Task_Update_ID && x.Field_Value == "Yes")
                             .OrderBy(y => y.Task_Update_Field_ID)
                             .ToList();
 
-            int[] SPFieldsCommon = { 45, 46, 47, 48, 49, 50, 51 };
-            int[] SPFieldsFCM = { 45, 49, 51, 52, 53 };
-            int[] SPFieldsTicketing = { 52, 53, 54, 55, 56, 57, 58, 59, 60 };
-            int[] SPFieldsHoliday = { 54, 62, 63, 64, 65 };
-            int[] SPFieldsVisa = { 54, 55, 56, 66, 67, 68, 69 };
+            List<DS_Tasks.tbltask_historyRow> taskHistoryMatchAmendment = dsTask.tbltask_history.Where(x => x.Workflow_Step_ID == 86 && x.Task_ID == dsTask.tbltasks[0].Task_ID)
+                            .OrderByDescending(o => o.Task_Update_ID)
+                            .ToList();
+
+            List<DS_Tasks.tbltask_update_fieldsRow> taskAmendment = dsTask.tbltask_update_fields.Where(x => x.Task_Update_ID == taskHistoryMatchAmendment[0].Task_Update_ID && x.Workflow_Step_Field_ID == 119 && x.Field_Value == "Yes")
+                            .OrderBy(y => y.Task_Update_Field_ID)
+                            .ToList();
+
+            List<DS_Tasks.tbltask_update_fieldsRow> paxCountList = dsTask.tbltask_update_fields.Where(x => x.Task_Update_ID == taskHistoryMatchInquiry[0].Task_Update_ID && x.Workflow_Step_Field_ID == 126)
+                            .OrderBy(y => y.Task_Update_Field_ID)
+                            .ToList();
+
+            List<DS_Tasks.tbltask_update_fieldsRow> paxCount = dsTask.tbltask_update_fields.Where(x => x.Task_Update_ID == taskHistoryMatchInquiry[0].Task_Update_ID && x.Workflow_Step_Field_ID == 126)
+                            .ToList();
+
+            //var workflowCategories = dsWorkflow.tblworkflow_step_field_cats.Select(x => new { x.Workflow_Step_Field_Cat, x.Workflow_Step_ID, x.Sort_Order })
+            //                .Where(x => x.Workflow_Step_ID == 87)
+            //                .OrderBy(o => o.Sort_Order)
+            //                .Take(paxCount);
+
+            int fieldValue = 0;
+            if (paxCount.Count > 0)
+            {
+                fieldValue = int.Parse(paxCount[0].Field_Value);
+            }
+
+            int[] SPFieldCategories = { 1, 2, 3, 4, 5, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30 };
+
+            int[] SPFieldsCommon = { 45, 46, 47, 48, 49, 50, 51, 127, 128, 129, 130, 131, 132, 133, 134, 135, 141, 142, 143, 144, 145, 146, 147, 148, 154, 155, 156, 157, 158, 159, 160, 161, 167, 168, 169, 170, 171, 172, 173, 174 };
+            int[] SPFieldsFCM = { 45, 49, 51, 52, 53, 127, 128, 129, 133, 135, 136, 137, 141, 142, 146, 148, 149, 150, 154, 155, 159, 161, 162, 163, 167, 168, 172, 174, 175, 176 };
+            int[] SPFieldsTicketing = { 52, 53, 136, 137, 149, 150, 162, 163, 175, 176, 54, 55, 56, 57, 58, 59, 60, 138, 139, 140, 151, 152, 153, 164, 165, 166, 177, 178, 179 };
+            int[] SPFieldsHoliday = { 62, 63, 64, 65, 54, 138, 151, 164, 177 };
+            int[] SPFieldsVisa = { 66, 67, 68, 69, 54, 55, 56, 138, 139, 140, 151, 152, 153, 164, 165, 166, 177, 178, 179 };
             int SPFieldInsurance = 61;
+            int SPAmendment = 119;
 
             _Display.CssClass = "row";
             foreach (DS_Workflow.tblworkflow_step_fieldsRow rowStepField in dsWorkflow.tblworkflow_step_fields)
             {
-                if (taskInquiryTypes.Exists(x => x.Workflow_Step_Field_ID == 44))
+                if(SPFieldCategories.Take(fieldValue+4).Contains(rowStepField.Workflow_Step_Field_Cat_ID))
                 {
-                    if (SPFieldsFCM.Contains(rowStepField.Workflow_Step_Field_ID))
+                    if (taskInquiryTypes.Exists(x => x.Workflow_Step_Field_ID == 44))
                     {
-                        divMainRowControl.Controls.Add(objTskAct.GetTaskObject(objScripts, IsPostBack, objMasterTables, objSes.Currency_Sbl, dsWorkflow, dsTasks, rowStepField, ref _ControlsSet, ref strRequiredFieldValidation, ref strOldFieldValidation, ref rowWidth, ControlIndex, "GetHelp", false, true));
-                        if (rowStepField.Help_Text.Trim() != "")
+                        if (SPFieldsFCM.Contains(rowStepField.Workflow_Step_Field_ID))
                         {
-                            Help_Texts.Add(rowStepField.Field_Name + "|" + rowStepField.Help_Text);
-                            ControlIndex++;
-                        }
-                        if (rowWidth == 12)
-                        {
-                            _Display.Controls.Add(divMainRowControl);
-                            divMainRowControl = new System.Web.UI.HtmlControls.HtmlGenericControl("div");
-                            divMainRowControl.Attributes.Add("class", "row padding-xs-hr");
-                            rowWidth = 0;
+                            divMainRowControl.Controls.Add(objTskAct.GetTaskObject(objScripts, IsPostBack, objMasterTables, objSes.Currency_Sbl, dsWorkflow, dsTasks, rowStepField, ref _ControlsSet, ref strRequiredFieldValidation, ref strOldFieldValidation, ref rowWidth, ControlIndex, "GetHelp", false, true));
+                            if (rowStepField.Help_Text.Trim() != "")
+                            {
+                                Help_Texts.Add(rowStepField.Field_Name + "|" + rowStepField.Help_Text);
+                                ControlIndex++;
+                            }
+                            if (rowWidth == 12)
+                            {
+                                _Display.Controls.Add(divMainRowControl);
+                                divMainRowControl = new System.Web.UI.HtmlControls.HtmlGenericControl("div");
+                                divMainRowControl.Attributes.Add("class", "row padding-xs-hr");
+                                rowWidth = 0;
+                            }
                         }
                     }
-                }
-                else
-                {
-                    if (SPFieldsCommon.Contains(rowStepField.Workflow_Step_Field_ID))
+                    else
                     {
-                        divMainRowControl.Controls.Add(objTskAct.GetTaskObject(objScripts, IsPostBack, objMasterTables, objSes.Currency_Sbl, dsWorkflow, dsTasks, rowStepField, ref _ControlsSet, ref strRequiredFieldValidation, ref strOldFieldValidation, ref rowWidth, ControlIndex, "GetHelp", false, true));
-                        if (rowStepField.Help_Text.Trim() != "")
+                        if (SPFieldsCommon.Contains(rowStepField.Workflow_Step_Field_ID))
                         {
-                            Help_Texts.Add(rowStepField.Field_Name + "|" + rowStepField.Help_Text);
-                            ControlIndex++;
-                        }
-                        if (rowWidth == 12)
-                        {
-                            _Display.Controls.Add(divMainRowControl);
-                            divMainRowControl = new System.Web.UI.HtmlControls.HtmlGenericControl("div");
-                            divMainRowControl.Attributes.Add("class", "row padding-xs-hr");
-                            rowWidth = 0;
+                            divMainRowControl.Controls.Add(objTskAct.GetTaskObject(objScripts, IsPostBack, objMasterTables, objSes.Currency_Sbl, dsWorkflow, dsTasks, rowStepField, ref _ControlsSet, ref strRequiredFieldValidation, ref strOldFieldValidation, ref rowWidth, ControlIndex, "GetHelp", false, true));
+                            if (rowStepField.Help_Text.Trim() != "")
+                            {
+                                Help_Texts.Add(rowStepField.Field_Name + "|" + rowStepField.Help_Text);
+                                ControlIndex++;
+                            }
+                            if (rowWidth == 12)
+                            {
+                                _Display.Controls.Add(divMainRowControl);
+                                divMainRowControl = new System.Web.UI.HtmlControls.HtmlGenericControl("div");
+                                divMainRowControl.Attributes.Add("class", "row padding-xs-hr");
+                                rowWidth = 0;
+                            }
                         }
                     }
-                }
-                if (taskInquiryTypes.Exists(x => x.Workflow_Step_Field_ID == 41) && taskInquiryTypes.Exists(x => x.Workflow_Step_Field_ID == 44))
-                {
-                    if (SPFieldsTicketing.Skip(2).Contains(rowStepField.Workflow_Step_Field_ID))
+                    if (taskInquiryTypes.Exists(x => x.Workflow_Step_Field_ID == 41) && taskInquiryTypes.Exists(x => x.Workflow_Step_Field_ID == 44))
                     {
-                        divMainRowControl.Controls.Add(objTskAct.GetTaskObject(objScripts, IsPostBack, objMasterTables, objSes.Currency_Sbl, dsWorkflow, dsTasks, rowStepField, ref _ControlsSet, ref strRequiredFieldValidation, ref strOldFieldValidation, ref rowWidth, ControlIndex, "GetHelp", false, true));
-                        if (rowStepField.Help_Text.Trim() != "")
+                        if (SPFieldsTicketing.Skip(10).Contains(rowStepField.Workflow_Step_Field_ID))
                         {
-                            Help_Texts.Add(rowStepField.Field_Name + "|" + rowStepField.Help_Text);
-                            ControlIndex++;
-                        }
-                        if (rowWidth == 12)
-                        {
-                            _Display.Controls.Add(divMainRowControl);
-                            divMainRowControl = new System.Web.UI.HtmlControls.HtmlGenericControl("div");
-                            divMainRowControl.Attributes.Add("class", "row padding-xs-hr");
-                            rowWidth = 0;
+                            divMainRowControl.Controls.Add(objTskAct.GetTaskObject(objScripts, IsPostBack, objMasterTables, objSes.Currency_Sbl, dsWorkflow, dsTasks, rowStepField, ref _ControlsSet, ref strRequiredFieldValidation, ref strOldFieldValidation, ref rowWidth, ControlIndex, "GetHelp", false, true));
+                            if (rowStepField.Help_Text.Trim() != "")
+                            {
+                                Help_Texts.Add(rowStepField.Field_Name + "|" + rowStepField.Help_Text);
+                                ControlIndex++;
+                            }
+                            if (rowWidth == 12)
+                            {
+                                _Display.Controls.Add(divMainRowControl);
+                                divMainRowControl = new System.Web.UI.HtmlControls.HtmlGenericControl("div");
+                                divMainRowControl.Attributes.Add("class", "row padding-xs-hr");
+                                rowWidth = 0;
+                            }
                         }
                     }
-                }
-                else if (taskInquiryTypes.Exists(x => x.Workflow_Step_Field_ID == 41))
-                {
-                    if (SPFieldsTicketing.Contains(rowStepField.Workflow_Step_Field_ID))
+                    else if (taskInquiryTypes.Exists(x => x.Workflow_Step_Field_ID == 41))
                     {
-                        divMainRowControl.Controls.Add(objTskAct.GetTaskObject(objScripts, IsPostBack, objMasterTables, objSes.Currency_Sbl, dsWorkflow, dsTasks, rowStepField, ref _ControlsSet, ref strRequiredFieldValidation, ref strOldFieldValidation, ref rowWidth, ControlIndex, "GetHelp", false, true));
-                        if (rowStepField.Help_Text.Trim() != "")
+                        if (SPFieldsTicketing.Contains(rowStepField.Workflow_Step_Field_ID))
                         {
-                            Help_Texts.Add(rowStepField.Field_Name + "|" + rowStepField.Help_Text);
-                            ControlIndex++;
-                        }
-                        if (rowWidth == 12)
-                        {
-                            _Display.Controls.Add(divMainRowControl);
-                            divMainRowControl = new System.Web.UI.HtmlControls.HtmlGenericControl("div");
-                            divMainRowControl.Attributes.Add("class", "row padding-xs-hr");
-                            rowWidth = 0;
+                            divMainRowControl.Controls.Add(objTskAct.GetTaskObject(objScripts, IsPostBack, objMasterTables, objSes.Currency_Sbl, dsWorkflow, dsTasks, rowStepField, ref _ControlsSet, ref strRequiredFieldValidation, ref strOldFieldValidation, ref rowWidth, ControlIndex, "GetHelp", false, true));
+                            if (rowStepField.Help_Text.Trim() != "")
+                            {
+                                Help_Texts.Add(rowStepField.Field_Name + "|" + rowStepField.Help_Text);
+                                ControlIndex++;
+                            }
+                            if (rowWidth == 12)
+                            {
+                                _Display.Controls.Add(divMainRowControl);
+                                divMainRowControl = new System.Web.UI.HtmlControls.HtmlGenericControl("div");
+                                divMainRowControl.Attributes.Add("class", "row padding-xs-hr");
+                                rowWidth = 0;
+                            }
                         }
                     }
-                }
-                if ((taskInquiryTypes.Exists(x => x.Workflow_Step_Field_ID == 41) && taskInquiryTypes.Exists(x => x.Workflow_Step_Field_ID == 42)) || (taskInquiryTypes.Exists(x => x.Workflow_Step_Field_ID == 42) && taskInquiryTypes.Exists(x => x.Workflow_Step_Field_ID == 43)))
-                {
-                    if (SPFieldsHoliday.Skip(1).Contains(rowStepField.Workflow_Step_Field_ID))
+                    if ((taskInquiryTypes.Exists(x => x.Workflow_Step_Field_ID == 41) && taskInquiryTypes.Exists(x => x.Workflow_Step_Field_ID == 42)) || (taskInquiryTypes.Exists(x => x.Workflow_Step_Field_ID == 42) && taskInquiryTypes.Exists(x => x.Workflow_Step_Field_ID == 43)))
                     {
-                        divMainRowControl.Controls.Add(objTskAct.GetTaskObject(objScripts, IsPostBack, objMasterTables, objSes.Currency_Sbl, dsWorkflow, dsTasks, rowStepField, ref _ControlsSet, ref strRequiredFieldValidation, ref strOldFieldValidation, ref rowWidth, ControlIndex, "GetHelp", false, true));
-                        if (rowStepField.Help_Text.Trim() != "")
+                        if (SPFieldsHoliday.Take(4).Contains(rowStepField.Workflow_Step_Field_ID))
                         {
-                            Help_Texts.Add(rowStepField.Field_Name + "|" + rowStepField.Help_Text);
-                            ControlIndex++;
-                        }
-                        if (rowWidth == 12)
-                        {
-                            _Display.Controls.Add(divMainRowControl);
-                            divMainRowControl = new System.Web.UI.HtmlControls.HtmlGenericControl("div");
-                            divMainRowControl.Attributes.Add("class", "row padding-xs-hr");
-                            rowWidth = 0;
+                            divMainRowControl.Controls.Add(objTskAct.GetTaskObject(objScripts, IsPostBack, objMasterTables, objSes.Currency_Sbl, dsWorkflow, dsTasks, rowStepField, ref _ControlsSet, ref strRequiredFieldValidation, ref strOldFieldValidation, ref rowWidth, ControlIndex, "GetHelp", false, true));
+                            if (rowStepField.Help_Text.Trim() != "")
+                            {
+                                Help_Texts.Add(rowStepField.Field_Name + "|" + rowStepField.Help_Text);
+                                ControlIndex++;
+                            }
+                            if (rowWidth == 12)
+                            {
+                                _Display.Controls.Add(divMainRowControl);
+                                divMainRowControl = new System.Web.UI.HtmlControls.HtmlGenericControl("div");
+                                divMainRowControl.Attributes.Add("class", "row padding-xs-hr");
+                                rowWidth = 0;
+                            }
                         }
                     }
-                }
-                else if (taskInquiryTypes.Exists(x => x.Workflow_Step_Field_ID == 42))
-                {
-                    if (SPFieldsHoliday.Contains(rowStepField.Workflow_Step_Field_ID))
+                    else if (taskInquiryTypes.Exists(x => x.Workflow_Step_Field_ID == 42))
                     {
-                        divMainRowControl.Controls.Add(objTskAct.GetTaskObject(objScripts, IsPostBack, objMasterTables, objSes.Currency_Sbl, dsWorkflow, dsTasks, rowStepField, ref _ControlsSet, ref strRequiredFieldValidation, ref strOldFieldValidation, ref rowWidth, ControlIndex, "GetHelp", false, true));
-                        if (rowStepField.Help_Text.Trim() != "")
+                        if (SPFieldsHoliday.Contains(rowStepField.Workflow_Step_Field_ID))
                         {
-                            Help_Texts.Add(rowStepField.Field_Name + "|" + rowStepField.Help_Text);
-                            ControlIndex++;
-                        }
-                        if (rowWidth == 12)
-                        {
-                            _Display.Controls.Add(divMainRowControl);
-                            divMainRowControl = new System.Web.UI.HtmlControls.HtmlGenericControl("div");
-                            divMainRowControl.Attributes.Add("class", "row padding-xs-hr");
-                            rowWidth = 0;
+                            divMainRowControl.Controls.Add(objTskAct.GetTaskObject(objScripts, IsPostBack, objMasterTables, objSes.Currency_Sbl, dsWorkflow, dsTasks, rowStepField, ref _ControlsSet, ref strRequiredFieldValidation, ref strOldFieldValidation, ref rowWidth, ControlIndex, "GetHelp", false, true));
+                            if (rowStepField.Help_Text.Trim() != "")
+                            {
+                                Help_Texts.Add(rowStepField.Field_Name + "|" + rowStepField.Help_Text);
+                                ControlIndex++;
+                            }
+                            if (rowWidth == 12)
+                            {
+                                _Display.Controls.Add(divMainRowControl);
+                                divMainRowControl = new System.Web.UI.HtmlControls.HtmlGenericControl("div");
+                                divMainRowControl.Attributes.Add("class", "row padding-xs-hr");
+                                rowWidth = 0;
+                            }
                         }
                     }
-                }
-                if (taskInquiryTypes.Exists(x => x.Workflow_Step_Field_ID == 41) && taskInquiryTypes.Exists(x => x.Workflow_Step_Field_ID == 43))
-                {
-                    if (SPFieldsVisa.Skip(3).Contains(rowStepField.Workflow_Step_Field_ID))
+                    if (taskInquiryTypes.Exists(x => x.Workflow_Step_Field_ID == 41) && taskInquiryTypes.Exists(x => x.Workflow_Step_Field_ID == 43))
                     {
-                        divMainRowControl.Controls.Add(objTskAct.GetTaskObject(objScripts, IsPostBack, objMasterTables, objSes.Currency_Sbl, dsWorkflow, dsTasks, rowStepField, ref _ControlsSet, ref strRequiredFieldValidation, ref strOldFieldValidation, ref rowWidth, ControlIndex, "GetHelp", false, true));
-                        if (rowStepField.Help_Text.Trim() != "")
+                        if (SPFieldsVisa.Take(4).Contains(rowStepField.Workflow_Step_Field_ID))
                         {
-                            Help_Texts.Add(rowStepField.Field_Name + "|" + rowStepField.Help_Text);
-                            ControlIndex++;
-                        }
-                        if (rowWidth == 12)
-                        {
-                            _Display.Controls.Add(divMainRowControl);
-                            divMainRowControl = new System.Web.UI.HtmlControls.HtmlGenericControl("div");
-                            divMainRowControl.Attributes.Add("class", "row padding-xs-hr");
-                            rowWidth = 0;
+                            divMainRowControl.Controls.Add(objTskAct.GetTaskObject(objScripts, IsPostBack, objMasterTables, objSes.Currency_Sbl, dsWorkflow, dsTasks, rowStepField, ref _ControlsSet, ref strRequiredFieldValidation, ref strOldFieldValidation, ref rowWidth, ControlIndex, "GetHelp", false, true));
+                            if (rowStepField.Help_Text.Trim() != "")
+                            {
+                                Help_Texts.Add(rowStepField.Field_Name + "|" + rowStepField.Help_Text);
+                                ControlIndex++;
+                            }
+                            if (rowWidth == 12)
+                            {
+                                _Display.Controls.Add(divMainRowControl);
+                                divMainRowControl = new System.Web.UI.HtmlControls.HtmlGenericControl("div");
+                                divMainRowControl.Attributes.Add("class", "row padding-xs-hr");
+                                rowWidth = 0;
+                            }
                         }
                     }
-                }
-                else if (taskInquiryTypes.Exists(x => x.Workflow_Step_Field_ID == 43))
-                {
-                    if (SPFieldsVisa.Contains(rowStepField.Workflow_Step_Field_ID))
+                    else if (taskInquiryTypes.Exists(x => x.Workflow_Step_Field_ID == 43))
                     {
-                        divMainRowControl.Controls.Add(objTskAct.GetTaskObject(objScripts, IsPostBack, objMasterTables, objSes.Currency_Sbl, dsWorkflow, dsTasks, rowStepField, ref _ControlsSet, ref strRequiredFieldValidation, ref strOldFieldValidation, ref rowWidth, ControlIndex, "GetHelp", false, true));
-                        if (rowStepField.Help_Text.Trim() != "")
+                        if (SPFieldsVisa.Contains(rowStepField.Workflow_Step_Field_ID))
                         {
-                            Help_Texts.Add(rowStepField.Field_Name + "|" + rowStepField.Help_Text);
-                            ControlIndex++;
-                        }
-                        if (rowWidth == 12)
-                        {
-                            _Display.Controls.Add(divMainRowControl);
-                            divMainRowControl = new System.Web.UI.HtmlControls.HtmlGenericControl("div");
-                            divMainRowControl.Attributes.Add("class", "row padding-xs-hr");
-                            rowWidth = 0;
+                            divMainRowControl.Controls.Add(objTskAct.GetTaskObject(objScripts, IsPostBack, objMasterTables, objSes.Currency_Sbl, dsWorkflow, dsTasks, rowStepField, ref _ControlsSet, ref strRequiredFieldValidation, ref strOldFieldValidation, ref rowWidth, ControlIndex, "GetHelp", false, true));
+                            if (rowStepField.Help_Text.Trim() != "")
+                            {
+                                Help_Texts.Add(rowStepField.Field_Name + "|" + rowStepField.Help_Text);
+                                ControlIndex++;
+                            }
+                            if (rowWidth == 12)
+                            {
+                                _Display.Controls.Add(divMainRowControl);
+                                divMainRowControl = new System.Web.UI.HtmlControls.HtmlGenericControl("div");
+                                divMainRowControl.Attributes.Add("class", "row padding-xs-hr");
+                                rowWidth = 0;
+                            }
                         }
                     }
-                }
-                if (taskInquiryTypes.Exists(x => x.Workflow_Step_Field_ID == 70))
-                {
-                    if (SPFieldInsurance == rowStepField.Workflow_Step_Field_ID)
+                    if (taskInquiryTypes.Exists(x => x.Workflow_Step_Field_ID == 70))
                     {
-                        divMainRowControl.Controls.Add(objTskAct.GetTaskObject(objScripts, IsPostBack, objMasterTables, objSes.Currency_Sbl, dsWorkflow, dsTasks, rowStepField, ref _ControlsSet, ref strRequiredFieldValidation, ref strOldFieldValidation, ref rowWidth, ControlIndex, "GetHelp", false, true));
-                        if (rowStepField.Help_Text.Trim() != "")
+                        if (SPFieldInsurance == rowStepField.Workflow_Step_Field_ID)
                         {
-                            Help_Texts.Add(rowStepField.Field_Name + "|" + rowStepField.Help_Text);
-                            ControlIndex++;
-                        }
-                        if (rowWidth == 12)
-                        {
-                            _Display.Controls.Add(divMainRowControl);
-                            divMainRowControl = new System.Web.UI.HtmlControls.HtmlGenericControl("div");
-                            divMainRowControl.Attributes.Add("class", "row padding-xs-hr");
-                            rowWidth = 0;
+                            divMainRowControl.Controls.Add(objTskAct.GetTaskObject(objScripts, IsPostBack, objMasterTables, objSes.Currency_Sbl, dsWorkflow, dsTasks, rowStepField, ref _ControlsSet, ref strRequiredFieldValidation, ref strOldFieldValidation, ref rowWidth, ControlIndex, "GetHelp", false, true));
+                            if (rowStepField.Help_Text.Trim() != "")
+                            {
+                                Help_Texts.Add(rowStepField.Field_Name + "|" + rowStepField.Help_Text);
+                                ControlIndex++;
+                            }
+                            if (rowWidth == 12)
+                            {
+                                _Display.Controls.Add(divMainRowControl);
+                                divMainRowControl = new System.Web.UI.HtmlControls.HtmlGenericControl("div");
+                                divMainRowControl.Attributes.Add("class", "row padding-xs-hr");
+                                rowWidth = 0;
+                            }
                         }
                     }
-                }
+                    if (taskAmendment.Count == 0)
+                    {
+                        if (SPAmendment == rowStepField.Workflow_Step_Field_ID)
+                        {
+                            divMainRowControl.Controls.Add(objTskAct.GetTaskObject(objScripts, IsPostBack, objMasterTables, objSes.Currency_Sbl, dsWorkflow, dsTasks, rowStepField, ref _ControlsSet, ref strRequiredFieldValidation, ref strOldFieldValidation, ref rowWidth, ControlIndex, "GetHelp", false, true));
+                            if (rowStepField.Help_Text.Trim() != "")
+                            {
+                                Help_Texts.Add(rowStepField.Field_Name + "|" + rowStepField.Help_Text);
+                                ControlIndex++;
+                            }
+                            if (rowWidth == 12)
+                            {
+                                _Display.Controls.Add(divMainRowControl);
+                                divMainRowControl = new System.Web.UI.HtmlControls.HtmlGenericControl("div");
+                                divMainRowControl.Attributes.Add("class", "row padding-xs-hr");
+                                rowWidth = 0;
+                            }
+                        }
+                    }
+                }           
             }
             if (rowWidth > 0)
             {
