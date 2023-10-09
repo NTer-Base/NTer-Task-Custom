@@ -1,7 +1,3 @@
-C:\NKAR\Dev2\Dev2\N_Ter_Task_Data\N_Ter_Task_Custom\obj\Debug\N_Ter_Task_Custom.csproj.AssemblyReference.cache
-C:\NKAR\Dev2\Dev2\N_Ter_Task_Data\N_Ter_Task_Custom\obj\Debug\rptProductivity.resources
-C:\NKAR\Dev2\Dev2\N_Ter_Task_Data\N_Ter_Task_Custom\obj\Debug\N_Ter_Task_Custom.csproj.GenerateResource.cache
-C:\NKAR\Dev2\Dev2\N_Ter_Task_Data\N_Ter_Task_Custom\obj\Debug\N_Ter_Task_Custom.csproj.CoreCompileInputs.cache
 C:\NKAR\Dev2\Dev2\N_Ter_Task_Data\N_Ter_Task_Custom\bin\Debug\N_Ter_Task_Custom.dll.config
 C:\NKAR\Dev2\Dev2\N_Ter_Task_Data\N_Ter_Task_Custom\bin\Debug\N_Ter_Task_Custom.dll
 C:\NKAR\Dev2\Dev2\N_Ter_Task_Data\N_Ter_Task_Custom\bin\Debug\N_Ter_Task_Custom.pdb
@@ -183,6 +179,10 @@ C:\NKAR\Dev2\Dev2\N_Ter_Task_Data\N_Ter_Task_Custom\bin\Debug\ja\DevExpress.Xtra
 C:\NKAR\Dev2\Dev2\N_Ter_Task_Data\N_Ter_Task_Custom\bin\Debug\de\DevExpress.XtraTreeList.v22.1.resources.dll
 C:\NKAR\Dev2\Dev2\N_Ter_Task_Data\N_Ter_Task_Custom\bin\Debug\es\DevExpress.XtraTreeList.v22.1.resources.dll
 C:\NKAR\Dev2\Dev2\N_Ter_Task_Data\N_Ter_Task_Custom\bin\Debug\ja\DevExpress.XtraTreeList.v22.1.resources.dll
+C:\NKAR\Dev2\Dev2\N_Ter_Task_Data\N_Ter_Task_Custom\obj\Debug\N_Ter_Task_Custom.csproj.AssemblyReference.cache
+C:\NKAR\Dev2\Dev2\N_Ter_Task_Data\N_Ter_Task_Custom\obj\Debug\rptProductivity.resources
+C:\NKAR\Dev2\Dev2\N_Ter_Task_Data\N_Ter_Task_Custom\obj\Debug\N_Ter_Task_Custom.csproj.GenerateResource.cache
+C:\NKAR\Dev2\Dev2\N_Ter_Task_Data\N_Ter_Task_Custom\obj\Debug\N_Ter_Task_Custom.csproj.CoreCompileInputs.cache
 C:\NKAR\Dev2\Dev2\N_Ter_Task_Data\N_Ter_Task_Custom\obj\Debug\N_Ter_Task_Custom.csproj.CopyComplete
 C:\NKAR\Dev2\Dev2\N_Ter_Task_Data\N_Ter_Task_Custom\obj\Debug\N_Ter_Task_Custom.dll
 C:\NKAR\Dev2\Dev2\N_Ter_Task_Data\N_Ter_Task_Custom\obj\Debug\N_Ter_Task_Custom.pdb

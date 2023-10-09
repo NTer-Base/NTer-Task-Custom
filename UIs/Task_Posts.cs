@@ -320,13 +320,13 @@ namespace N_Ter.Customizable.UI
                             .OrderBy(y => y.Task_Update_Field_ID)
                             .ToList();
 
-            List<DS_Tasks.tbltask_historyRow> taskHistoryMatchAmendment = dsTask.tbltask_history.Where(x => x.Workflow_Step_ID == 86 && x.Task_ID == dsTask.tbltasks[0].Task_ID)
+            List<DS_Tasks.tbltask_historyRow> taskHistoryMatchAmendment = dsTask.tbltask_history.Where(x => x.Workflow_Step_ID == 101 && x.Task_ID == dsTask.tbltasks[0].Task_ID)
                             .OrderByDescending(o => o.Task_Update_ID)
                             .ToList();
 
-            List<DS_Tasks.tbltask_update_fieldsRow> taskAmendment = dsTask.tbltask_update_fields.Where(x => x.Task_Update_ID == taskHistoryMatchAmendment[0].Task_Update_ID && x.Workflow_Step_Field_ID == 119 && x.Field_Value == "Yes")
+            List<DS_Tasks.tbltask_update_fieldsRow> taskAmendment = taskHistoryMatchAmendment.Count > 0 ? dsTask.tbltask_update_fields.Where(x => x.Task_Update_ID == taskHistoryMatchAmendment[0].Task_Update_ID && x.Workflow_Step_Field_ID == 116 && x.Field_Value == "Yes")
                             .OrderBy(y => y.Task_Update_Field_ID)
-                            .ToList();
+                            .ToList() : new List<DS_Tasks.tbltask_update_fieldsRow>();
 
             List<DS_Tasks.tbltask_update_fieldsRow> paxCountList = dsTask.tbltask_update_fields.Where(x => x.Task_Update_ID == taskHistoryMatchInquiry[0].Task_Update_ID && x.Workflow_Step_Field_ID == 126)
                             .OrderBy(y => y.Task_Update_Field_ID)
@@ -527,26 +527,26 @@ namespace N_Ter.Customizable.UI
                             }
                         }
                     }
-                    if (taskAmendment.Count == 0)
+                }
+                else if (taskAmendment.Count > 0)
+                {
+                    if (SPAmendment == rowStepField.Workflow_Step_Field_ID)
                     {
-                        if (SPAmendment == rowStepField.Workflow_Step_Field_ID)
+                        divMainRowControl.Controls.Add(objTskAct.GetTaskObject(objScripts, IsPostBack, objMasterTables, objSes.Currency_Sbl, dsWorkflow, dsTasks, rowStepField, ref _ControlsSet, ref strRequiredFieldValidation, ref strOldFieldValidation, ref rowWidth, ControlIndex, "GetHelp", false, true));
+                        if (rowStepField.Help_Text.Trim() != "")
                         {
-                            divMainRowControl.Controls.Add(objTskAct.GetTaskObject(objScripts, IsPostBack, objMasterTables, objSes.Currency_Sbl, dsWorkflow, dsTasks, rowStepField, ref _ControlsSet, ref strRequiredFieldValidation, ref strOldFieldValidation, ref rowWidth, ControlIndex, "GetHelp", false, true));
-                            if (rowStepField.Help_Text.Trim() != "")
-                            {
-                                Help_Texts.Add(rowStepField.Field_Name + "|" + rowStepField.Help_Text);
-                                ControlIndex++;
-                            }
-                            if (rowWidth == 12)
-                            {
-                                _Display.Controls.Add(divMainRowControl);
-                                divMainRowControl = new System.Web.UI.HtmlControls.HtmlGenericControl("div");
-                                divMainRowControl.Attributes.Add("class", "row padding-xs-hr");
-                                rowWidth = 0;
-                            }
+                            Help_Texts.Add(rowStepField.Field_Name + "|" + rowStepField.Help_Text);
+                            ControlIndex++;
+                        }
+                        if (rowWidth == 12)
+                        {
+                            _Display.Controls.Add(divMainRowControl);
+                            divMainRowControl = new System.Web.UI.HtmlControls.HtmlGenericControl("div");
+                            divMainRowControl.Attributes.Add("class", "row padding-xs-hr");
+                            rowWidth = 0;
                         }
                     }
-                }           
+                }
             }
             if (rowWidth > 0)
             {
