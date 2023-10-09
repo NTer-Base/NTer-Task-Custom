@@ -101,6 +101,23 @@ namespace N_Ter.MySQL.Customizable
         {
             string ret = "";
             //Content
+            if (ds.tbltasks[0].Current_Step_ID == 106)
+            {
+                ret = "init.push(function () {\r\n" +
+                                "CheckCompType();\r\n" +
+                        "});\r\n" +
+                        "$('#Field_ID_318').change(function() {\r\n" +
+                                "CheckCompType();\r\n" +
+                        "});\r\n" +
+                        "function CheckCompType() {\r\n" +
+                             "if ($('#Field_ID_318').val() == 'Confirmation of the inquiry' || $('#Field_ID_318').val() == 'Rejection of the inquiry'){\r\n" +
+                                 "$('#ControlContainer_321').removeClass('hide');\r\n" +
+                             "}\r\n" +
+                             "else {\r\n" +
+                                 "$('#ControlContainer_321').addClass('hide');\r\n" +
+                             "}\r\n" +
+                         "}\r\n";
+            }
             return ret;
         }
 
