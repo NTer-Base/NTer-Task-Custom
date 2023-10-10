@@ -223,9 +223,42 @@ namespace N_Ter.MySQL.Customizable
                                  "$('#ControlContainer_358').addClass('hide');\r\n" + // Sent hotel voucher checkbox
                              "}\r\n" +
                          "}\r\n";
-            };
+            }
 
-
+            if (ds.tbltasks[0].Current_Step_ID == 111) // For step 5.2 Refund Process
+            {
+                ret = "init.push(function () {\r\n" +
+                        "CheckCreditNoteRaised();\r\n" +
+                        "});\r\n" +
+                        "$('#Field_ID_338').change(function() {\r\n" + // attach event listner to call CheckCreditNoteRaised(); when the given field value is changed
+                                "CheckCreditNoteRaised();\r\n" +
+                        "});\r\n" +
+                         "$('#Field_ID_341').change(function() {\r\n" + // attach event listner to call CheckRefundableProcessStatus(); when the given field value is changed
+                                "CheckRefundableProcessStatus();\r\n" +
+                        "});\r\n" +
+                        "function CheckCreditNoteRaised() {\r\n" +
+                             "if ($('#Field_ID_338').is(\":checked\")){\r\n" + // Is credit note raised checkbox
+                                 "$('#ControlContainer_341').removeClass('hide');\r\n" + // Status of refundable process selection
+                                 "$('#ControlContainer_339').addClass('hide');\r\n" + // Voucher number textbox
+                                 "$('#ControlContainer_340').addClass('hide');\r\n" + // Upload invoice file upload
+                             "}\r\n" +
+                             "else {\r\n" +
+                                 "$('#ControlContainer_341').addClass('hide');\r\n" + // Status of refundable process selection
+                                 "$('#ControlContainer_339').addClass('hide');\r\n" + // Voucher number textbox
+                                 "$('#ControlContainer_340').addClass('hide');\r\n" + // Upload invoice file upload
+                             "}\r\n" +
+                         "}\r\n" +
+                         "function CheckRefundableProcessStatus() {\r\n" +
+                             "if ($('#Field_ID_341').val() == 'Refund completed'){\r\n" + // Status of refundable process selection
+                                 "$('#ControlContainer_339').removeClass('hide');\r\n" + // Voucher number textbox
+                                 "$('#ControlContainer_340').removeClass('hide');\r\n" + // Upload invoice file upload
+                             "}\r\n" +
+                             "else {\r\n" +
+                                 "$('#ControlContainer_339').addClass('hide');\r\n" + // Voucher number textbox
+                                 "$('#ControlContainer_340').addClass('hide');\r\n" + // Upload invoice file upload
+                             "}\r\n" +
+                         "}\r\n";
+            }
                 return ret;
         }
 
