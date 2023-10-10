@@ -148,6 +148,15 @@ namespace N_Ter.MySQL.Customizable
                         "$('#Field_ID_354').change(function() {\r\n" +
                                 "CheckAllotmentConfirmed();\r\n" +
                         "});\r\n" +
+                         "$('#Field_ID_355').change(function() {\r\n" +
+                                "CheckHotelRatesConfirmed();\r\n" +
+                        "});\r\n" +
+                        "$('#Field_ID_356').change(function() {\r\n" +
+                                "CheckCostingUpdated();\r\n" +
+                        "});\r\n" +
+                        "$('#Field_ID_357').change(function() {\r\n" +
+                                "CheckTourOperatorConfirmed();\r\n" +
+                        "});\r\n" +
                         "function CheckHotelRatesSent() {\r\n" +
                             "if ($('#Field_ID_353').is(\":checked\")){\r\n" + // Hotel rates sent to client checkbox
                                 "$('#ControlContainer_354').removeClass('hide');\r\n" + // Allotment confirmed checkbox
@@ -179,6 +188,38 @@ namespace N_Ter.MySQL.Customizable
                                  "$('#ControlContainer_361').addClass('hide');\r\n" + // Costing amount textbox
                                  "$('#ControlContainer_356').addClass('hide');\r\n" + // Costing updated checkbox
                                  "$('#ControlContainer_357').addClass('hide');\r\n" + // Tour operator confirmed checkbox
+                                 "$('#ControlContainer_358').addClass('hide');\r\n" + // Sent hotel voucher checkbox
+                             "}\r\n" +
+                         "}\r\n" +
+                         "function CheckHotelRatesConfirmed() {\r\n" +
+                             "if ($('#Field_ID_355').is(\":checked\")){\r\n" +
+                                 "$('#ControlContainer_361').removeClass('hide');\r\n" + // Costing amount textbox
+                                 "$('#ControlContainer_356').removeClass('hide');\r\n" + // Costing updated checkbox
+                                 "$('#ControlContainer_357').addClass('hide');\r\n" + // Tour operator confirmed checkbox
+                                 "$('#ControlContainer_358').addClass('hide');\r\n" + // Sent hotel voucher checkbox
+                             "}\r\n" +
+                             "else {\r\n" +
+                                 "$('#ControlContainer_361').addClass('hide');\r\n" + // Costing amount textbox
+                                 "$('#ControlContainer_356').addClass('hide');\r\n" + // Costing updated checkbox
+                                 "$('#ControlContainer_357').addClass('hide');\r\n" + // Tour operator confirmed checkbox
+                                 "$('#ControlContainer_358').addClass('hide');\r\n" + // Sent hotel voucher checkbox
+                             "}\r\n" +
+                         "}\r\n" +
+                         "function CheckCostingUpdated() {\r\n" +
+                             "if ($('#Field_ID_356').is(\":checked\")){\r\n" +
+                                 "$('#ControlContainer_357').removeClass('hide');\r\n" + // Tour operator confirmed checkbox
+                                 "$('#ControlContainer_358').addClass('hide');\r\n" + // Sent hotel voucher checkbox
+                             "}\r\n" +
+                             "else {\r\n" +
+                                 "$('#ControlContainer_357').addClass('hide');\r\n" + // Tour operator confirmed checkbox
+                                 "$('#ControlContainer_358').addClass('hide');\r\n" + // Sent hotel voucher checkbox
+                             "}\r\n" +
+                         "}\r\n" +
+                         "function CheckTourOperatorConfirmed() {\r\n" +
+                             "if ($('#Field_ID_357').is(\":checked\")){\r\n" +
+                                 "$('#ControlContainer_358').removeClass('hide');\r\n" + // Sent hotel voucher checkbox
+                             "}\r\n" +
+                             "else {\r\n" +
                                  "$('#ControlContainer_358').addClass('hide');\r\n" + // Sent hotel voucher checkbox
                              "}\r\n" +
                          "}\r\n";
