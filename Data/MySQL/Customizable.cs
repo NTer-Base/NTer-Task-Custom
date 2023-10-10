@@ -101,20 +101,36 @@ namespace N_Ter.MySQL.Customizable
         {
             string ret = "";
             //Content
-            if (ds.tbltasks[0].Current_Step_ID == 106)
+            // displaying many checkboxes that track the status of tasks can be confusing.
+            // therefore only one checkbox at a time is shown.
+            // this is done using jquery.
+            if (ds.tbltasks[0].Current_Step_ID == 123) // For step 1.2.2 Acknowledge Inquiry (Quotation Status)
             {
                 ret = "init.push(function () {\r\n" +
                                 "CheckCompType();\r\n" +
                         "});\r\n" +
-                        "$('#Field_ID_318').change(function() {\r\n" +
+                        "$('#Field_ID_379').change(function() {\r\n" + // Quotation status selection
+                                "CheckCompType();\r\n" +
+                        "});\r\n" +
+                        "$('#Field_ID_380').change(function() {\r\n" + // Confirmation sent checkbox
                                 "CheckCompType();\r\n" +
                         "});\r\n" +
                         "function CheckCompType() {\r\n" +
-                             "if ($('#Field_ID_318').val() == 'Confirmation of the inquiry' || $('#Field_ID_318').val() == 'Rejection of the inquiry'){\r\n" +
-                                 "$('#ControlContainer_321').removeClass('hide');\r\n" +
+                             "if ($('#Field_ID_379').val() == 'Confirmation of the inquiry'){\r\n" + // Only show the next fields when the quotation status is
+                                 "$('#ControlContainer_380').removeClass('hide');\r\n" +             // confirmation of inquiry
                              "}\r\n" +
                              "else {\r\n" +
-                                 "$('#ControlContainer_321').addClass('hide');\r\n" +
+                                 "$('#ControlContainer_380').addClass('hide');\r\n" +
+                                 "$('#ControlContainer_381').addClass('hide');\r\n" +
+                                 "$('#ControlContainer_382').addClass('hide');\r\n" +
+                             "}\r\n" +
+                              "if ($('#Field_ID_380').is(\":checked\")){\r\n" + // Confirmation sent checkbox
+                                 "$('#ControlContainer_381').removeClass('hide');\r\n" + // Upload amended quotation
+                                 "$('#ControlContainer_382').removeClass('hide');\r\n" + // Amend quotation sent checkbox
+                              "}\r\n" +
+                               "else {\r\n" +
+                                 "$('#ControlContainer_381').addClass('hide');\r\n" + // Upload amended quotation
+                                 "$('#ControlContainer_382').addClass('hide');\r\n" + // Amend quotation sent checkbox
                              "}\r\n" +
                          "}\r\n";
             }
