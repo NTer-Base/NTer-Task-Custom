@@ -181,6 +181,13 @@ namespace N_Ter.MySQL.Customizable
                                 "$('#Field_ID_354').parent().removeClass('checked');\r\n" +
                                 "$('#Field_ID_355').prop('checked', false);\r\n" +  // Reset Hotel rates confirmed checkbox
                                 "$('#Field_ID_355').parent().removeClass('checked');\r\n" +
+                                "$('#Field_ID_361').val('');\r\n" +  // Reset Costing amount
+                                "$('#Field_ID_356').prop('checked', false);\r\n" +  // Reset Costing updated checkbox
+                                "$('#Field_ID_356').parent().removeClass('checked');\r\n" +
+                                "$('#Field_ID_357').prop('checked', false);\r\n" +  // Reset Tour operator confirmed checkbox
+                                "$('#Field_ID_357').parent().removeClass('checked');\r\n" +
+                                "$('#Field_ID_358').prop('checked', false);\r\n" +  // Reset sent hotel vouchers checkbox
+                                "$('#Field_ID_358').parent().removeClass('checked');\r\n" +
                             "}\r\n" +
                             "else {\r\n" +
                                "$('#ControlContainer_354').addClass('hide');\r\n" + // Allotment confirmed checkbox
@@ -189,6 +196,17 @@ namespace N_Ter.MySQL.Customizable
                                 "$('#ControlContainer_356').addClass('hide');\r\n" + // Costing updated checkbox
                                 "$('#ControlContainer_357').addClass('hide');\r\n" + // Tour operator confirmed checkbox
                                 "$('#ControlContainer_358').addClass('hide');\r\n" + // Sent hotel voucher checkbox
+                                "$('#Field_ID_354').prop('checked', false);\r\n" +  // Reset Allotment confirmed checkbox
+                                "$('#Field_ID_354').parent().removeClass('checked');\r\n" +
+                                "$('#Field_ID_355').prop('checked', false);\r\n" +  // Reset Hotel rates confirmed checkbox
+                                "$('#Field_ID_355').parent().removeClass('checked');\r\n" +
+                                "$('#Field_ID_361').val('');\r\n" +  // Reset Costing amount
+                                "$('#Field_ID_356').prop('checked', false);\r\n" +  // Reset Costing updated checkbox
+                                "$('#Field_ID_356').parent().removeClass('checked');\r\n" +
+                                "$('#Field_ID_357').prop('checked', false);\r\n" +  // Reset Tour operator confirmed checkbox
+                                "$('#Field_ID_357').parent().removeClass('checked');\r\n" +
+                                "$('#Field_ID_358').prop('checked', false);\r\n" +  // Reset sent hotel vouchers checkbox
+                                "$('#Field_ID_358').parent().removeClass('checked');\r\n" +
                             "}\r\n" +
                         "}\r\n" +
                          "function CheckAllotmentConfirmed() {\r\n" +
@@ -198,6 +216,15 @@ namespace N_Ter.MySQL.Customizable
                                  "$('#ControlContainer_356').addClass('hide');\r\n" + // Costing updated checkbox
                                  "$('#ControlContainer_357').addClass('hide');\r\n" + // Tour operator confirmed checkbox
                                  "$('#ControlContainer_358').addClass('hide');\r\n" + // Sent hotel voucher checkbox
+                                 "$('#Field_ID_355').prop('checked', false);\r\n" +  // Reset Hotel rates confirmed checkbox
+                                 "$('#Field_ID_355').parent().removeClass('checked');\r\n" +
+                                 "$('#Field_ID_361').val('');\r\n" +  // Reset Costing amount
+                                 "$('#Field_ID_356').prop('checked', false);\r\n" +  // Reset Costing updated checkbox
+                                 "$('#Field_ID_356').parent().removeClass('checked');\r\n" +
+                                 "$('#Field_ID_357').prop('checked', false);\r\n" +  // Reset Tour operator confirmed checkbox
+                                 "$('#Field_ID_357').parent().removeClass('checked');\r\n" +
+                                 "$('#Field_ID_358').prop('checked', false);\r\n" +  // Reset sent hotel vouchers checkbox
+                                 "$('#Field_ID_358').parent().removeClass('checked');\r\n" +
                              "}\r\n" +
                              "else {\r\n" +
                                  "$('#ControlContainer_355').addClass('hide');\r\n" +
@@ -205,6 +232,15 @@ namespace N_Ter.MySQL.Customizable
                                  "$('#ControlContainer_356').addClass('hide');\r\n" + // Costing updated checkbox
                                  "$('#ControlContainer_357').addClass('hide');\r\n" + // Tour operator confirmed checkbox
                                  "$('#ControlContainer_358').addClass('hide');\r\n" + // Sent hotel voucher checkbox
+                                 "$('#Field_ID_355').prop('checked', false);\r\n" +  // Reset Hotel rates confirmed checkbox
+                                 "$('#Field_ID_355').parent().removeClass('checked');\r\n" +
+                                 "$('#Field_ID_361').val('');\r\n" +  // Reset Costing amount
+                                 "$('#Field_ID_356').prop('checked', false);\r\n" +  // Reset Costing updated checkbox
+                                 "$('#Field_ID_356').parent().removeClass('checked');\r\n" +
+                                 "$('#Field_ID_357').prop('checked', false);\r\n" +  // Reset Tour operator confirmed checkbox
+                                 "$('#Field_ID_357').parent().removeClass('checked');\r\n" +
+                                 "$('#Field_ID_358').prop('checked', false);\r\n" +  // Reset sent hotel vouchers checkbox
+                                 "$('#Field_ID_358').parent().removeClass('checked');\r\n" +
                              "}\r\n" +
                          "}\r\n" +
                          "function CheckHotelRatesConfirmed() {\r\n" +
@@ -213,30 +249,56 @@ namespace N_Ter.MySQL.Customizable
                                  "$('#ControlContainer_356').removeClass('hide');\r\n" + // Costing updated checkbox
                                  "$('#ControlContainer_357').addClass('hide');\r\n" + // Tour operator confirmed checkbox
                                  "$('#ControlContainer_358').addClass('hide');\r\n" + // Sent hotel voucher checkbox
+                                 "$('#Field_ID_361').val('');\r\n" +  // Reset Costing amount
+                                 "$('#Field_ID_356').prop('checked', false);\r\n" +  // Reset Costing updated checkbox
+                                 "$('#Field_ID_356').parent().removeClass('checked');\r\n" +
+                                 "$('#Field_ID_357').prop('checked', false);\r\n" +  // Reset Tour operator confirmed checkbox
+                                 "$('#Field_ID_357').parent().removeClass('checked');\r\n" +
+                                 "$('#Field_ID_358').prop('checked', false);\r\n" +  // Reset sent hotel vouchers checkbox
+                                 "$('#Field_ID_358').parent().removeClass('checked');\r\n" +
                              "}\r\n" +
                              "else {\r\n" +
                                  "$('#ControlContainer_361').addClass('hide');\r\n" + // Costing amount textbox
                                  "$('#ControlContainer_356').addClass('hide');\r\n" + // Costing updated checkbox
                                  "$('#ControlContainer_357').addClass('hide');\r\n" + // Tour operator confirmed checkbox
                                  "$('#ControlContainer_358').addClass('hide');\r\n" + // Sent hotel voucher checkbox
+                                 "$('#Field_ID_361').val('');\r\n" +  // Reset Costing amount
+                                 "$('#Field_ID_356').prop('checked', false);\r\n" +  // Reset Costing updated checkbox
+                                 "$('#Field_ID_356').parent().removeClass('checked');\r\n" +
+                                 "$('#Field_ID_357').prop('checked', false);\r\n" +  // Reset Tour operator confirmed checkbox
+                                 "$('#Field_ID_357').parent().removeClass('checked');\r\n" +
+                                 "$('#Field_ID_358').prop('checked', false);\r\n" +  // Reset sent hotel vouchers checkbox
+                                 "$('#Field_ID_358').parent().removeClass('checked');\r\n" +
                              "}\r\n" +
                          "}\r\n" +
                          "function CheckCostingUpdated() {\r\n" +
                              "if ($('#Field_ID_356').is(\":checked\")){\r\n" +
                                  "$('#ControlContainer_357').removeClass('hide');\r\n" + // Tour operator confirmed checkbox
                                  "$('#ControlContainer_358').addClass('hide');\r\n" + // Sent hotel voucher checkbox
+                                 "$('#Field_ID_357').prop('checked', false);\r\n" +  // Reset Tour operator confirmed checkbox
+                                 "$('#Field_ID_357').parent().removeClass('checked');\r\n" +
+                                 "$('#Field_ID_358').prop('checked', false);\r\n" +  // Reset sent hotel vouchers checkbox
+                                 "$('#Field_ID_358').parent().removeClass('checked');\r\n" +
                              "}\r\n" +
                              "else {\r\n" +
                                  "$('#ControlContainer_357').addClass('hide');\r\n" + // Tour operator confirmed checkbox
                                  "$('#ControlContainer_358').addClass('hide');\r\n" + // Sent hotel voucher checkbox
+                                 "$('#Field_ID_357').prop('checked', false);\r\n" +  // Reset Tour operator confirmed checkbox
+                                 "$('#Field_ID_357').parent().removeClass('checked');\r\n" +
+                                 "$('#Field_ID_358').prop('checked', false);\r\n" +  // Reset sent hotel vouchers checkbox
+                                 "$('#Field_ID_358').parent().removeClass('checked');\r\n" +
                              "}\r\n" +
                          "}\r\n" +
                          "function CheckTourOperatorConfirmed() {\r\n" +
                              "if ($('#Field_ID_357').is(\":checked\")){\r\n" +
                                  "$('#ControlContainer_358').removeClass('hide');\r\n" + // Sent hotel voucher checkbox
+                                 "$('#Field_ID_358').prop('checked', false);\r\n" +  // Reset sent hotel vouchers checkbox
+                                 "$('#Field_ID_358').parent().removeClass('checked');\r\n" +
                              "}\r\n" +
                              "else {\r\n" +
                                  "$('#ControlContainer_358').addClass('hide');\r\n" + // Sent hotel voucher checkbox
+                                 "$('#Field_ID_358').prop('checked', false);\r\n" +  // Reset sent hotel vouchers checkbox
+                                 "$('#Field_ID_358').parent().removeClass('checked');\r\n" +
                              "}\r\n" +
                          "}\r\n";
             }
