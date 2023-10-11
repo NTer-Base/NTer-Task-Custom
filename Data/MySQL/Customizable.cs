@@ -123,6 +123,10 @@ namespace N_Ter.MySQL.Customizable
                                  "$('#ControlContainer_380').addClass('hide');\r\n" +
                                  "$('#ControlContainer_381').addClass('hide');\r\n" +
                                  "$('#ControlContainer_382').addClass('hide');\r\n" +
+                                 "$('#Field_ID_380').prop('checked', false);\r\n" +
+                                 "$('#Field_ID_380').parent().removeClass('checked');\r\n" +
+                                 "$('#Field_ID_382').prop('checked', false);\r\n" +
+                                 "$('#Field_ID_382').parent().removeClass('checked');\r\n" +
                              "}\r\n" +   
                          "}\r\n" +
                          "function CheckConfirmationSent() {\r\n" +
@@ -133,6 +137,8 @@ namespace N_Ter.MySQL.Customizable
                             "else {\r\n" +
                                  "$('#ControlContainer_381').addClass('hide');\r\n" + // Upload amended quotation
                                  "$('#ControlContainer_382').addClass('hide');\r\n" + // Amend quotation sent checkbox
+                                 "$('#Field_ID_382').prop('checked', false);\r\n" +   // Uncheck amended quotation sent checkbox when coming from previous field
+                                 "$('#Field_ID_382').parent().removeClass('checked');\r\n" + 
                             "}\r\n" +
                           "}\r\n";
             }
