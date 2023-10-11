@@ -105,40 +105,63 @@ namespace N_Ter.MySQL.Customizable
             if (ds.tbltasks[0].Current_Step_ID == 107)
             {
                 ret = "init.push(function () {\r\n" +
-                                "InquiryNonSeries();\r\n" +
-                        "});\r\n" +
-                        "$('#Field_ID_322').change(function() {\r\n" +
-                                "InquiryNonSeries();\r\n" +
-                        "});\r\n" +
-                        "$('#Field_ID_323').change(function() {\r\n" +
-                                "InquiryNonSeries();\r\n" +
-                        "});\r\n" +
-                        "$('#Field_ID_324').change(function() {\r\n" +
-                                "InquiryNonSeries();\r\n" +
-                        "});\r\n" +
-                        "$('#Field_ID_326').change(function() {\r\n" +
-                                "InquiryNonSeries();\r\n" +
+                                "HotelName();\r\n" +
                         "});\r\n" +
 
-                        "function InquiryNonSeries() {\r\n" +
+                        "$('#Field_ID_322').change(function() {\r\n" +
+                                "HotelName();\r\n" +
+                        "});\r\n" +
+                        "$('#Field_ID_323').change(function() {\r\n" +
+                                "HotelAvailable();\r\n" +
+                        "});\r\n" +
+                        "$('#Field_ID_324').change(function() {\r\n" +
+                                "HotelBooking();\r\n" +
+                        "});\r\n" +
+                        "$('#Field_ID_326').change(function() {\r\n" +
+                                "HotelConfirm();\r\n" +
+                        "});\r\n" +
+
+                        //HotelName function
+                        "function HotelName() {\r\n" +
                         "if ($('#Field_ID_322').val() != '-'){\r\n" +
                              "$('#ControlContainer_323').removeClass('hide');\r\n" +
                              "}\r\n" +
                         "else {\r\n" +
                              "$('#ControlContainer_323').addClass('hide');\r\n" +
+                             "$('#ControlContainer_324').addClass('hide');\r\n" +
+                             "$('#ControlContainer_326').addClass('hide');\r\n" +
+                             "$('#ControlContainer_325').addClass('hide');\r\n" +
+                             "$('#ControlContainer_327').addClass('hide');\r\n" +
                              "}\r\n" +
+                        "}\r\n" +
+
+                        //HotelAvailable function
+                        "function HotelAvailable() {\r\n" +
                         "if ($('#Field_ID_323').is(':checked')) {\r\n" +
                              "$('#ControlContainer_324').removeClass('hide');\r\n" +
                              "}\r\n" +
                         "else {\r\n" +
                              "$('#ControlContainer_324').addClass('hide');\r\n" +
+                             "$('#ControlContainer_326').addClass('hide');\r\n" +
+                             "$('#ControlContainer_325').addClass('hide');\r\n" +
+                             "$('#ControlContainer_327').addClass('hide');\r\n" +
                              "}\r\n" +
+                        "}\r\n" +
+
+                        //HotelBooking function
+                        "function HotelBooking() {\r\n" +
                         "if ($('#Field_ID_324').is(':checked')) {\r\n" +
                              "$('#ControlContainer_326').removeClass('hide');\r\n" +
                              "}\r\n" +
                         "else {\r\n" +
                              "$('#ControlContainer_326').addClass('hide');\r\n" +
+                             "$('#ControlContainer_325').addClass('hide');\r\n" +
+                             "$('#ControlContainer_327').addClass('hide');\r\n" +
                              "}\r\n" +
+                        "}\r\n" +
+
+                        //HotelConfirm function
+                        "function HotelConfirm() {\r\n" +
                         "if ($('#Field_ID_326').is(':checked')) {\r\n" +
                              "$('#ControlContainer_325').removeClass('hide');\r\n" +
                              "$('#ControlContainer_327').removeClass('hide');\r\n" +
@@ -160,6 +183,7 @@ namespace N_Ter.MySQL.Customizable
                                 "PaymentProcess();\r\n" +
                         "});\r\n" +
 
+                        //PaymentProcess function
                         "function PaymentProcess() {\r\n" +
                         "if ($('#Field_ID_328').is(':checked')) {\r\n" +
                              "$('#ControlContainer_329').removeClass('hide');\r\n" +
