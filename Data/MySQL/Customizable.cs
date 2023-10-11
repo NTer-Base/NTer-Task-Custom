@@ -118,6 +118,10 @@ namespace N_Ter.MySQL.Customizable
                         "function CheckQuotationStatus() {\r\n" +
                              "if ($('#Field_ID_379').val() == 'Confirmation of the inquiry'){\r\n" + // Only show the next fields when the quotation status is
                                  "$('#ControlContainer_380').removeClass('hide');\r\n" +             // confirmation of inquiry
+                                 "$('#Field_ID_380').prop('checked', false);\r\n" +
+                                 "$('#Field_ID_380').parent().removeClass('checked');\r\n" +
+                                 "$('#Field_ID_382').prop('checked', false);\r\n" +
+                                 "$('#Field_ID_382').parent().removeClass('checked');\r\n" +
                              "}\r\n" +
                              "else {\r\n" +
                                  "$('#ControlContainer_380').addClass('hide');\r\n" +
@@ -133,6 +137,8 @@ namespace N_Ter.MySQL.Customizable
                             "if ($('#Field_ID_380').is(\":checked\")){\r\n" + // Confirmation sent checkbox
                                  "$('#ControlContainer_381').removeClass('hide');\r\n" + // Upload amended quotation
                                  "$('#ControlContainer_382').removeClass('hide');\r\n" + // Amend quotation sent checkbox
+                                  "$('#Field_ID_382').prop('checked', false);\r\n" +   // Reset amended quotation sent checkbox to default value
+                                 "$('#Field_ID_382').parent().removeClass('checked');\r\n" +
                               "}\r\n" +
                             "else {\r\n" +
                                  "$('#ControlContainer_381').addClass('hide');\r\n" + // Upload amended quotation
@@ -166,11 +172,15 @@ namespace N_Ter.MySQL.Customizable
                         "function CheckHotelRatesSent() {\r\n" +
                             "if ($('#Field_ID_353').is(\":checked\")){\r\n" + // Hotel rates sent to client checkbox
                                 "$('#ControlContainer_354').removeClass('hide');\r\n" + // Allotment confirmed checkbox
-                                 "$('#ControlContainer_355').addClass('hide');\r\n" + // Hotel rates confirmed checkbox
+                                "$('#ControlContainer_355').addClass('hide');\r\n" + // Hotel rates confirmed checkbox
                                 "$('#ControlContainer_361').addClass('hide');\r\n" + // Costing amount textbox
                                 "$('#ControlContainer_356').addClass('hide');\r\n" + // Costing updated checkbox
                                 "$('#ControlContainer_357').addClass('hide');\r\n" + // Tour operator confirmed checkbox
                                 "$('#ControlContainer_358').addClass('hide');\r\n" + // Sent hotel voucher checkbox
+                                "$('#Field_ID_354').prop('checked', false);\r\n" +  // Reset Allotment confirmed checkbox
+                                "$('#Field_ID_354').parent().removeClass('checked');\r\n" +
+                                "$('#Field_ID_355').prop('checked', false);\r\n" +  // Reset Hotel rates confirmed checkbox
+                                "$('#Field_ID_355').parent().removeClass('checked');\r\n" +
                             "}\r\n" +
                             "else {\r\n" +
                                "$('#ControlContainer_354').addClass('hide');\r\n" + // Allotment confirmed checkbox
@@ -247,21 +257,27 @@ namespace N_Ter.MySQL.Customizable
                                  "$('#ControlContainer_341').removeClass('hide');\r\n" + // Status of refundable process selection
                                  "$('#ControlContainer_339').addClass('hide');\r\n" + // Voucher number textbox
                                  "$('#ControlContainer_340').addClass('hide');\r\n" + // Upload invoice file upload
+                                 "$('#Field_ID_341').val('-');\r\n" + // Reset Status of refundable process to '-'
+                                 "$('#Field_ID_339').val('');\r\n" +  // Reset Voucher Number field 
                              "}\r\n" +
                              "else {\r\n" +
                                  "$('#ControlContainer_341').addClass('hide');\r\n" + // Status of refundable process selection
                                  "$('#ControlContainer_339').addClass('hide');\r\n" + // Voucher number textbox
                                  "$('#ControlContainer_340').addClass('hide');\r\n" + // Upload invoice file upload
+                                 "$('#Field_ID_341').val('-');\r\n" + // Reset Status of refundable process to '-'
+                                 "$('#Field_ID_339').val('');\r\n" +  // Reset Voucher Number field 
                              "}\r\n" +
                          "}\r\n" +
                          "function CheckRefundableProcessStatus() {\r\n" +
                              "if ($('#Field_ID_341').val() == 'Refund completed'){\r\n" + // Status of refundable process selection
                                  "$('#ControlContainer_339').removeClass('hide');\r\n" + // Voucher number textbox
                                  "$('#ControlContainer_340').removeClass('hide');\r\n" + // Upload invoice file upload
+                                 "$('#Field_ID_339').val('');\r\n" +  // Reset Voucher Number field 
                              "}\r\n" +
                              "else {\r\n" +
                                  "$('#ControlContainer_339').addClass('hide');\r\n" + // Voucher number textbox
                                  "$('#ControlContainer_340').addClass('hide');\r\n" + // Upload invoice file upload
+                                 "$('#Field_ID_339').val('');\r\n" +  // Reset Voucher Number field 
                              "}\r\n" +
                          "}\r\n";
             }
