@@ -155,6 +155,7 @@
     <Compile Include="Data\MySQL\Reports.cs" />
     <Compile Include="Data\MySQL\Sample_Master_Table.cs" />
     <Compile Include="Data\MySQL\Sample_Master_Table_FK.cs" />
+    <Compile Include="Data\MySQL\Utilities.cs" />
     <Compile Include="Data\PostgreSQL\Customizable.cs" />
     <Compile Include="Data\PostgreSQL\Custom_Dashboard.cs" />
     <Compile Include="Data\PostgreSQL\Reports.cs" />
