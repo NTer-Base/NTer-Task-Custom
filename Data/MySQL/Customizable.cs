@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web.UI.WebControls;
 using N_Ter.Common;
 using N_Ter.Structures;
 using N_Ter_Task_Custom.Data.MySQL;
@@ -350,6 +351,20 @@ namespace N_Ter.MySQL.Customizable
             ActionValidated ret = new ActionValidated();
             //ret.Validated = Utilities.IsValidEmail("aksndkasn");
             ret.Validated = true;
+            if (Current_Step_ID == 83)
+            {
+                List<Task_Controls> dr = objControlsList.Controls.Where(x => x.Field_ID == 35).ToList();
+                if (dr.Count > 0)
+                {
+                    Task_Field_Data objTaskData = new Task_Field_Data(_strConnectionString);
+                    string email = objTaskData.GetFieldForTask(Task_ID, 35);
+                    if (!Utilities.IsValidEmail(email))
+                    {
+                        ret.Validated = false;
+                        ret.Reason = "Your email is not a valid email address";
+                    }
+                }
+            }
             //Content
             ret.Reason = objAct.CleanJavaScript(ret.Reason);
             return ret;

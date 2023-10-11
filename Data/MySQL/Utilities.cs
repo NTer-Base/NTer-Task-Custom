@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Net.Mail;
 
 namespace N_Ter_Task_Custom.Data.MySQL
 {
@@ -10,9 +11,21 @@ namespace N_Ter_Task_Custom.Data.MySQL
     {
         public static bool IsValidEmail(string email)
         {
-            return false;
+            var valid = true;
+
+            try
+            {
+                var emailAddress = new MailAddress(email);
+            }
+            catch
+            {
+                valid = false;
+            }
+
+            return valid;
         }
-        public static bool IsValidPassword(string password) { return false; }
-        public static bool IsValidUserName(string userName) {  return false; }
+        public static bool IsValidPhoneNumber(string phone) { return false; }
+        public static bool IsValidInteger(dynamic number) { return false; }
+        public static bool IsValidDateRange(string date) { return false; }
     }
 }
