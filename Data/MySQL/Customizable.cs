@@ -345,7 +345,7 @@ namespace N_Ter.MySQL.Customizable
             ActionValidated ret = new ActionValidated();
             ret.Validated = true;
             //Content
-            ret.Reason = objAct.CleanJavaScript(ret.Reason);      
+            ret.Reason = objAct.CleanJavaScript(ret.Reason);
             return ret;
         }
 
