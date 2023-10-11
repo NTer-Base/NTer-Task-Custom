@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using N_Ter.Common;
 using N_Ter.Structures;
+using N_Ter_Task_Custom.Data.MySQL;
 using N_Ter_Task_Data_Structures.DataSets;
 
 namespace N_Ter.MySQL.Customizable
@@ -282,7 +283,23 @@ namespace N_Ter.MySQL.Customizable
                          "}\r\n";
                 }                
             }
-            return ret;
+            if (ds.tbltasks[0].Current_Step_ID == 99)
+            {
+                List<DS_Tasks.tbltask_historyRow> taskHistoryMatch = ds.tbltask_history.Where(x => x.Workflow_Step_ID == 87 && x.Task_ID == ds.tbltasks[0].Task_ID)
+                            .OrderByDescending(o => o.Task_Update_ID)
+                            .ToList();
+
+                int[] countrySPFieldIDs = { 385, 386, 387, 388, 389, 390, 391, 392, 393, 394, 395, 396, 397, 398, 399, 400, 401, 402, 403, 404, 405, 406, 407, 408, 409, 410, 411, 412, 413, 414 };
+
+                List<DS_Tasks.tbltask_update_fieldsRow> taskCountrySelected = ds.tbltask_update_fields.Where(x => x.Task_Update_ID == taskHistoryMatch[0].Task_Update_ID && countrySPFieldIDs.Contains(x.Workflow_Step_Field_ID) && x.Field_Value == "Yes")
+                                .OrderBy(y => y.Task_Update_Field_ID)
+                                .ToList();
+
+                string fieldNames = string.Join(", ", taskCountrySelected.Select(x => x.Field_Name));
+
+                ret = "$('#Field_ID_106').val('" + fieldNames + "');\r\n";
+            }
+                return ret;
         }
 
         /// <summary>
@@ -331,6 +348,7 @@ namespace N_Ter.MySQL.Customizable
         public override ActionValidated CustomTaskPostValidations(int Task_ID, int Workflow_ID, int Current_Step_ID, Task_Controls_Main objControlsList, string PhysicalRootFolder, string WebRootFolder, bool ReadContent)
         {
             ActionValidated ret = new ActionValidated();
+            //ret.Validated = Utilities.IsValidEmail("aksndkasn");
             ret.Validated = true;
             //Content
             ret.Reason = objAct.CleanJavaScript(ret.Reason);
