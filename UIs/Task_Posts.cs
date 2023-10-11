@@ -341,20 +341,20 @@ namespace N_Ter.Customizable.UI
                 fieldValue = int.Parse(paxCount[0].Field_Value);
             }
 
-            int[] SPFieldCategories = { 1, 2, 3, 4, 5, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30 };
+            int[] SPFieldCategories = { 1, 2, 3, 4, 5, 31, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30 };
 
             int[] SPFieldsCommon = { 45, 46, 47, 48, 49, 50, 51, 127, 128, 129, 130, 131, 132, 133, 134, 135, 141, 142, 143, 144, 145, 146, 147, 148, 154, 155, 156, 157, 158, 159, 160, 161, 167, 168, 169, 170, 171, 172, 173, 174, 180, 181, 182, 183, 184, 185, 186, 187, 193, 194, 195, 196, 197, 198, 199, 200, 206, 207, 208, 209, 210, 211, 212, 213, 219, 220, 221, 222, 223, 224, 225, 226, 232, 233, 234, 235, 236, 237, 238, 239, 245, 246, 247, 248, 249, 250, 251, 252, 258, 259, 260, 261, 262, 263, 264, 265, 271, 272, 273, 274, 275, 276, 277, 278, 284, 285, 286, 287, 288, 289, 290, 291, 297, 298, 309, 299, 300, 301, 302, 303 };
             int[] SPFieldsFCM = { 45, 49, 51, 52, 53, 127, 128, 129, 133, 135, 136, 137, 141, 142, 146, 148, 149, 150, 154, 155, 159, 161, 162, 163, 167, 168, 172, 174, 175, 176, 180, 181, 185, 187, 188 ,189, 193, 194, 198, 200, 201, 202, 206, 207, 211, 213, 214, 215, 219, 220, 224, 226, 227, 228, 232, 233, 237, 239, 240, 241, 245, 246, 250, 252, 253, 254, 258, 259, 263, 265, 266, 267, 271, 272, 276, 278, 279, 280, 284, 285, 289, 291, 292, 293, 297, 298, 301, 303, 304, 305 };
             int[] SPFieldsTicketing = { 52, 53, 136, 137, 149, 150, 162, 163, 175, 176, 188, 189, 201, 202, 214, 215, 227, 228, 240, 241, 253, 254, 266, 267, 279, 280, 292, 293, 304, 305, 54, 55, 56, 57, 58, 59, 60, 138, 139, 140, 151, 152, 153, 164, 165, 166, 177, 178, 179, 190, 191, 192, 203, 204, 205, 216, 217, 218, 229, 230, 231, 242, 243, 244, 255, 256, 257, 268, 269, 270, 281, 282, 283, 294, 295, 296, 306, 307, 308 };
             int[] SPFieldsHoliday = { 62, 63, 64, 65, 54, 138, 151, 164, 177, 190, 203, 216, 229, 242, 255, 268, 281, 294, 306 };
-            int[] SPFieldsVisa = { 66, 67, 68, 69, 54, 55, 56, 138, 139, 140, 151, 152, 153, 164, 165, 166, 177, 178, 179, 190, 191, 192, 203, 204, 205, 216, 217, 218, 229, 230, 231, 242, 243, 244, 255, 256, 257, 268, 269, 270, 281, 282, 283, 294, 295, 296, 306, 307, 308 };
+            int[] SPFieldsVisa = { 66, 67, 68, 69, 385, 386, 387, 388, 389, 390, 391, 392, 393, 394, 395, 396, 397, 398, 399, 400, 401, 402, 403, 404, 405, 406, 407, 408, 409, 410, 411, 412, 413, 414, 54, 55, 56, 138, 139, 140, 151, 152, 153, 164, 165, 166, 177, 178, 179, 190, 191, 192, 203, 204, 205, 216, 217, 218, 229, 230, 231, 242, 243, 244, 255, 256, 257, 268, 269, 270, 281, 282, 283, 294, 295, 296, 306, 307, 308 };
             int SPFieldInsurance = 61;
             int SPAmendment = 119;
 
             _Display.CssClass = "row";
             foreach (DS_Workflow.tblworkflow_step_fieldsRow rowStepField in dsWorkflow.tblworkflow_step_fields)
             {
-                if(SPFieldCategories.Take(fieldValue+4).Contains(rowStepField.Workflow_Step_Field_Cat_ID))
+                if(SPFieldCategories.Take(fieldValue+5).Contains(rowStepField.Workflow_Step_Field_Cat_ID))
                 {
                     if (taskInquiryTypes.Exists(x => x.Workflow_Step_Field_ID == 44))
                     {
@@ -472,7 +472,7 @@ namespace N_Ter.Customizable.UI
                     }
                     if (taskInquiryTypes.Exists(x => x.Workflow_Step_Field_ID == 41) && taskInquiryTypes.Exists(x => x.Workflow_Step_Field_ID == 43))
                     {
-                        if (SPFieldsVisa.Take(4).Contains(rowStepField.Workflow_Step_Field_ID))
+                        if (SPFieldsVisa.Take(34).Contains(rowStepField.Workflow_Step_Field_ID))
                         {
                             divMainRowControl.Controls.Add(objTskAct.GetTaskObject(objScripts, IsPostBack, objMasterTables, objSes.Currency_Sbl, dsWorkflow, dsTasks, rowStepField, ref _ControlsSet, ref strRequiredFieldValidation, ref strOldFieldValidation, ref rowWidth, ControlIndex, "GetHelp", false, true));
                             if (rowStepField.Help_Text.Trim() != "")
