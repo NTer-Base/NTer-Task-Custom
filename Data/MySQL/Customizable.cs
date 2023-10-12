@@ -355,14 +355,24 @@ namespace N_Ter.MySQL.Customizable
                 //List<Task_Controls> dr = objControlsList.Controls.Where(x => x.Field_ID == 35).ToList();
                 //if (dr.Count > 0)
                 //{
-                    Task_Field_Data objTaskData = new Task_Field_Data(_strConnectionString);
-                    string email = objTaskData.GetFieldForTask(Task_ID, 35);
-                    if (!Utilities.IsValidEmail(email))
+                //Task_Field_Data objTaskData = new Task_Field_Data(_strConnectionString);
+                //string email = objTaskData.GetFieldForTask(Task_ID, 35);
+                //if (!Utilities.IsValidEmail(email))
+                //{
+                //    ret.Validated = false;
+                //    ret.Reason = "Your email is not a valid email address";
+                //}
+                //}
+                List<Task_Controls> drUI2 = objControlsList.Controls.Where(x => x.UI_Type == UI_Types.TextBoxes && x.Field_ID == 35).ToList();
+                foreach (Task_Controls ctrl in drUI2)
+                {
+                    TextBox txrt = (TextBox)ctrl.UI_Control;
+                    if (!Utilities.IsValidEmail(txrt.Text))
                     {
                         ret.Validated = false;
                         ret.Reason = "Your email is not a valid email address";
                     }
-                //}
+                }
             }
             if (Current_Step_ID == 86)
             {
