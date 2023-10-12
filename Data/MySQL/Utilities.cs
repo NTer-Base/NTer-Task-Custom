@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Net.Mail;
 using System.Globalization;
 using System.Text.RegularExpressions;
 using Google.Protobuf.WellKnownTypes;
@@ -15,17 +14,6 @@ namespace N_Ter_Task_Custom.Data.MySQL
     {
         public static bool IsValidEmail(string email)
         {
-            //try
-            //{
-            //    var emailAddress = new MailAddress(email);
-            //}
-            //catch
-            //{
-            //    return false;
-            //}
-
-            //return true;
-
             Regex regex = new Regex(@"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$");
             if (email != null) return regex.IsMatch(email);
             else return false;
@@ -40,6 +28,20 @@ namespace N_Ter_Task_Custom.Data.MySQL
         public static bool IsValidInteger(dynamic value)
         {
             if (value is int intValue && intValue >= 0)
+            {
+                return true;
+            }
+
+            return false;
+        }
+        public static bool IsValidNumber(dynamic value)
+        {
+            if (value is int intValue && intValue >= 0)
+            {
+                return true;
+            }
+
+            if ((value is decimal decValue) && decValue >= 0)
             {
                 return true;
             }

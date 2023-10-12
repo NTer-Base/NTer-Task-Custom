@@ -352,25 +352,24 @@ namespace N_Ter.MySQL.Customizable
             ret.Validated = true;
             if (Current_Step_ID == 83)
             {
-                //List<Task_Controls> dr = objControlsList.Controls.Where(x => x.Field_ID == 35).ToList();
-                //if (dr.Count > 0)
-                //{
-                //Task_Field_Data objTaskData = new Task_Field_Data(_strConnectionString);
-                //string email = objTaskData.GetFieldForTask(Task_ID, 35);
-                //if (!Utilities.IsValidEmail(email))
-                //{
-                //    ret.Validated = false;
-                //    ret.Reason = "Your email is not a valid email address";
-                //}
-                //}
-                List<Task_Controls> drUI2 = objControlsList.Controls.Where(x => x.UI_Type == UI_Types.TextBoxes && x.Field_ID == 35).ToList();
-                foreach (Task_Controls ctrl in drUI2)
+                List<Task_Controls> emailUI = objControlsList.Controls.Where(x => x.UI_Type == UI_Types.TextBoxes && x.Field_ID == 35).ToList();
+                List<Task_Controls> phoneUI = objControlsList.Controls.Where(x => x.UI_Type == UI_Types.TextBoxes && x.Field_ID == 34).ToList();
+                foreach (Task_Controls ctrl in emailUI)
                 {
-                    TextBox txrt = (TextBox)ctrl.UI_Control;
-                    if (!Utilities.IsValidEmail(txrt.Text))
+                    TextBox email = (TextBox)ctrl.UI_Control;
+                    if (!Utilities.IsValidEmail(email.Text))
                     {
                         ret.Validated = false;
                         ret.Reason = "Your email is not a valid email address";
+                    }
+                }
+                foreach (Task_Controls ctrl in phoneUI)
+                {
+                    TextBox phone = (TextBox)ctrl.UI_Control;
+                    if (!Utilities.IsValidPhoneNumber(phone.Text))
+                    {
+                        ret.Validated = false;
+                        ret.Reason = "Your phone number is not valid";
                     }
                 }
             }
