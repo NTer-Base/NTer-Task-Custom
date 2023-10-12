@@ -31,7 +31,7 @@ namespace N_Ter.MySQL.Customizable
         /// <summary>
         /// Custom Fields that will go in to Letters Templates shouhld be added here
         /// </summary>
-        public override void CustomLetterTemplateFields(ref List<LetterTemplateFields> FieldsList, DS_Tasks dsTS, DS_Entity_Level_2.tblentity_level_2Row drEL2, DS_Users.tblusersRow drUser) 
+        public override void CustomLetterTemplateFields(ref List<LetterTemplateFields> FieldsList, DS_Tasks dsTS, DS_Entity_Level_2.tblentity_level_2Row drEL2, DS_Users.tblusersRow drUser)
         {
             //Content
         }
@@ -102,6 +102,210 @@ namespace N_Ter.MySQL.Customizable
         public override string LoadTaskRelatedScripts(DS_Tasks ds, string PhysicalRootFolder, string WebRootFolder, bool ReadContent)
         {
             string ret = "";
+
+            //Inquiry (Non-series group)
+            if (ds.tbltasks[0].Current_Step_ID == 107)
+            {
+                ret = "init.push(function () {\r\n" +
+                                "HotelName();\r\n" +
+                        "});\r\n" +
+
+                        "$('#Field_ID_322').change(function() {\r\n" +
+                                "HotelName();\r\n" +
+                        "});\r\n" +
+                        "$('#Field_ID_323').change(function() {\r\n" +
+                                "HotelAvailable();\r\n" +
+                        "});\r\n" +
+                        "$('#Field_ID_324').change(function() {\r\n" +
+                                "HotelBooking();\r\n" +
+                        "});\r\n" +
+                        "$('#Field_ID_326').change(function() {\r\n" +
+                                "HotelConfirm();\r\n" +
+                        "});\r\n" +
+
+                        //HotelName function
+                        "function HotelName() {\r\n" +
+                        "if ($('#Field_ID_322').val() != '-'){\r\n" +
+                             "$('#ControlContainer_323').removeClass('hide');\r\n" +
+                             //"$('#Field_ID_323').prop('checked', false);\r\n" +
+                             //"$('#Field_ID_323').parent().removeClass('checked');\r\n" +
+                             "}\r\n" +
+                        "else {\r\n" +
+                             "$('#ControlContainer_323').addClass('hide');\r\n" +
+                             "$('#ControlContainer_324').addClass('hide');\r\n" +
+                             "$('#ControlContainer_326').addClass('hide');\r\n" +
+                             "$('#ControlContainer_325').addClass('hide');\r\n" +
+                             "$('#ControlContainer_327').addClass('hide');\r\n" +
+                             //"$('#Field_ID_323').prop('checked', false);\r\n" +
+                             //"$('#Field_ID_323').parent().removeClass('checked');\r\n" +
+                             //"$('#Field_ID_324').prop('checked', false);\r\n" +
+                             //"$('#Field_ID_324').parent().removeClass('checked');\r\n" +
+                             //"$('#Field_ID_326').prop('checked', false);\r\n" +
+                             //"$('#Field_ID_326').parent().removeClass('checked');\r\n" +
+                             //"$('#Field_ID_327').prop('checked', false);\r\n" +
+                             //"$('#Field_ID_327').parent().removeClass('checked');\r\n" +
+                             "}\r\n" +
+                        "}\r\n" +
+
+                        //HotelAvailable function
+                        "function HotelAvailable() {\r\n" +
+                        "if ($('#Field_ID_323').is(':checked')) {\r\n" +
+                             "$('#ControlContainer_324').removeClass('hide');\r\n" +
+                             //"$('#Field_ID_324').prop('checked', false);\r\n" +
+                             //"$('#Field_ID_324').parent().removeClass('checked');\r\n" +
+                             "}\r\n" +
+                        "else {\r\n" +
+                             "$('#ControlContainer_324').addClass('hide');\r\n" +
+                             "$('#ControlContainer_326').addClass('hide');\r\n" +
+                             "$('#ControlContainer_325').addClass('hide');\r\n" +
+                             "$('#ControlContainer_327').addClass('hide');\r\n" +
+                             //"$('#Field_ID_324').prop('checked', false);\r\n" +
+                             //"$('#Field_ID_324').parent().removeClass('checked');\r\n" +
+                             //"$('#Field_ID_326').prop('checked', false);\r\n" +
+                             //"$('#Field_ID_326').parent().removeClass('checked');\r\n" +
+                             //"$('#Field_ID_327').prop('checked', false);\r\n" +
+                             //"$('#Field_ID_327').parent().removeClass('checked');\r\n" +
+
+                             "}\r\n" +
+                        "}\r\n" +
+
+                        //HotelBooking function
+                        "function HotelBooking() {\r\n" +
+                        "if ($('#Field_ID_324').is(':checked')) {\r\n" +
+                             "$('#ControlContainer_326').removeClass('hide');\r\n" +
+                             "}\r\n" +
+                        "else {\r\n" +
+                             "$('#ControlContainer_326').addClass('hide');\r\n" +
+                             "$('#ControlContainer_325').addClass('hide');\r\n" +
+                             "$('#ControlContainer_327').addClass('hide');\r\n" +
+                             //"$('#Field_ID_326').prop('checked', false);\r\n" +
+                             //"$('#Field_ID_326').parent().removeClass('checked');\r\n" +
+                             //"$('#Field_ID_327').prop('checked', false);\r\n" +
+                             //"$('#Field_ID_327').parent().removeClass('checked');\r\n" +
+                             "}\r\n" +
+                        "}\r\n" +
+
+                        //HotelConfirm function
+                        "function HotelConfirm() {\r\n" +
+                        "if ($('#Field_ID_326').is(':checked')) {\r\n" +
+                             "$('#ControlContainer_325').removeClass('hide');\r\n" +
+                             "$('#ControlContainer_327').removeClass('hide');\r\n" +
+                             //"$('#Field_ID_327').prop('checked', false);\r\n" +
+                             //"$('#Field_ID_327').parent().removeClass('checked');\r\n" +
+                             "}\r\n" +
+                        "else {\r\n" +
+                             "$('#ControlContainer_325').addClass('hide');\r\n" +
+                             "$('#ControlContainer_327').addClass('hide');\r\n" +
+                             //"$('#Field_ID_327').prop('checked', false);\r\n" +
+                             //"$('#Field_ID_327').parent().removeClass('checked');\r\n" +
+                             "}\r\n" +
+                        "}\r\n";
+            }
+
+            //Payment Process
+            if (ds.tbltasks[0].Current_Step_ID == 108)
+            {
+                ret = "init.push(function () {\r\n" +
+                                "PaymentProcess();\r\n" +
+                        "});\r\n" +
+                        "$('#Field_ID_328').change(function() {\r\n" +
+                                "PaymentProcess();\r\n" +
+                        "});\r\n" +
+
+                        //PaymentProcess function
+                        "function PaymentProcess() {\r\n" +
+                        "if ($('#Field_ID_328').is(':checked')) {\r\n" +
+                             "$('#ControlContainer_329').removeClass('hide');\r\n" +
+                             "$('#ControlContainer_360').removeClass('hide');\r\n" +
+                             //"$('#Field_ID_329').prop('checked', false);\r\n" +
+                             //"$('#Field_ID_329').parent().removeClass('checked');\r\n" +
+                             "}\r\n" +
+                        "else {\r\n" +
+                             "$('#ControlContainer_329').addClass('hide');\r\n" +
+                             "$('#ControlContainer_360').addClass('hide');\r\n" +
+                             //"$('#Field_ID_329').prop('checked', false);\r\n" +
+                             //"$('#Field_ID_329').parent().removeClass('checked');\r\n" +
+                             "}\r\n" +
+                        "}\r\n";
+            }
+
+            //Close Inquiry
+            if (ds.tbltasks[0].Current_Step_ID == 109)
+            {
+                ret = "init.push(function () {\r\n" +
+                                "TransportRequisition();\r\n" +
+                        "});\r\n" +
+                        "$('#Field_ID_330').change(function() {\r\n" + //TransportRequisition function
+                                "TransportRequisition();\r\n" +
+                        "});\r\n" +
+                        "$('#Field_ID_331').change(function() {\r\n" + //PreparePacket function
+                                "PreparePacket();\r\n" +
+                        "});\r\n" +
+                        "$('#Field_ID_334').change(function() {\r\n" + //GuideBriefing function
+                                "GuideBriefing();\r\n" +
+                        "});\r\n" +
+
+                        //TransportRequisition function
+                        "function TransportRequisition() {\r\n" +
+                        "if ($('#Field_ID_330').is(':checked')) {\r\n" +
+                             "$('#ControlContainer_331').removeClass('hide');\r\n" +
+                             "$('#ControlContainer_333').removeClass('hide');\r\n" +
+                             //"$('#Field_ID_331').prop('checked', false);\r\n" +
+                             //"$('#Field_ID_331').parent().removeClass('checked');\r\n" +
+                             "}\r\n" +
+                        "else {\r\n" +
+                             "$('#ControlContainer_331').addClass('hide');\r\n" +
+                             "$('#ControlContainer_333').addClass('hide');\r\n" +
+                             "$('#ControlContainer_334').addClass('hide');\r\n" +
+                             "$('#ControlContainer_335').addClass('hide');\r\n" +
+                             "$('#ControlContainer_336').addClass('hide');\r\n" +
+                             "$('#ControlContainer_337').addClass('hide');\r\n" +
+                             //"$('#Field_ID_331').prop('checked', false);\r\n" +
+                             //"$('#Field_ID_331').parent().removeClass('checked');\r\n" +
+                             //"$('#Field_ID_334').prop('checked', false);\r\n" +
+                             //"$('#Field_ID_334').parent().removeClass('checked');\r\n" +
+                             //"$('#Field_ID_336').prop('checked', false);\r\n" +
+                             //"$('#Field_ID_336').parent().removeClass('checked');\r\n" +
+                             "}\r\n" +
+                        "}\r\n"+
+
+                        //PreparePacket function
+                        "function PreparePacket() {\r\n" +
+                        "if ($('#Field_ID_331').is(':checked')) {\r\n" +
+                             "$('#ControlContainer_334').removeClass('hide');\r\n" +
+                             "$('#ControlContainer_335').removeClass('hide');\r\n" +
+                             //"$('#Field_ID_334').prop('checked', false);\r\n" +
+                             //"$('#Field_ID_334').parent().removeClass('checked');\r\n" +
+                             "}\r\n" +
+                        "else {\r\n" +
+                             "$('#ControlContainer_334').addClass('hide');\r\n" +
+                             "$('#ControlContainer_335').addClass('hide');\r\n" +
+                             "$('#ControlContainer_336').addClass('hide');\r\n" +
+                             "$('#ControlContainer_337').addClass('hide');\r\n" +
+                             //"$('#Field_ID_334').prop('checked', false);\r\n" +
+                             //"$('#Field_ID_334').parent().removeClass('checked');\r\n" +
+                             //"$('#Field_ID_336').prop('checked', false);\r\n" +
+                             //"$('#Field_ID_336').parent().removeClass('checked');\r\n" +
+                             "}\r\n" +
+                        "}\r\n"+
+
+                        //GuideBriefing function
+                        "function GuideBriefing() {\r\n" +
+                        "if ($('#Field_ID_334').is(':checked')) {\r\n" +
+                             "$('#ControlContainer_336').removeClass('hide');\r\n" +
+                             "$('#ControlContainer_337').removeClass('hide');\r\n" +
+                             //"$('#Field_ID_336').prop('checked', false);\r\n" +
+                             //"$('#Field_ID_336').parent().removeClass('checked');\r\n" +
+                             "}\r\n" +
+                        "else {\r\n" +
+                             "$('#ControlContainer_336').addClass('hide');\r\n" +
+                             "$('#ControlContainer_337').addClass('hide');\r\n" +
+                             //"$('#Field_ID_336').prop('checked', false);\r\n" +
+                             //"$('#Field_ID_336').parent().removeClass('checked');\r\n" +
+                             "}\r\n" +
+                        "}\r\n";
+            }
+
             //Content
             if (ds.tbltasks[0].Current_Step_ID == 88)
             {
@@ -302,6 +506,7 @@ namespace N_Ter.MySQL.Customizable
             }
                 return ret;
         }
+
 
         /// <summary>
         /// Custom Actions that should happen after uploading a file using the Task Posting Section should be performed here
