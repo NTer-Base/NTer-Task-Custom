@@ -31,7 +31,7 @@ namespace N_Ter.MySQL.Customizable
         /// <summary>
         /// Custom Fields that will go in to Letters Templates shouhld be added here
         /// </summary>
-        public override void CustomLetterTemplateFields(ref List<LetterTemplateFields> FieldsList, DS_Tasks dsTS, DS_Entity_Level_2.tblentity_level_2Row drEL2, DS_Users.tblusersRow drUser) 
+        public override void CustomLetterTemplateFields(ref List<LetterTemplateFields> FieldsList, DS_Tasks dsTS, DS_Entity_Level_2.tblentity_level_2Row drEL2, DS_Users.tblusersRow drUser)
         {
             //Content
         }
@@ -102,7 +102,455 @@ namespace N_Ter.MySQL.Customizable
         public override string LoadTaskRelatedScripts(DS_Tasks ds, string PhysicalRootFolder, string WebRootFolder, bool ReadContent)
         {
             string ret = "";
+
+            //Inquiry (Non-series group)
+            if (ds.tbltasks[0].Current_Step_ID == 107)
+            {
+                ret = "init.push(function () {\r\n" +
+                                "HotelName();\r\n" +
+                        "});\r\n" +
+
+                        "$('#Field_ID_322').change(function() {\r\n" +
+                                "HotelName();\r\n" +
+                        "});\r\n" +
+                        "$('#Field_ID_323').change(function() {\r\n" +
+                                "HotelAvailable();\r\n" +
+                        "});\r\n" +
+                        "$('#Field_ID_324').change(function() {\r\n" +
+                                "HotelBooking();\r\n" +
+                        "});\r\n" +
+                        "$('#Field_ID_326').change(function() {\r\n" +
+                                "HotelConfirm();\r\n" +
+                        "});\r\n" +
+
+                        //HotelName function
+                        "function HotelName() {\r\n" +
+                        "if ($('#Field_ID_322').val() != '-'){\r\n" +
+                             "$('#ControlContainer_323').removeClass('hide');\r\n" +
+                             //"$('#Field_ID_323').prop('checked', false);\r\n" +
+                             //"$('#Field_ID_323').parent().removeClass('checked');\r\n" +
+                             "}\r\n" +
+                        "else {\r\n" +
+                             "$('#ControlContainer_323').addClass('hide');\r\n" +
+                             "$('#ControlContainer_324').addClass('hide');\r\n" +
+                             "$('#ControlContainer_326').addClass('hide');\r\n" +
+                             "$('#ControlContainer_325').addClass('hide');\r\n" +
+                             "$('#ControlContainer_327').addClass('hide');\r\n" +
+                             //"$('#Field_ID_323').prop('checked', false);\r\n" +
+                             //"$('#Field_ID_323').parent().removeClass('checked');\r\n" +
+                             //"$('#Field_ID_324').prop('checked', false);\r\n" +
+                             //"$('#Field_ID_324').parent().removeClass('checked');\r\n" +
+                             //"$('#Field_ID_326').prop('checked', false);\r\n" +
+                             //"$('#Field_ID_326').parent().removeClass('checked');\r\n" +
+                             //"$('#Field_ID_327').prop('checked', false);\r\n" +
+                             //"$('#Field_ID_327').parent().removeClass('checked');\r\n" +
+                             "}\r\n" +
+                        "}\r\n" +
+
+                        //HotelAvailable function
+                        "function HotelAvailable() {\r\n" +
+                        "if ($('#Field_ID_323').is(':checked')) {\r\n" +
+                             "$('#ControlContainer_324').removeClass('hide');\r\n" +
+                             //"$('#Field_ID_324').prop('checked', false);\r\n" +
+                             //"$('#Field_ID_324').parent().removeClass('checked');\r\n" +
+                             "}\r\n" +
+                        "else {\r\n" +
+                             "$('#ControlContainer_324').addClass('hide');\r\n" +
+                             "$('#ControlContainer_326').addClass('hide');\r\n" +
+                             "$('#ControlContainer_325').addClass('hide');\r\n" +
+                             "$('#ControlContainer_327').addClass('hide');\r\n" +
+                             //"$('#Field_ID_324').prop('checked', false);\r\n" +
+                             //"$('#Field_ID_324').parent().removeClass('checked');\r\n" +
+                             //"$('#Field_ID_326').prop('checked', false);\r\n" +
+                             //"$('#Field_ID_326').parent().removeClass('checked');\r\n" +
+                             //"$('#Field_ID_327').prop('checked', false);\r\n" +
+                             //"$('#Field_ID_327').parent().removeClass('checked');\r\n" +
+
+                             "}\r\n" +
+                        "}\r\n" +
+
+                        //HotelBooking function
+                        "function HotelBooking() {\r\n" +
+                        "if ($('#Field_ID_324').is(':checked')) {\r\n" +
+                             "$('#ControlContainer_326').removeClass('hide');\r\n" +
+                             "}\r\n" +
+                        "else {\r\n" +
+                             "$('#ControlContainer_326').addClass('hide');\r\n" +
+                             "$('#ControlContainer_325').addClass('hide');\r\n" +
+                             "$('#ControlContainer_327').addClass('hide');\r\n" +
+                             //"$('#Field_ID_326').prop('checked', false);\r\n" +
+                             //"$('#Field_ID_326').parent().removeClass('checked');\r\n" +
+                             //"$('#Field_ID_327').prop('checked', false);\r\n" +
+                             //"$('#Field_ID_327').parent().removeClass('checked');\r\n" +
+                             "}\r\n" +
+                        "}\r\n" +
+
+                        //HotelConfirm function
+                        "function HotelConfirm() {\r\n" +
+                        "if ($('#Field_ID_326').is(':checked')) {\r\n" +
+                             "$('#ControlContainer_325').removeClass('hide');\r\n" +
+                             "$('#ControlContainer_327').removeClass('hide');\r\n" +
+                             //"$('#Field_ID_327').prop('checked', false);\r\n" +
+                             //"$('#Field_ID_327').parent().removeClass('checked');\r\n" +
+                             "}\r\n" +
+                        "else {\r\n" +
+                             "$('#ControlContainer_325').addClass('hide');\r\n" +
+                             "$('#ControlContainer_327').addClass('hide');\r\n" +
+                             //"$('#Field_ID_327').prop('checked', false);\r\n" +
+                             //"$('#Field_ID_327').parent().removeClass('checked');\r\n" +
+                             "}\r\n" +
+                        "}\r\n";
+            }
+
+            //Payment Process
+            if (ds.tbltasks[0].Current_Step_ID == 108)
+            {
+                ret = "init.push(function () {\r\n" +
+                                "PaymentProcess();\r\n" +
+                        "});\r\n" +
+                        "$('#Field_ID_328').change(function() {\r\n" +
+                                "PaymentProcess();\r\n" +
+                        "});\r\n" +
+
+                        //PaymentProcess function
+                        "function PaymentProcess() {\r\n" +
+                        "if ($('#Field_ID_328').is(':checked')) {\r\n" +
+                             "$('#ControlContainer_329').removeClass('hide');\r\n" +
+                             "$('#ControlContainer_360').removeClass('hide');\r\n" +
+                             //"$('#Field_ID_329').prop('checked', false);\r\n" +
+                             //"$('#Field_ID_329').parent().removeClass('checked');\r\n" +
+                             "}\r\n" +
+                        "else {\r\n" +
+                             "$('#ControlContainer_329').addClass('hide');\r\n" +
+                             "$('#ControlContainer_360').addClass('hide');\r\n" +
+                             //"$('#Field_ID_329').prop('checked', false);\r\n" +
+                             //"$('#Field_ID_329').parent().removeClass('checked');\r\n" +
+                             "}\r\n" +
+                        "}\r\n";
+            }
+
+            //Close Inquiry
+            if (ds.tbltasks[0].Current_Step_ID == 109)
+            {
+                ret = "init.push(function () {\r\n" +
+                                "TransportRequisition();\r\n" +
+                        "});\r\n" +
+                        "$('#Field_ID_330').change(function() {\r\n" + //TransportRequisition function
+                                "TransportRequisition();\r\n" +
+                        "});\r\n" +
+                        "$('#Field_ID_331').change(function() {\r\n" + //PreparePacket function
+                                "PreparePacket();\r\n" +
+                        "});\r\n" +
+                        "$('#Field_ID_334').change(function() {\r\n" + //GuideBriefing function
+                                "GuideBriefing();\r\n" +
+                        "});\r\n" +
+
+                        //TransportRequisition function
+                        "function TransportRequisition() {\r\n" +
+                        "if ($('#Field_ID_330').is(':checked')) {\r\n" +
+                             "$('#ControlContainer_331').removeClass('hide');\r\n" +
+                             "$('#ControlContainer_333').removeClass('hide');\r\n" +
+                             //"$('#Field_ID_331').prop('checked', false);\r\n" +
+                             //"$('#Field_ID_331').parent().removeClass('checked');\r\n" +
+                             "}\r\n" +
+                        "else {\r\n" +
+                             "$('#ControlContainer_331').addClass('hide');\r\n" +
+                             "$('#ControlContainer_333').addClass('hide');\r\n" +
+                             "$('#ControlContainer_334').addClass('hide');\r\n" +
+                             "$('#ControlContainer_335').addClass('hide');\r\n" +
+                             "$('#ControlContainer_336').addClass('hide');\r\n" +
+                             "$('#ControlContainer_337').addClass('hide');\r\n" +
+                             //"$('#Field_ID_331').prop('checked', false);\r\n" +
+                             //"$('#Field_ID_331').parent().removeClass('checked');\r\n" +
+                             //"$('#Field_ID_334').prop('checked', false);\r\n" +
+                             //"$('#Field_ID_334').parent().removeClass('checked');\r\n" +
+                             //"$('#Field_ID_336').prop('checked', false);\r\n" +
+                             //"$('#Field_ID_336').parent().removeClass('checked');\r\n" +
+                             "}\r\n" +
+                        "}\r\n"+
+
+                        //PreparePacket function
+                        "function PreparePacket() {\r\n" +
+                        "if ($('#Field_ID_331').is(':checked')) {\r\n" +
+                             "$('#ControlContainer_334').removeClass('hide');\r\n" +
+                             "$('#ControlContainer_335').removeClass('hide');\r\n" +
+                             //"$('#Field_ID_334').prop('checked', false);\r\n" +
+                             //"$('#Field_ID_334').parent().removeClass('checked');\r\n" +
+                             "}\r\n" +
+                        "else {\r\n" +
+                             "$('#ControlContainer_334').addClass('hide');\r\n" +
+                             "$('#ControlContainer_335').addClass('hide');\r\n" +
+                             "$('#ControlContainer_336').addClass('hide');\r\n" +
+                             "$('#ControlContainer_337').addClass('hide');\r\n" +
+                             //"$('#Field_ID_334').prop('checked', false);\r\n" +
+                             //"$('#Field_ID_334').parent().removeClass('checked');\r\n" +
+                             //"$('#Field_ID_336').prop('checked', false);\r\n" +
+                             //"$('#Field_ID_336').parent().removeClass('checked');\r\n" +
+                             "}\r\n" +
+                        "}\r\n"+
+
+                        //GuideBriefing function
+                        "function GuideBriefing() {\r\n" +
+                        "if ($('#Field_ID_334').is(':checked')) {\r\n" +
+                             "$('#ControlContainer_336').removeClass('hide');\r\n" +
+                             "$('#ControlContainer_337').removeClass('hide');\r\n" +
+                             //"$('#Field_ID_336').prop('checked', false);\r\n" +
+                             //"$('#Field_ID_336').parent().removeClass('checked');\r\n" +
+                             "}\r\n" +
+                        "else {\r\n" +
+                             "$('#ControlContainer_336').addClass('hide');\r\n" +
+                             "$('#ControlContainer_337').addClass('hide');\r\n" +
+                             //"$('#Field_ID_336').prop('checked', false);\r\n" +
+                             //"$('#Field_ID_336').parent().removeClass('checked');\r\n" +
+                             "}\r\n" +
+                        "}\r\n";
+            }
+
             //Content
+            // displaying many checkboxes that track the status of tasks can be confusing.
+            // therefore only one checkbox at a time is shown.
+            // this is done using jquery.
+            if (ds.tbltasks[0].Current_Step_ID == 123) // For step 1.2.2 Acknowledge Inquiry (Quotation Status)
+            {
+                ret = "init.push(function () {\r\n" +
+                                "CheckQuotationStatus();\r\n" +
+                        "});\r\n" +
+                        "$('#Field_ID_379').change(function() {\r\n" + // Quotation status selection
+                                "CheckQuotationStatus();\r\n" +
+                        "});\r\n" +
+                        "$('#Field_ID_380').change(function() {\r\n" + // Confirmation sent checkbox
+                                "CheckConfirmationSent();\r\n" +
+                        "});\r\n" +
+                        "function CheckQuotationStatus() {\r\n" +
+                             "if ($('#Field_ID_379').val() == 'Confirmation of the inquiry'){\r\n" + // Only show the next fields when the quotation status is
+                                 "$('#ControlContainer_380').removeClass('hide');\r\n" +             // confirmation of inquiry
+                                 //"$('#Field_ID_380').prop('checked', false);\r\n" +
+                                 //"$('#Field_ID_380').parent().removeClass('checked');\r\n" +
+                                 //"$('#Field_ID_382').prop('checked', false);\r\n" +
+                                 //"$('#Field_ID_382').parent().removeClass('checked');\r\n" +
+                             "}\r\n" +
+                             "else {\r\n" +
+                                 "$('#ControlContainer_380').addClass('hide');\r\n" +
+                                 "$('#ControlContainer_381').addClass('hide');\r\n" +
+                                 "$('#ControlContainer_382').addClass('hide');\r\n" +
+                                 //"$('#Field_ID_380').prop('checked', false);\r\n" +
+                                 //"$('#Field_ID_380').parent().removeClass('checked');\r\n" +
+                                 //"$('#Field_ID_382').prop('checked', false);\r\n" +
+                                 //"$('#Field_ID_382').parent().removeClass('checked');\r\n" +
+                             "}\r\n" +   
+                         "}\r\n" +
+                         "function CheckConfirmationSent() {\r\n" +
+                            "if ($('#Field_ID_380').is(\":checked\")){\r\n" + // Confirmation sent checkbox
+                                 "$('#ControlContainer_381').removeClass('hide');\r\n" + // Upload amended quotation
+                                 "$('#ControlContainer_382').removeClass('hide');\r\n" + // Amend quotation sent checkbox
+                                 // "$('#Field_ID_382').prop('checked', false);\r\n" +   // Reset amended quotation sent checkbox to default value
+                                 //"$('#Field_ID_382').parent().removeClass('checked');\r\n" +
+                              "}\r\n" +
+                            "else {\r\n" +
+                                 "$('#ControlContainer_381').addClass('hide');\r\n" + // Upload amended quotation
+                                 "$('#ControlContainer_382').addClass('hide');\r\n" + // Amend quotation sent checkbox
+                                 //"$('#Field_ID_382').prop('checked', false);\r\n" +   // Uncheck amended quotation sent checkbox when coming from previous field
+                                 //"$('#Field_ID_382').parent().removeClass('checked');\r\n" + 
+                            "}\r\n" +
+                          "}\r\n";
+            }
+
+            if (ds.tbltasks[0].Current_Step_ID == 113) // For step 2.2 Inquiry (Series group)
+            {
+                ret = "init.push(function () {\r\n" +
+                                "CheckHotelRatesSent();\r\n" +
+                        "});\r\n" +
+                        "$('#Field_ID_353').change(function() {\r\n" +
+                                "CheckHotelRatesSent();\r\n" +
+                        "});\r\n" +
+                        "$('#Field_ID_354').change(function() {\r\n" +
+                                "CheckAllotmentConfirmed();\r\n" +
+                        "});\r\n" +
+                         "$('#Field_ID_355').change(function() {\r\n" +
+                                "CheckHotelRatesConfirmed();\r\n" +
+                        "});\r\n" +
+                        "$('#Field_ID_356').change(function() {\r\n" +
+                                "CheckCostingUpdated();\r\n" +
+                        "});\r\n" +
+                        "$('#Field_ID_357').change(function() {\r\n" +
+                                "CheckTourOperatorConfirmed();\r\n" +
+                        "});\r\n" +
+                        "function CheckHotelRatesSent() {\r\n" +
+                            "if ($('#Field_ID_353').is(\":checked\")){\r\n" + // Hotel rates sent to client checkbox
+                                "$('#ControlContainer_354').removeClass('hide');\r\n" + // Allotment confirmed checkbox
+                                "$('#ControlContainer_355').addClass('hide');\r\n" + // Hotel rates confirmed checkbox
+                                "$('#ControlContainer_361').addClass('hide');\r\n" + // Costing amount textbox
+                                "$('#ControlContainer_356').addClass('hide');\r\n" + // Costing updated checkbox
+                                "$('#ControlContainer_357').addClass('hide');\r\n" + // Tour operator confirmed checkbox
+                                "$('#ControlContainer_358').addClass('hide');\r\n" + // Sent hotel voucher checkbox
+                                //"$('#Field_ID_354').prop('checked', false);\r\n" +  // Reset Allotment confirmed checkbox
+                                //"$('#Field_ID_354').parent().removeClass('checked');\r\n" +
+                                //"$('#Field_ID_355').prop('checked', false);\r\n" +  // Reset Hotel rates confirmed checkbox
+                                //"$('#Field_ID_355').parent().removeClass('checked');\r\n" +
+                                //"$('#Field_ID_361').val('');\r\n" +  // Reset Costing amount
+                                //"$('#Field_ID_356').prop('checked', false);\r\n" +  // Reset Costing updated checkbox
+                                //"$('#Field_ID_356').parent().removeClass('checked');\r\n" +
+                                //"$('#Field_ID_357').prop('checked', false);\r\n" +  // Reset Tour operator confirmed checkbox
+                                //"$('#Field_ID_357').parent().removeClass('checked');\r\n" +
+                                //"$('#Field_ID_358').prop('checked', false);\r\n" +  // Reset sent hotel vouchers checkbox
+                                //"$('#Field_ID_358').parent().removeClass('checked');\r\n" +
+                            "}\r\n" +
+                            "else {\r\n" +
+                               "$('#ControlContainer_354').addClass('hide');\r\n" + // Allotment confirmed checkbox
+                                "$('#ControlContainer_355').addClass('hide');\r\n" + // Hotel rates confirmed checkbox
+                                "$('#ControlContainer_361').addClass('hide');\r\n" + // Costing amount textbox
+                                "$('#ControlContainer_356').addClass('hide');\r\n" + // Costing updated checkbox
+                                "$('#ControlContainer_357').addClass('hide');\r\n" + // Tour operator confirmed checkbox
+                                "$('#ControlContainer_358').addClass('hide');\r\n" + // Sent hotel voucher checkbox
+                                //"$('#Field_ID_354').prop('checked', false);\r\n" +  // Reset Allotment confirmed checkbox
+                                //"$('#Field_ID_354').parent().removeClass('checked');\r\n" +
+                                //"$('#Field_ID_355').prop('checked', false);\r\n" +  // Reset Hotel rates confirmed checkbox
+                                //"$('#Field_ID_355').parent().removeClass('checked');\r\n" +
+                                //"$('#Field_ID_361').val('');\r\n" +  // Reset Costing amount
+                                //"$('#Field_ID_356').prop('checked', false);\r\n" +  // Reset Costing updated checkbox
+                                //"$('#Field_ID_356').parent().removeClass('checked');\r\n" +
+                                //"$('#Field_ID_357').prop('checked', false);\r\n" +  // Reset Tour operator confirmed checkbox
+                                //"$('#Field_ID_357').parent().removeClass('checked');\r\n" +
+                                //"$('#Field_ID_358').prop('checked', false);\r\n" +  // Reset sent hotel vouchers checkbox
+                                //"$('#Field_ID_358').parent().removeClass('checked');\r\n" +
+                            "}\r\n" +
+                        "}\r\n" +
+                         "function CheckAllotmentConfirmed() {\r\n" +
+                             "if ($('#Field_ID_354').is(\":checked\")){\r\n" +
+                                 "$('#ControlContainer_355').removeClass('hide');\r\n" +
+                                 "$('#ControlContainer_361').addClass('hide');\r\n" + // Costing amount textbox
+                                 "$('#ControlContainer_356').addClass('hide');\r\n" + // Costing updated checkbox
+                                 "$('#ControlContainer_357').addClass('hide');\r\n" + // Tour operator confirmed checkbox
+                                 "$('#ControlContainer_358').addClass('hide');\r\n" + // Sent hotel voucher checkbox
+                                 //"$('#Field_ID_355').prop('checked', false);\r\n" +  // Reset Hotel rates confirmed checkbox
+                                 //"$('#Field_ID_355').parent().removeClass('checked');\r\n" +
+                                 //"$('#Field_ID_361').val('');\r\n" +  // Reset Costing amount
+                                 //"$('#Field_ID_356').prop('checked', false);\r\n" +  // Reset Costing updated checkbox
+                                 //"$('#Field_ID_356').parent().removeClass('checked');\r\n" +
+                                 //"$('#Field_ID_357').prop('checked', false);\r\n" +  // Reset Tour operator confirmed checkbox
+                                 //"$('#Field_ID_357').parent().removeClass('checked');\r\n" +
+                                 //"$('#Field_ID_358').prop('checked', false);\r\n" +  // Reset sent hotel vouchers checkbox
+                                 //"$('#Field_ID_358').parent().removeClass('checked');\r\n" +
+                             "}\r\n" +
+                             "else {\r\n" +
+                                 "$('#ControlContainer_355').addClass('hide');\r\n" +
+                                 "$('#ControlContainer_361').addClass('hide');\r\n" + // Costing amount textbox
+                                 "$('#ControlContainer_356').addClass('hide');\r\n" + // Costing updated checkbox
+                                 "$('#ControlContainer_357').addClass('hide');\r\n" + // Tour operator confirmed checkbox
+                                 "$('#ControlContainer_358').addClass('hide');\r\n" + // Sent hotel voucher checkbox
+                                 //"$('#Field_ID_355').prop('checked', false);\r\n" +  // Reset Hotel rates confirmed checkbox
+                                 //"$('#Field_ID_355').parent().removeClass('checked');\r\n" +
+                                 //"$('#Field_ID_361').val('');\r\n" +  // Reset Costing amount
+                                 //"$('#Field_ID_356').prop('checked', false);\r\n" +  // Reset Costing updated checkbox
+                                 //"$('#Field_ID_356').parent().removeClass('checked');\r\n" +
+                                 //"$('#Field_ID_357').prop('checked', false);\r\n" +  // Reset Tour operator confirmed checkbox
+                                 //"$('#Field_ID_357').parent().removeClass('checked');\r\n" +
+                                 //"$('#Field_ID_358').prop('checked', false);\r\n" +  // Reset sent hotel vouchers checkbox
+                                 //"$('#Field_ID_358').parent().removeClass('checked');\r\n" +
+                             "}\r\n" +
+                         "}\r\n" +
+                         "function CheckHotelRatesConfirmed() {\r\n" +
+                             "if ($('#Field_ID_355').is(\":checked\")){\r\n" +
+                                 "$('#ControlContainer_361').removeClass('hide');\r\n" + // Costing amount textbox
+                                 "$('#ControlContainer_356').removeClass('hide');\r\n" + // Costing updated checkbox
+                                 "$('#ControlContainer_357').addClass('hide');\r\n" + // Tour operator confirmed checkbox
+                                 "$('#ControlContainer_358').addClass('hide');\r\n" + // Sent hotel voucher checkbox
+                                 //"$('#Field_ID_361').val('');\r\n" +  // Reset Costing amount
+                                 //"$('#Field_ID_356').prop('checked', false);\r\n" +  // Reset Costing updated checkbox
+                                 //"$('#Field_ID_356').parent().removeClass('checked');\r\n" +
+                                 //"$('#Field_ID_357').prop('checked', false);\r\n" +  // Reset Tour operator confirmed checkbox
+                                 //"$('#Field_ID_357').parent().removeClass('checked');\r\n" +
+                                 //"$('#Field_ID_358').prop('checked', false);\r\n" +  // Reset sent hotel vouchers checkbox
+                                 //"$('#Field_ID_358').parent().removeClass('checked');\r\n" +
+                             "}\r\n" +
+                             "else {\r\n" +
+                                 "$('#ControlContainer_361').addClass('hide');\r\n" + // Costing amount textbox
+                                 "$('#ControlContainer_356').addClass('hide');\r\n" + // Costing updated checkbox
+                                 "$('#ControlContainer_357').addClass('hide');\r\n" + // Tour operator confirmed checkbox
+                                 "$('#ControlContainer_358').addClass('hide');\r\n" + // Sent hotel voucher checkbox
+                                 //"$('#Field_ID_361').val('');\r\n" +  // Reset Costing amount
+                                 //"$('#Field_ID_356').prop('checked', false);\r\n" +  // Reset Costing updated checkbox
+                                 //"$('#Field_ID_356').parent().removeClass('checked');\r\n" +
+                                 //"$('#Field_ID_357').prop('checked', false);\r\n" +  // Reset Tour operator confirmed checkbox
+                                 //"$('#Field_ID_357').parent().removeClass('checked');\r\n" +
+                                 //"$('#Field_ID_358').prop('checked', false);\r\n" +  // Reset sent hotel vouchers checkbox
+                                 //"$('#Field_ID_358').parent().removeClass('checked');\r\n" +
+                             "}\r\n" +
+                         "}\r\n" +
+                         "function CheckCostingUpdated() {\r\n" +
+                             "if ($('#Field_ID_356').is(\":checked\")){\r\n" +
+                                 "$('#ControlContainer_357').removeClass('hide');\r\n" + // Tour operator confirmed checkbox
+                                 "$('#ControlContainer_358').addClass('hide');\r\n" + // Sent hotel voucher checkbox
+                                 //"$('#Field_ID_357').prop('checked', false);\r\n" +  // Reset Tour operator confirmed checkbox
+                                 //"$('#Field_ID_357').parent().removeClass('checked');\r\n" +
+                                 //"$('#Field_ID_358').prop('checked', false);\r\n" +  // Reset sent hotel vouchers checkbox
+                                 //"$('#Field_ID_358').parent().removeClass('checked');\r\n" +
+                             "}\r\n" +
+                             "else {\r\n" +
+                                 "$('#ControlContainer_357').addClass('hide');\r\n" + // Tour operator confirmed checkbox
+                                 "$('#ControlContainer_358').addClass('hide');\r\n" + // Sent hotel voucher checkbox
+                                 //"$('#Field_ID_357').prop('checked', false);\r\n" +  // Reset Tour operator confirmed checkbox
+                                 //"$('#Field_ID_357').parent().removeClass('checked');\r\n" +
+                                 //"$('#Field_ID_358').prop('checked', false);\r\n" +  // Reset sent hotel vouchers checkbox
+                                 //"$('#Field_ID_358').parent().removeClass('checked');\r\n" +
+                             "}\r\n" +
+                         "}\r\n" +
+                         "function CheckTourOperatorConfirmed() {\r\n" +
+                             "if ($('#Field_ID_357').is(\":checked\")){\r\n" +
+                                 "$('#ControlContainer_358').removeClass('hide');\r\n" + // Sent hotel voucher checkbox
+                                 //"$('#Field_ID_358').prop('checked', false);\r\n" +  // Reset sent hotel vouchers checkbox
+                                 //"$('#Field_ID_358').parent().removeClass('checked');\r\n" +
+                             "}\r\n" +
+                             "else {\r\n" +
+                                 "$('#ControlContainer_358').addClass('hide');\r\n" + // Sent hotel voucher checkbox
+                                 //"$('#Field_ID_358').prop('checked', false);\r\n" +  // Reset sent hotel vouchers checkbox
+                                 //"$('#Field_ID_358').parent().removeClass('checked');\r\n" +
+                             "}\r\n" +
+                         "}\r\n";
+            }
+
+            if (ds.tbltasks[0].Current_Step_ID == 111) // For step 5.2 Refund Process
+            {
+                ret = "init.push(function () {\r\n" +
+                        "CheckCreditNoteRaised();\r\n" +
+                        "CheckRefundableProcessStatus();\r\n" +
+                        "});\r\n" +
+                        "if('#Field_ID_338') " +
+                        "$('#Field_ID_338').change(function() {\r\n" + // attach event listner to call CheckCreditNoteRaised(); when the given field value is changed
+                                "CheckCreditNoteRaised();\r\n" +
+                        "});\r\n" +
+                         "$('#Field_ID_341').change(function() {\r\n" + // attach event listner to call CheckRefundableProcessStatus(); when the given field value is changed
+                                "CheckRefundableProcessStatus();\r\n" +
+                        "});\r\n" +
+                        "function CheckCreditNoteRaised() {\r\n" +
+                             "if ($('#Field_ID_338').is(\":checked\")){\r\n" + // Is credit note raised checkbox
+                                 "$('#ControlContainer_341').removeClass('hide');\r\n" + // Status of refundable process selection
+                                 "$('#ControlContainer_339').addClass('hide');\r\n" + // Voucher number textbox
+                                 "$('#ControlContainer_340').addClass('hide');\r\n" + // Upload invoice file upload
+                                 //"$('#Field_ID_341').val('-');\r\n" + // Reset Status of refundable process to '-'
+                                 //"$('#Field_ID_339').val('');\r\n" +  // Reset Voucher Number field 
+                             "}\r\n" +
+                             "else {\r\n" +
+                                 "$('#ControlContainer_341').addClass('hide');\r\n" + // Status of refundable process selection
+                                 "$('#ControlContainer_339').addClass('hide');\r\n" + // Voucher number textbox
+                                 "$('#ControlContainer_340').addClass('hide');\r\n" + // Upload invoice file upload
+                                 //"$('#Field_ID_341').val('-');\r\n" + // Reset Status of refundable process to '-'
+                                 //"$('#Field_ID_339').val('');\r\n" +  // Reset Voucher Number field 
+                             "}\r\n" +
+                         "}\r\n" +
+                         "function CheckRefundableProcessStatus() {\r\n" +
+                             "if ($('#Field_ID_341').val() == 'Refund completed'){\r\n" + // Status of refundable process selection
+                                 "$('#ControlContainer_339').removeClass('hide');\r\n" + // Voucher number textbox
+                                 "$('#ControlContainer_340').removeClass('hide');\r\n" + // Upload invoice file upload
+                                 //"$('#Field_ID_339').val('');\r\n" +  // Reset Voucher Number field 
+                             "}\r\n" +
+                             "else {\r\n" +
+                                 "$('#ControlContainer_339').addClass('hide');\r\n" + // Voucher number textbox
+                                 "$('#ControlContainer_340').addClass('hide');\r\n" + // Upload invoice file upload
+                                 //"$('#Field_ID_339').val('');\r\n" +  // Reset Voucher Number field 
+                             "}\r\n" +
+                         "}\r\n";
+            }
             if (ds.tbltasks[0].Current_Step_ID == 88)
             {
                 List<DS_Tasks.tbltask_historyRow> taskHistoryMatch = ds.tbltask_history.Where(x => x.Workflow_Step_ID == 86 && x.Task_ID == ds.tbltasks[0].Task_ID)
@@ -141,15 +589,15 @@ namespace N_Ter.MySQL.Customizable
                                  "$('#ControlContainer_79').addClass('hide');\r\n" +
                                  "$('#ControlContainer_80').addClass('hide');\r\n" +
                                  "$('#ControlContainer_81').addClass('hide');\r\n" +
-                                 "$('#Field_ID_78').prop('checked', false);\r\n" +
-                                 "$('#Field_ID_74').prop('checked', false);\r\n" +
-                                 "$('#Field_ID_81').prop('checked', false);\r\n" +
-                                 "$('#Field_ID_78').parent().removeClass('checked');\r\n" +
-                                 "$('#Field_ID_74').parent().removeClass('checked');\r\n" +
-                                 "$('#Field_ID_81').parent().removeClass('checked');\r\n" +
-                                 "$('#Field_ID_79').val('');\r\n" +
-                                 "$('#Field_ID_75').val('');\r\n" +
-                                 "$('#Field_ID_80').val('');\r\n" +
+                                 //"$('#Field_ID_78').prop('checked', false);\r\n" +
+                                 //"$('#Field_ID_74').prop('checked', false);\r\n" +
+                                 //"$('#Field_ID_81').prop('checked', false);\r\n" +
+                                 //"$('#Field_ID_78').parent().removeClass('checked');\r\n" +
+                                 //"$('#Field_ID_74').parent().removeClass('checked');\r\n" +
+                                 //"$('#Field_ID_81').parent().removeClass('checked');\r\n" +
+                                 //"$('#Field_ID_79').val('');\r\n" +
+                                 //"$('#Field_ID_75').val('');\r\n" +
+                                 //"$('#Field_ID_80').val('');\r\n" +
                              "}\r\n" +
                              "else if ($('#Field_ID_71').val() == 'Credit'){\r\n" +
                                  "$('#ControlContainer_78').removeClass('hide');\r\n" +
@@ -160,16 +608,16 @@ namespace N_Ter.MySQL.Customizable
                                  "$('#ControlContainer_79').addClass('hide');\r\n" +
                                  "$('#ControlContainer_80').addClass('hide');\r\n" +
                                  "$('#ControlContainer_81').addClass('hide');\r\n" +
-                                 "$('#Field_ID_72').prop('checked', false);\r\n" +
-                                 "$('#Field_ID_73').prop('checked', false);\r\n" +
-                                 "$('#Field_ID_74').prop('checked', false);\r\n" +
-                                 "$('#Field_ID_81').prop('checked', false);\r\n" +
-                                 "$('#Field_ID_72').parent().removeClass('checked');\r\n" +
-                                 "$('#Field_ID_73').parent().removeClass('checked');\r\n" +
-                                 "$('#Field_ID_74').parent().removeClass('checked');\r\n" +
-                                 "$('#Field_ID_81').parent().removeClass('checked');\r\n" +
-                                 "$('#Field_ID_75').val('');\r\n" +
-                                 "$('#Field_ID_80').val('');\r\n" +
+                                 //"$('#Field_ID_72').prop('checked', false);\r\n" +
+                                 //"$('#Field_ID_73').prop('checked', false);\r\n" +
+                                 //"$('#Field_ID_74').prop('checked', false);\r\n" +
+                                 //"$('#Field_ID_81').prop('checked', false);\r\n" +
+                                 //"$('#Field_ID_72').parent().removeClass('checked');\r\n" +
+                                 //"$('#Field_ID_73').parent().removeClass('checked');\r\n" +
+                                 //"$('#Field_ID_74').parent().removeClass('checked');\r\n" +
+                                 //"$('#Field_ID_81').parent().removeClass('checked');\r\n" +
+                                 //"$('#Field_ID_75').val('');\r\n" +
+                                 //"$('#Field_ID_80').val('');\r\n" +
                              "}\r\n" +
                              "else {\r\n" +
                                  "$('#ControlContainer_72').addClass('hide');\r\n" +
@@ -180,19 +628,19 @@ namespace N_Ter.MySQL.Customizable
                                  "$('#ControlContainer_79').addClass('hide');\r\n" +
                                  "$('#ControlContainer_80').addClass('hide');\r\n" +
                                  "$('#ControlContainer_81').addClass('hide');\r\n" +
-                                 "$('#Field_ID_72').prop('checked', false);\r\n" +
-                                 "$('#Field_ID_73').prop('checked', false);\r\n" +
-                                 "$('#Field_ID_78').prop('checked', false);\r\n" +
-                                 "$('#Field_ID_74').prop('checked', false);\r\n" +
-                                 "$('#Field_ID_81').prop('checked', false);\r\n" +
-                                 "$('#Field_ID_72').parent().removeClass('checked');\r\n" +
-                                 "$('#Field_ID_73').parent().removeClass('checked');\r\n" +
-                                 "$('#Field_ID_78').parent().removeClass('checked');\r\n" +
-                                 "$('#Field_ID_74').parent().removeClass('checked');\r\n" +
-                                 "$('#Field_ID_81').parent().removeClass('checked');\r\n" +
-                                 "$('#Field_ID_79').val('');\r\n" +
-                                 "$('#Field_ID_75').val('');\r\n" +
-                                 "$('#Field_ID_80').val('');\r\n" +
+                                 //"$('#Field_ID_72').prop('checked', false);\r\n" +
+                                 //"$('#Field_ID_73').prop('checked', false);\r\n" +
+                                 //"$('#Field_ID_78').prop('checked', false);\r\n" +
+                                 //"$('#Field_ID_74').prop('checked', false);\r\n" +
+                                 //"$('#Field_ID_81').prop('checked', false);\r\n" +
+                                 //"$('#Field_ID_72').parent().removeClass('checked');\r\n" +
+                                 //"$('#Field_ID_73').parent().removeClass('checked');\r\n" +
+                                 //"$('#Field_ID_78').parent().removeClass('checked');\r\n" +
+                                 //"$('#Field_ID_74').parent().removeClass('checked');\r\n" +
+                                 //"$('#Field_ID_81').parent().removeClass('checked');\r\n" +
+                                 //"$('#Field_ID_79').val('');\r\n" +
+                                 //"$('#Field_ID_75').val('');\r\n" +
+                                 //"$('#Field_ID_80').val('');\r\n" +
                              "}\r\n" +
                          "}\r\n" +
                          "function DisplayCashFields() {\r\n" +
@@ -212,18 +660,18 @@ namespace N_Ter.MySQL.Customizable
                                  "$('#ControlContainer_73').addClass('hide');\r\n" +
                                  "$('#ControlContainer_74').addClass('hide');\r\n" +
                                  "$('#ControlContainer_75').addClass('hide');\r\n" +
-                                 "$('#Field_ID_73').prop('checked', false);\r\n" +
-                                 "$('#Field_ID_74').prop('checked', false);\r\n" +
-                                 "$('#Field_ID_73').parent().removeClass('checked');\r\n" +
-                                 "$('#Field_ID_74').parent().removeClass('checked');\r\n" +
-                                 "$('#Field_ID_75').val('');\r\n" +
+                                 //"$('#Field_ID_73').prop('checked', false);\r\n" +
+                                 //"$('#Field_ID_74').prop('checked', false);\r\n" +
+                                 //"$('#Field_ID_73').parent().removeClass('checked');\r\n" +
+                                 //"$('#Field_ID_74').parent().removeClass('checked');\r\n" +
+                                 //"$('#Field_ID_75').val('');\r\n" +
                              "}\r\n" +
                              "if (!$('#Field_ID_73').is(\":checked\")){\r\n" +
                                  "$('#ControlContainer_74').addClass('hide');\r\n" +
                                  "$('#ControlContainer_75').addClass('hide');\r\n" +
-                                 "$('#Field_ID_74').prop('checked', false);\r\n" +
-                                 "$('#Field_ID_74').parent().removeClass('checked');\r\n" +
-                                 "$('#Field_ID_75').val('');\r\n" +
+                                 //"$('#Field_ID_74').prop('checked', false);\r\n" +
+                                 //"$('#Field_ID_74').parent().removeClass('checked');\r\n" +
+                                 //"$('#Field_ID_75').val('');\r\n" +
                              "}\r\n" +
                          "}\r\n" +
                          "function DisplayCreditFields() {\r\n" +
@@ -231,16 +679,16 @@ namespace N_Ter.MySQL.Customizable
                                  "$('#ControlContainer_79').removeClass('hide');\r\n" +
                                  "$('#ControlContainer_74').removeClass('hide');\r\n" +
                                  "$('#ControlContainer_75').addClass('hide');\r\n" +
-                                 "$('#Field_ID_75').val('');\r\n" +
+                                 //"$('#Field_ID_75').val('');\r\n" +
                              "}\r\n" +
                              "else {\r\n" +
                                  "$('#ControlContainer_79').addClass('hide');\r\n" +
                                  "$('#ControlContainer_74').addClass('hide');\r\n" +
                                  "$('#ControlContainer_75').addClass('hide');\r\n" +
-                                 "$('#Field_ID_74').prop('checked', false);\r\n" +
-                                 "$('#Field_ID_74').parent().removeClass('checked');\r\n" +
-                                 "$('#Field_ID_79').val('');\r\n" +
-                                 "$('#Field_ID_75').val('');\r\n" +
+                                 //"$('#Field_ID_74').prop('checked', false);\r\n" +
+                                 //"$('#Field_ID_74').parent().removeClass('checked');\r\n" +
+                                 //"$('#Field_ID_79').val('');\r\n" +
+                                 //"$('#Field_ID_75').val('');\r\n" +
                              "}\r\n" +
                          "}\r\n";
 
@@ -254,9 +702,9 @@ namespace N_Ter.MySQL.Customizable
                              "else {\r\n" +
                                  "$('#ControlContainer_75').addClass('hide');\r\n" +
                                  "$('#ControlContainer_81').addClass('hide');\r\n" +
-                                 "$('#Field_ID_75').val('');\r\n" +
-                                 "$('#Field_ID_81').prop('checked', false);\r\n" +
-                                 "$('#Field_ID_81').parent().removeClass('checked');\r\n" +
+                                 //"$('#Field_ID_75').val('');\r\n" +
+                                 //"$('#Field_ID_81').prop('checked', false);\r\n" +
+                                 //"$('#Field_ID_81').parent().removeClass('checked');\r\n" +
                              "}\r\n" +
                            "}\r\n" +
                            "$('#Field_ID_81').change(function() {\r\n" +
@@ -279,7 +727,7 @@ namespace N_Ter.MySQL.Customizable
                              "}\r\n" +
                              "else {\r\n" +
                                  "$('#ControlContainer_75').addClass('hide');\r\n" +
-                                 "$('#Field_ID_75').val('');\r\n" +
+                                 //"$('#Field_ID_75').val('');\r\n" +
                              "}\r\n" +
                          "}\r\n";
                 }                
@@ -302,6 +750,7 @@ namespace N_Ter.MySQL.Customizable
             }
                 return ret;
         }
+
 
         /// <summary>
         /// Custom Actions that should happen after uploading a file using the Task Posting Section should be performed here
