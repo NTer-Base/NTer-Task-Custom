@@ -41,7 +41,7 @@ namespace N_Ter_Task_Custom.Data.MySQL
                 return true;
             }
 
-            if ((value is decimal decValue) && decValue >= 0)
+            if (decimal.TryParse(value, out decimal decimalValue) && decimalValue >= 0)
             {
                 return true;
             }

@@ -932,6 +932,47 @@ namespace N_Ter.MySQL.Customizable
                 }
 
             }
+
+            if (Current_Step_ID == 113) // Inquiry (Series group)
+            {
+
+                List<Task_Controls> date1UI = objControlsList.Controls.Where(x => x.UI_Type == UI_Types.TextBoxes && x.Field_ID == 350).ToList();
+                List<Task_Controls> date2UI = objControlsList.Controls.Where(x => x.UI_Type == UI_Types.TextBoxes && x.Field_ID == 351).ToList();
+                List<Task_Controls> roomsUI = objControlsList.Controls.Where(x => x.UI_Type == UI_Types.TextBoxes && x.Field_ID == 352).ToList();
+                List<Task_Controls> costUI = objControlsList.Controls.Where(x => x.UI_Type == UI_Types.TextBoxes && x.Field_ID == 361).ToList();
+
+                foreach (Task_Controls date1 in date1UI)
+                {
+                    foreach (Task_Controls date2 in date2UI)
+                    {
+                        TextBox firstDate = (TextBox)date1.UI_Control;
+                        TextBox secondDate = (TextBox)date2.UI_Control;
+                        if (!Utilities.IsValidDateRange(firstDate.Text, secondDate.Text))
+                        {
+                            ret.Validated = false;
+                            ret.Reason = "Invalid date";
+                        }
+                    }
+                }
+                foreach (Task_Controls noRooms in roomsUI)
+                {
+                    TextBox noOfRooms = (TextBox)noRooms.UI_Control;
+                    if (!Utilities.IsValidInteger(noOfRooms.Text))
+                    {
+                        ret.Validated = false;
+                        ret.Reason = "Invalid number of rooms";
+                    }
+                }
+                foreach (Task_Controls costAmount in costUI)
+                {
+                    TextBox costingAmount = (TextBox)costAmount.UI_Control;
+                    if (!Utilities.IsValidNumber(costingAmount.Text))
+                    {
+                        ret.Validated = false;
+                        ret.Reason = "Enter positive numbers only";
+                    }
+                }
+            }
             //Content
             ret.Reason = objAct.CleanJavaScript(ret.Reason);
             return ret;
