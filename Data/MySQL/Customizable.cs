@@ -125,6 +125,8 @@ namespace N_Ter.MySQL.Customizable
                         "function HotelName() {\r\n" +
                         "if ($('#Field_ID_322').val() != '-'){\r\n" +
                              "$('#ControlContainer_323').removeClass('hide');\r\n" +
+                             //"$('#Field_ID_323').prop('checked', false);\r\n" +
+                             //"$('#Field_ID_323').parent().removeClass('checked');\r\n" +
                              "}\r\n" +
                         "else {\r\n" +
                              "$('#ControlContainer_323').addClass('hide');\r\n" +
@@ -132,6 +134,14 @@ namespace N_Ter.MySQL.Customizable
                              "$('#ControlContainer_326').addClass('hide');\r\n" +
                              "$('#ControlContainer_325').addClass('hide');\r\n" +
                              "$('#ControlContainer_327').addClass('hide');\r\n" +
+                             //"$('#Field_ID_323').prop('checked', false);\r\n" +
+                             //"$('#Field_ID_323').parent().removeClass('checked');\r\n" +
+                             //"$('#Field_ID_324').prop('checked', false);\r\n" +
+                             //"$('#Field_ID_324').parent().removeClass('checked');\r\n" +
+                             //"$('#Field_ID_326').prop('checked', false);\r\n" +
+                             //"$('#Field_ID_326').parent().removeClass('checked');\r\n" +
+                             //"$('#Field_ID_327').prop('checked', false);\r\n" +
+                             //"$('#Field_ID_327').parent().removeClass('checked');\r\n" +
                              "}\r\n" +
                         "}\r\n" +
 
@@ -139,12 +149,21 @@ namespace N_Ter.MySQL.Customizable
                         "function HotelAvailable() {\r\n" +
                         "if ($('#Field_ID_323').is(':checked')) {\r\n" +
                              "$('#ControlContainer_324').removeClass('hide');\r\n" +
+                             //"$('#Field_ID_324').prop('checked', false);\r\n" +
+                             //"$('#Field_ID_324').parent().removeClass('checked');\r\n" +
                              "}\r\n" +
                         "else {\r\n" +
                              "$('#ControlContainer_324').addClass('hide');\r\n" +
                              "$('#ControlContainer_326').addClass('hide');\r\n" +
                              "$('#ControlContainer_325').addClass('hide');\r\n" +
                              "$('#ControlContainer_327').addClass('hide');\r\n" +
+                             //"$('#Field_ID_324').prop('checked', false);\r\n" +
+                             //"$('#Field_ID_324').parent().removeClass('checked');\r\n" +
+                             //"$('#Field_ID_326').prop('checked', false);\r\n" +
+                             //"$('#Field_ID_326').parent().removeClass('checked');\r\n" +
+                             //"$('#Field_ID_327').prop('checked', false);\r\n" +
+                             //"$('#Field_ID_327').parent().removeClass('checked');\r\n" +
+
                              "}\r\n" +
                         "}\r\n" +
 
@@ -157,6 +176,10 @@ namespace N_Ter.MySQL.Customizable
                              "$('#ControlContainer_326').addClass('hide');\r\n" +
                              "$('#ControlContainer_325').addClass('hide');\r\n" +
                              "$('#ControlContainer_327').addClass('hide');\r\n" +
+                             //"$('#Field_ID_326').prop('checked', false);\r\n" +
+                             //"$('#Field_ID_326').parent().removeClass('checked');\r\n" +
+                             //"$('#Field_ID_327').prop('checked', false);\r\n" +
+                             //"$('#Field_ID_327').parent().removeClass('checked');\r\n" +
                              "}\r\n" +
                         "}\r\n" +
 
@@ -165,10 +188,14 @@ namespace N_Ter.MySQL.Customizable
                         "if ($('#Field_ID_326').is(':checked')) {\r\n" +
                              "$('#ControlContainer_325').removeClass('hide');\r\n" +
                              "$('#ControlContainer_327').removeClass('hide');\r\n" +
+                             //"$('#Field_ID_327').prop('checked', false);\r\n" +
+                             //"$('#Field_ID_327').parent().removeClass('checked');\r\n" +
                              "}\r\n" +
                         "else {\r\n" +
                              "$('#ControlContainer_325').addClass('hide');\r\n" +
                              "$('#ControlContainer_327').addClass('hide');\r\n" +
+                             //"$('#Field_ID_327').prop('checked', false);\r\n" +
+                             //"$('#Field_ID_327').parent().removeClass('checked');\r\n" +
                              "}\r\n" +
                         "}\r\n";
             }
@@ -188,10 +215,14 @@ namespace N_Ter.MySQL.Customizable
                         "if ($('#Field_ID_328').is(':checked')) {\r\n" +
                              "$('#ControlContainer_329').removeClass('hide');\r\n" +
                              "$('#ControlContainer_360').removeClass('hide');\r\n" +
+                             //"$('#Field_ID_329').prop('checked', false);\r\n" +
+                             //"$('#Field_ID_329').parent().removeClass('checked');\r\n" +
                              "}\r\n" +
                         "else {\r\n" +
                              "$('#ControlContainer_329').addClass('hide');\r\n" +
                              "$('#ControlContainer_360').addClass('hide');\r\n" +
+                             //"$('#Field_ID_329').prop('checked', false);\r\n" +
+                             //"$('#Field_ID_329').parent().removeClass('checked');\r\n" +
                              "}\r\n" +
                         "}\r\n";
             }
@@ -217,6 +248,8 @@ namespace N_Ter.MySQL.Customizable
                         "if ($('#Field_ID_330').is(':checked')) {\r\n" +
                              "$('#ControlContainer_331').removeClass('hide');\r\n" +
                              "$('#ControlContainer_333').removeClass('hide');\r\n" +
+                             //"$('#Field_ID_331').prop('checked', false);\r\n" +
+                             //"$('#Field_ID_331').parent().removeClass('checked');\r\n" +
                              "}\r\n" +
                         "else {\r\n" +
                              "$('#ControlContainer_331').addClass('hide');\r\n" +
@@ -225,6 +258,12 @@ namespace N_Ter.MySQL.Customizable
                              "$('#ControlContainer_335').addClass('hide');\r\n" +
                              "$('#ControlContainer_336').addClass('hide');\r\n" +
                              "$('#ControlContainer_337').addClass('hide');\r\n" +
+                             //"$('#Field_ID_331').prop('checked', false);\r\n" +
+                             //"$('#Field_ID_331').parent().removeClass('checked');\r\n" +
+                             //"$('#Field_ID_334').prop('checked', false);\r\n" +
+                             //"$('#Field_ID_334').parent().removeClass('checked');\r\n" +
+                             //"$('#Field_ID_336').prop('checked', false);\r\n" +
+                             //"$('#Field_ID_336').parent().removeClass('checked');\r\n" +
                              "}\r\n" +
                         "}\r\n"+
 
@@ -233,12 +272,18 @@ namespace N_Ter.MySQL.Customizable
                         "if ($('#Field_ID_331').is(':checked')) {\r\n" +
                              "$('#ControlContainer_334').removeClass('hide');\r\n" +
                              "$('#ControlContainer_335').removeClass('hide');\r\n" +
+                             //"$('#Field_ID_334').prop('checked', false);\r\n" +
+                             //"$('#Field_ID_334').parent().removeClass('checked');\r\n" +
                              "}\r\n" +
                         "else {\r\n" +
                              "$('#ControlContainer_334').addClass('hide');\r\n" +
                              "$('#ControlContainer_335').addClass('hide');\r\n" +
                              "$('#ControlContainer_336').addClass('hide');\r\n" +
                              "$('#ControlContainer_337').addClass('hide');\r\n" +
+                             //"$('#Field_ID_334').prop('checked', false);\r\n" +
+                             //"$('#Field_ID_334').parent().removeClass('checked');\r\n" +
+                             //"$('#Field_ID_336').prop('checked', false);\r\n" +
+                             //"$('#Field_ID_336').parent().removeClass('checked');\r\n" +
                              "}\r\n" +
                         "}\r\n"+
 
@@ -247,10 +292,14 @@ namespace N_Ter.MySQL.Customizable
                         "if ($('#Field_ID_334').is(':checked')) {\r\n" +
                              "$('#ControlContainer_336').removeClass('hide');\r\n" +
                              "$('#ControlContainer_337').removeClass('hide');\r\n" +
+                             //"$('#Field_ID_336').prop('checked', false);\r\n" +
+                             //"$('#Field_ID_336').parent().removeClass('checked');\r\n" +
                              "}\r\n" +
                         "else {\r\n" +
                              "$('#ControlContainer_336').addClass('hide');\r\n" +
                              "$('#ControlContainer_337').addClass('hide');\r\n" +
+                             //"$('#Field_ID_336').prop('checked', false);\r\n" +
+                             //"$('#Field_ID_336').parent().removeClass('checked');\r\n" +
                              "}\r\n" +
                         "}\r\n";
             }
