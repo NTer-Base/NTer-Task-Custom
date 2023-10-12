@@ -606,6 +606,14 @@ namespace N_Ter.MySQL.Customizable
                     }
                 //}
             }
+            if (Current_Step_ID == 86)
+            {
+                //Validate pax count
+            }
+            if (Current_Step_ID == 87)
+            {
+                //Validate contat no, email, date of exipiry, date range of passport, date range of ticketing, ffn
+            }
             //Content
             ret.Reason = objAct.CleanJavaScript(ret.Reason);
             return ret;
