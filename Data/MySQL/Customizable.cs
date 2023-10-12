@@ -838,32 +838,16 @@ namespace N_Ter.MySQL.Customizable
             }
             if (Current_Step_ID == 87)
             {
-                //Validate contat no, email, date of exipiry, date range of passport
-                //List<Task_Controls> emailUI = objControlsList.Controls.Where(x => x.UI_Type == UI_Types.TextBoxes && x.Field_ID == 35).ToList();
-                //List<Task_Controls> phoneUI = objControlsList.Controls.Where(x => x.UI_Type == UI_Types.TextBoxes && x.Field_ID == 34).ToList();
-                //foreach (Task_Controls ctrl in emailUI)
-                //{
-                //    TextBox email = (TextBox)ctrl.UI_Control;
-                //    if (!Utilities.IsValidEmail(email.Text))
-                //    {
-                //        ret.Validated = false;
-                //        ret.Reason = "Your email is not a valid email address";
-                //    }
-                //}
-                //foreach (Task_Controls ctrl in phoneUI)
-                //{
-                //    TextBox phone = (TextBox)ctrl.UI_Control;
-                //    if (!Utilities.IsValidPhoneNumber(phone.Text))
-                //    {
-                //        ret.Validated = false;
-                //        ret.Reason = "Your phone number is not valid";
-                //    }
-                //}
+                //Validate date of exipiry
                 int[] contactNoArray = { 49, 89, 133, 146, 159, 172, 185, 211, 224, 237, 250, 263, 276, 289, 301 };
                 int[] emailArray = { 51, 91, 135, 148, 161, 174, 187, 213, 226, 239, 252, 265, 278, 291, 303 };
+                int[] passportIssueDateArray = { 47, 87, 131, 144, 158, 170, 183, 209, 222, 235, 248, 261, 272, 287, 299 };
+                int[] passportExpiryDateArray = { 48, 88, 132, 145, 159, 171, 184, 210, 223, 236, 249, 262, 273, 288, 300 };
 
-                List<Task_Controls> emailUI = objControlsList.Controls.Where(x => x.UI_Type == UI_Types.TextBoxes && contactNoArray.Contains(x.Field_ID)).ToList();
-                List<Task_Controls> phoneUI = objControlsList.Controls.Where(x => x.UI_Type == UI_Types.TextBoxes && emailArray.Contains(x.Field_ID)).ToList();
+                List<Task_Controls> emailUI = objControlsList.Controls.Where(x => x.UI_Type == UI_Types.TextBoxes && emailArray.Contains(x.Field_ID)).ToList();
+                List<Task_Controls> phoneUI = objControlsList.Controls.Where(x => x.UI_Type == UI_Types.TextBoxes && contactNoArray.Contains(x.Field_ID)).ToList();
+                List<Task_Controls> passportIssueDateUI = objControlsList.Controls.Where(x => x.UI_Type == UI_Types.TextBoxes && passportIssueDateArray.Contains(x.Field_ID)).ToList();
+                List<Task_Controls> passportExpiryDateUI = objControlsList.Controls.Where(x => x.UI_Type == UI_Types.TextBoxes && passportExpiryDateArray.Contains(x.Field_ID)).ToList();
                 List<Task_Controls> date1UI = objControlsList.Controls.Where(x => x.UI_Type == UI_Types.TextBoxes && x.Field_ID == 58).ToList();
                 List<Task_Controls> date2UI = objControlsList.Controls.Where(x => x.UI_Type == UI_Types.TextBoxes && x.Field_ID == 59).ToList();
                 foreach (Task_Controls ctrl in emailUI)
@@ -884,6 +868,28 @@ namespace N_Ter.MySQL.Customizable
                         ret.Reason = "Your phone number is not valid";
                     }
                 }
+                foreach (Task_Controls date1 in passportIssueDateUI)
+                {
+                    foreach (Task_Controls date2 in passportExpiryDateUI)
+                    {
+                        TextBox firstDate = (TextBox)date1.UI_Control;
+                        TextBox secondDate = (TextBox)date2.UI_Control;
+                        if (!Utilities.IsValidDateRange(firstDate.Text, secondDate.Text))
+                        {
+                            ret.Validated = false;
+                            ret.Reason = "Passport expiry date should not come before passport issue date";
+                        }
+                    }
+                }
+                foreach (Task_Controls ctrl in passportExpiryDateUI)
+                {
+                    TextBox date = (TextBox)ctrl.UI_Control;
+                    if (!Utilities.IsPassportValid(date.Text))
+                    {
+                        ret.Validated = false;
+                        ret.Reason = "Your passport expiry date is in less than 7 months.";
+                    }
+                }
                 foreach (Task_Controls date1 in date1UI)
                 {
                     foreach (Task_Controls date2 in date2UI)
@@ -897,15 +903,6 @@ namespace N_Ter.MySQL.Customizable
                         }
                     }
                 }
-                //foreach (Task_Controls ctrl in phoneUI)
-                //{
-                //    TextBox phone = (TextBox)ctrl.UI_Control;
-                //    if (!Utilities.IsValidPhoneNumber(phone.Text))
-                //    {
-                //        ret.Validated = false;
-                //        ret.Reason = "Your phone number is not valid";
-                //    }
-                //}
             }
             if (Current_Step_ID == 105) // Inbound workflow, Acknowledgement Process (Non-series group)
             {
