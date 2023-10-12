@@ -830,6 +830,31 @@ namespace N_Ter.MySQL.Customizable
             {
                 //Validate contat no, email, date of exipiry, date range of passport, date range of ticketing, ffn
             }
+            if (Current_Step_ID == 105) // Inbound workflow, Acknowledgement Process (Non-series group)
+            {
+                // Validate agent contact number, agent email
+                List<Task_Controls> phoneUI = objControlsList.Controls.Where(x => x.UI_Type == UI_Types.TextBoxes && x.Field_ID == 312).ToList();
+                List<Task_Controls> emailUI = objControlsList.Controls.Where(x => x.UI_Type == UI_Types.TextBoxes && x.Field_ID == 313).ToList();
+                foreach (Task_Controls ctrl in phoneUI)
+                {
+                    TextBox phone = (TextBox)ctrl.UI_Control;
+                    if (!Utilities.IsValidPhoneNumber(phone.Text))
+                    {
+                        ret.Validated = false;
+                        ret.Reason = "Your phone number is not valid";
+                    }
+                }
+                foreach (Task_Controls ctrl in emailUI)
+                {
+                    TextBox email = (TextBox)ctrl.UI_Control;
+                    if (!Utilities.IsValidEmail(email.Text))
+                    {
+                        ret.Validated = false;
+                        ret.Reason = "Your email is not a valid email address";
+                    }
+                }
+
+            }
             //Content
             ret.Reason = objAct.CleanJavaScript(ret.Reason);
             return ret;
