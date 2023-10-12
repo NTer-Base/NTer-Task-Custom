@@ -36,7 +36,7 @@ namespace N_Ter_Task_Custom.Data.MySQL
         }
         public static bool IsValidNumber(dynamic value)
         {
-            if (value is int intValue && intValue >= 0)
+            if (int.TryParse(value, out int intValue) && intValue > 0)
             {
                 return true;
             }
