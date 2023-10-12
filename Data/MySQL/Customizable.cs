@@ -309,7 +309,9 @@ namespace N_Ter.MySQL.Customizable
             {
                 ret = "init.push(function () {\r\n" +
                         "CheckCreditNoteRaised();\r\n" +
+                        "CheckRefundableProcessStatus();\r\n" +
                         "});\r\n" +
+                        "if('#Field_ID_338') " +
                         "$('#Field_ID_338').change(function() {\r\n" + // attach event listner to call CheckCreditNoteRaised(); when the given field value is changed
                                 "CheckCreditNoteRaised();\r\n" +
                         "});\r\n" +
