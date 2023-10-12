@@ -2,6 +2,7 @@
 using N_Ter.Common;
 using N_Ter.Structures;
 using N_Ter_Task_Data_Structures.DataSets;
+using N_Ter_Task_Custom.Data.MySQL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -338,7 +339,10 @@ namespace N_Ter.Customizable.UI
             int fieldValue = 0;
             if (paxCount.Count > 0)
             {
-                fieldValue = int.Parse(paxCount[0].Field_Value);
+                //if(Utilities.IsValidInteger(paxCount[0].Field_Value))
+                //{
+                    fieldValue = int.Parse(paxCount[0].Field_Value);
+                //}               
             }
 
             int[] SPFieldCategories = { 1, 2, 3, 4, 5, 31, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30 };

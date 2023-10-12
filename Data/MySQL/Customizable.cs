@@ -825,10 +825,87 @@ namespace N_Ter.MySQL.Customizable
             if (Current_Step_ID == 86)
             {
                 //Validate pax count
+                List<Task_Controls> paxCountUI = objControlsList.Controls.Where(x => x.UI_Type == UI_Types.TextBoxes && x.Field_ID == 126).ToList();
+                foreach (Task_Controls ctrl in paxCountUI)
+                {
+                    TextBox paxCount = (TextBox)ctrl.UI_Control;
+                    if (!Utilities.IsValidInteger(paxCount.Text))
+                    {
+                        ret.Validated = false;
+                        ret.Reason = "Pax count is not a valid number";
+                    }
+                }
             }
             if (Current_Step_ID == 87)
             {
-                //Validate contat no, email, date of exipiry, date range of passport, date range of ticketing, ffn
+                //Validate contat no, email, date of exipiry, date range of passport
+                //List<Task_Controls> emailUI = objControlsList.Controls.Where(x => x.UI_Type == UI_Types.TextBoxes && x.Field_ID == 35).ToList();
+                //List<Task_Controls> phoneUI = objControlsList.Controls.Where(x => x.UI_Type == UI_Types.TextBoxes && x.Field_ID == 34).ToList();
+                //foreach (Task_Controls ctrl in emailUI)
+                //{
+                //    TextBox email = (TextBox)ctrl.UI_Control;
+                //    if (!Utilities.IsValidEmail(email.Text))
+                //    {
+                //        ret.Validated = false;
+                //        ret.Reason = "Your email is not a valid email address";
+                //    }
+                //}
+                //foreach (Task_Controls ctrl in phoneUI)
+                //{
+                //    TextBox phone = (TextBox)ctrl.UI_Control;
+                //    if (!Utilities.IsValidPhoneNumber(phone.Text))
+                //    {
+                //        ret.Validated = false;
+                //        ret.Reason = "Your phone number is not valid";
+                //    }
+                //}
+                int[] contactNoArray = { 49, 89, 133, 146, 159, 172, 185, 211, 224, 237, 250, 263, 276, 289, 301 };
+                int[] emailArray = { 51, 91, 135, 148, 161, 174, 187, 213, 226, 239, 252, 265, 278, 291, 303 };
+
+                List<Task_Controls> emailUI = objControlsList.Controls.Where(x => x.UI_Type == UI_Types.TextBoxes && contactNoArray.Contains(x.Field_ID)).ToList();
+                List<Task_Controls> phoneUI = objControlsList.Controls.Where(x => x.UI_Type == UI_Types.TextBoxes && emailArray.Contains(x.Field_ID)).ToList();
+                List<Task_Controls> date1UI = objControlsList.Controls.Where(x => x.UI_Type == UI_Types.TextBoxes && x.Field_ID == 58).ToList();
+                List<Task_Controls> date2UI = objControlsList.Controls.Where(x => x.UI_Type == UI_Types.TextBoxes && x.Field_ID == 59).ToList();
+                foreach (Task_Controls ctrl in emailUI)
+                {
+                    TextBox email = (TextBox)ctrl.UI_Control;
+                    if (!Utilities.IsValidEmail(email.Text))
+                    {
+                        ret.Validated = false;
+                        ret.Reason = "Your email is not a valid email address";
+                    }
+                }
+                foreach (Task_Controls ctrl in phoneUI)
+                {
+                    TextBox phone = (TextBox)ctrl.UI_Control;
+                    if (!Utilities.IsValidPhoneNumber(phone.Text))
+                    {
+                        ret.Validated = false;
+                        ret.Reason = "Your phone number is not valid";
+                    }
+                }
+                foreach (Task_Controls date1 in date1UI)
+                {
+                    foreach (Task_Controls date2 in date2UI)
+                    {
+                        TextBox firstDate = (TextBox)date1.UI_Control;
+                        TextBox secondDate = (TextBox)date2.UI_Control;
+                        if (!Utilities.IsValidDateRange(firstDate.Text, secondDate.Text))
+                        {
+                            ret.Validated = false;
+                            ret.Reason = "Dates are not aligned";
+                        }
+                    }
+                }
+                //foreach (Task_Controls ctrl in phoneUI)
+                //{
+                //    TextBox phone = (TextBox)ctrl.UI_Control;
+                //    if (!Utilities.IsValidPhoneNumber(phone.Text))
+                //    {
+                //        ret.Validated = false;
+                //        ret.Reason = "Your phone number is not valid";
+                //    }
+                //}
             }
             //Content
             ret.Reason = objAct.CleanJavaScript(ret.Reason);

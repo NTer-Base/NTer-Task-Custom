@@ -20,14 +20,14 @@ namespace N_Ter_Task_Custom.Data.MySQL
         }
         public static bool IsValidPhoneNumber(string phone)
         {
-            Regex regex = new Regex(@"^\+\d{1,15}$");
+            Regex regex = new Regex(@"^\d{1,15}$");
 
             if (phone != null) return regex.IsMatch(phone);
             else return false;
         }
         public static bool IsValidInteger(dynamic value)
         {
-            if (value is int intValue && intValue >= 0)
+            if (int.TryParse(value, out int intValue) && intValue > 0)
             {
                 return true;
             }
