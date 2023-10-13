@@ -323,15 +323,17 @@ namespace N_Ter.MySQL.Customizable
                         "});\r\n" +
                         "function CheckQuotationStatus() {\r\n" +
                              "if ($('#Field_ID_379').val() == 'Confirmation of the inquiry'){\r\n" + // Only show the next fields when the quotation status is
-                                 "$('#ControlContainer_380').removeClass('hide');\r\n" +             // confirmation of inquiry
-                                 //"$('#Field_ID_380').prop('checked', false);\r\n" +
-                                 //"$('#Field_ID_380').parent().removeClass('checked');\r\n" +
-                                 //"$('#Field_ID_382').prop('checked', false);\r\n" +
-                                 //"$('#Field_ID_382').parent().removeClass('checked');\r\n" +
+                                 "$('#ControlContainer_381').removeClass('hide');\r\n" +             // confirmation of inquiry
+                                 //"$('#ControlContainer_381').addClass('hide');\r\n" +
+                                 "$('#ControlContainer_382').addClass('hide');\r\n" +
+                             //"$('#Field_ID_380').prop('checked', false);\r\n" +
+                             //"$('#Field_ID_380').parent().removeClass('checked');\r\n" +
+                             //"$('#Field_ID_382').prop('checked', false);\r\n" +
+                             //"$('#Field_ID_382').parent().removeClass('checked');\r\n" +
                              "}\r\n" +
                              "else {\r\n" +
-                                 "$('#ControlContainer_380').addClass('hide');\r\n" +
-                                 "$('#ControlContainer_381').addClass('hide');\r\n" +
+                                 //"$('#ControlContainer_380').addClass('hide');\r\n" +
+                                 //"$('#ControlContainer_381').addClass('hide');\r\n" +
                                  "$('#ControlContainer_382').addClass('hide');\r\n" +
                                  //"$('#Field_ID_380').prop('checked', false);\r\n" +
                                  //"$('#Field_ID_380').parent().removeClass('checked');\r\n" +
