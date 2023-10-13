@@ -318,43 +318,34 @@ namespace N_Ter.MySQL.Customizable
                         "$('#Field_ID_379').change(function() {\r\n" + // Quotation status selection
                                 "CheckQuotationStatus();\r\n" +
                         "});\r\n" +
-                        "$('#Field_ID_380').change(function() {\r\n" + // Confirmation sent checkbox
-                                "CheckConfirmationSent();\r\n" +
-                        "});\r\n" +
+                        //"$('#Field_ID_380').change(function() {\r\n" + // Confirmation sent checkbox
+                        //        "CheckConfirmationSent();\r\n" +
+                        //"});\r\n" +
                         "function CheckQuotationStatus() {\r\n" +
                              "if ($('#Field_ID_379').val() == 'Confirmation of the inquiry'){\r\n" + // Only show the next fields when the quotation status is
                                  "$('#ControlContainer_381').removeClass('hide');\r\n" +             // confirmation of inquiry
-                                 //"$('#ControlContainer_381').addClass('hide');\r\n" +
-                                 "$('#ControlContainer_382').addClass('hide');\r\n" +
-                             //"$('#Field_ID_380').prop('checked', false);\r\n" +
-                             //"$('#Field_ID_380').parent().removeClass('checked');\r\n" +
-                             //"$('#Field_ID_382').prop('checked', false);\r\n" +
-                             //"$('#Field_ID_382').parent().removeClass('checked');\r\n" +
+                                 "$('#ControlContainer_382').removeClass('hide');\r\n" +
                              "}\r\n" +
                              "else {\r\n" +
                                  //"$('#ControlContainer_380').addClass('hide');\r\n" +
-                                 //"$('#ControlContainer_381').addClass('hide');\r\n" +
+                                 "$('#ControlContainer_381').addClass('hide');\r\n" +
                                  "$('#ControlContainer_382').addClass('hide');\r\n" +
-                                 //"$('#Field_ID_380').prop('checked', false);\r\n" +
-                                 //"$('#Field_ID_380').parent().removeClass('checked');\r\n" +
-                                 //"$('#Field_ID_382').prop('checked', false);\r\n" +
-                                 //"$('#Field_ID_382').parent().removeClass('checked');\r\n" +
-                             "}\r\n" +   
-                         "}\r\n" +
-                         "function CheckConfirmationSent() {\r\n" +
-                            "if ($('#Field_ID_380').is(\":checked\")){\r\n" + // Confirmation sent checkbox
-                                 "$('#ControlContainer_381').removeClass('hide');\r\n" + // Upload amended quotation
-                                 "$('#ControlContainer_382').removeClass('hide');\r\n" + // Amend quotation sent checkbox
-                                 // "$('#Field_ID_382').prop('checked', false);\r\n" +   // Reset amended quotation sent checkbox to default value
-                                 //"$('#Field_ID_382').parent().removeClass('checked');\r\n" +
-                              "}\r\n" +
-                            "else {\r\n" +
-                                 "$('#ControlContainer_381').addClass('hide');\r\n" + // Upload amended quotation
-                                 "$('#ControlContainer_382').addClass('hide');\r\n" + // Amend quotation sent checkbox
-                                 //"$('#Field_ID_382').prop('checked', false);\r\n" +   // Uncheck amended quotation sent checkbox when coming from previous field
-                                 //"$('#Field_ID_382').parent().removeClass('checked');\r\n" + 
-                            "}\r\n" +
-                          "}\r\n";
+                             "}\r\n" +
+                         "}\r\n";
+                         //"function CheckConfirmationSent() {\r\n" +
+                         //   "if ($('#Field_ID_380').is(\":checked\")){\r\n" + // Confirmation sent checkbox
+                         //        //"$('#ControlContainer_381').removeClass('hide');\r\n" + // Upload amended quotation
+                         //        "$('#ControlContainer_382').removeClass('hide');\r\n" + // Amend quotation sent checkbox
+                         //        // "$('#Field_ID_382').prop('checked', false);\r\n" +   // Reset amended quotation sent checkbox to default value
+                         //        //"$('#Field_ID_382').parent().removeClass('checked');\r\n" +
+                         //     "}\r\n" +
+                         //   "else {\r\n" +
+                         //        //"$('#ControlContainer_381').addClass('hide');\r\n" + // Upload amended quotation
+                         //        "$('#ControlContainer_382').addClass('hide');\r\n" + // Amend quotation sent checkbox
+                         //        //"$('#Field_ID_382').prop('checked', false);\r\n" +   // Uncheck amended quotation sent checkbox when coming from previous field
+                         //        //"$('#Field_ID_382').parent().removeClass('checked');\r\n" + 
+                         //   "}\r\n" +
+                          //"}\r\n";
             }
 
             if (ds.tbltasks[0].Current_Step_ID == 113) // For step 2.2 Inquiry (Series group)
