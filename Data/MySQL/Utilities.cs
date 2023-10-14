@@ -61,16 +61,45 @@ namespace N_Ter_Task_Custom.Data.MySQL
 
             return false;
         }
-        public static bool IsPassportValid(string dateStr)
+        public static bool IsPassportEligible(string ppExipryDateStr, string travelStartDateStr)
+        {
+            DateTime ppExipryDate;
+            DateTime travelStartDate;
+
+            if (DateTime.TryParseExact(ppExipryDateStr, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out ppExipryDate) &&
+                DateTime.TryParseExact(travelStartDateStr, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out travelStartDate))
+            {
+                TimeSpan gap = travelStartDate - ppExipryDate;
+
+                return gap.TotalDays > 7 * 30;
+            }
+
+            return false;
+        }
+        public static bool IsPassportValid(string ppExipryDateStr, string travelStartDateStr)
+        {
+            DateTime ppExipryDate;
+            DateTime travelStartDate;
+
+            if (DateTime.TryParseExact(ppExipryDateStr, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out ppExipryDate) &&
+                DateTime.TryParseExact(travelStartDateStr, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out travelStartDate))
+            {
+                TimeSpan gap = travelStartDate - ppExipryDate;
+
+                return gap.TotalDays == 10 * 365;
+            }
+
+            return false;
+        }
+        public static bool IsDateValid(string dateStr)
         {
             DateTime date;
 
             if (DateTime.TryParseExact(dateStr, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out date))
             {
                 DateTime today = DateTime.Today;
-                TimeSpan gap = date - today;
 
-                return gap.TotalDays > 7 * 30;
+                return date > today;
             }
 
             return false;

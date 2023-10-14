@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI.WebControls;
+using DevExpress.ClipboardSource.SpreadsheetML;
 using N_Ter.Common;
 using N_Ter.Structures;
 using N_Ter_Task_Custom.Data.MySQL;
@@ -544,6 +545,24 @@ namespace N_Ter.MySQL.Customizable
                              "}\r\n" +
                          "}\r\n";
             }
+            if (ds.tbltasks[0].Current_Step_ID == 83)
+            {
+                ret = "init.push(function () {\r\n" +
+                                "DisplayPhoneNumber();\r\n" +
+                        "});\r\n" +
+                        "$('#Field_ID_441').change(function() {\r\n" +
+                                "DisplayPhoneNumber();\r\n" +
+                        "});\r\n" +
+                        "function DisplayPhoneNumber() {\r\n" +
+                                "if ($('#Field_ID_441').val() != '-'){\r\n" +
+                                    "$('#ControlContainer_34').removeClass('hide');\r\n" +
+                                "}\r\n" +
+                                "else {\r\n" +
+                                    "$('#ControlContainer_34').addClass('hide');\r\n" +
+                                "}\r\n" +
+                                "console.log($('#Field_ID_441').val())\r\n" +
+                        "}\r\n";
+            }
             if (ds.tbltasks[0].Current_Step_ID == 86)
             {
                 List<DS_Tasks.tbltask_historyRow> taskHistoryMatch = ds.tbltask_history.Where(x => x.Workflow_Step_ID == 86 && x.Task_ID == ds.tbltasks[0].Task_ID)
@@ -887,8 +906,8 @@ namespace N_Ter.MySQL.Customizable
                 List<Task_Controls> phoneUI = objControlsList.Controls.Where(x => x.UI_Type == UI_Types.TextBoxes && contactNoArray.Contains(x.Field_ID)).ToList();
                 List<Task_Controls> passportIssueDateUI = objControlsList.Controls.Where(x => x.UI_Type == UI_Types.TextBoxes && passportIssueDateArray.Contains(x.Field_ID)).ToList();
                 List<Task_Controls> passportExpiryDateUI = objControlsList.Controls.Where(x => x.UI_Type == UI_Types.TextBoxes && passportExpiryDateArray.Contains(x.Field_ID)).ToList();
-                List<Task_Controls> date1UI = objControlsList.Controls.Where(x => x.UI_Type == UI_Types.TextBoxes && x.Field_ID == 58).ToList();
-                List<Task_Controls> date2UI = objControlsList.Controls.Where(x => x.UI_Type == UI_Types.TextBoxes && x.Field_ID == 59).ToList();
+                List<Task_Controls> departureDateUI = objControlsList.Controls.Where(x => x.UI_Type == UI_Types.TextBoxes && x.Field_ID == 58).ToList();
+                List<Task_Controls> arrivalDateUI = objControlsList.Controls.Where(x => x.UI_Type == UI_Types.TextBoxes && x.Field_ID == 59).ToList();
                 foreach (Task_Controls ctrl in emailUI)
                 {
                     TextBox email = (TextBox)ctrl.UI_Control;
@@ -907,38 +926,54 @@ namespace N_Ter.MySQL.Customizable
                         ret.Reason = "Your phone number is not valid";
                     }
                 }
-                foreach (Task_Controls date1 in passportIssueDateUI)
+                if (passportExpiryDateUI.Count > 0)
                 {
-                    foreach (Task_Controls date2 in passportExpiryDateUI)
+                    foreach (Task_Controls date1 in passportIssueDateUI)
                     {
-                        TextBox firstDate = (TextBox)date1.UI_Control;
-                        TextBox secondDate = (TextBox)date2.UI_Control;
-                        if (!Utilities.IsValidDateRange(firstDate.Text, secondDate.Text))
+                        foreach (Task_Controls date2 in passportExpiryDateUI)
                         {
-                            ret.Validated = false;
-                            ret.Reason = "Passport expiry date should not come before passport issue date";
+                            TextBox firstDate = (TextBox)date1.UI_Control;
+                            TextBox secondDate = (TextBox)date2.UI_Control;
+                            if (!Utilities.IsValidDateRange(firstDate.Text, secondDate.Text))
+                            {
+                                ret.Validated = false;
+                                ret.Reason = "The passport's expiration date must be later than its issue date.";
+                            }
+                            if (!Utilities.IsDateValid(secondDate.Text))
+                            {
+                                ret.Validated = false;
+                                ret.Reason = "Passport expiry date must be a date in the future";
+                            }
                         }
                     }
                 }
-                foreach (Task_Controls ctrl in passportExpiryDateUI)
+                if (departureDateUI.Count > 0)
                 {
-                    TextBox date = (TextBox)ctrl.UI_Control;
-                    if (!Utilities.IsPassportValid(date.Text))
+                    foreach (Task_Controls date1 in arrivalDateUI)
                     {
-                        ret.Validated = false;
-                        ret.Reason = "Your passport expiry date is in less than 7 months.";
-                    }
-                }
-                foreach (Task_Controls date1 in date1UI)
-                {
-                    foreach (Task_Controls date2 in date2UI)
-                    {
-                        TextBox firstDate = (TextBox)date1.UI_Control;
-                        TextBox secondDate = (TextBox)date2.UI_Control;
-                        if (!Utilities.IsValidDateRange(firstDate.Text, secondDate.Text))
+                        foreach (Task_Controls date2 in passportExpiryDateUI)
                         {
-                            ret.Validated = false;
-                            ret.Reason = "Dates are not aligned";
+                            TextBox travelDate = (TextBox)date1.UI_Control;
+                            TextBox expiryDate = (TextBox)date2.UI_Control;
+                            if (!Utilities.IsPassportEligible(expiryDate.Text, travelDate.Text))
+                            {
+                                ret.Validated = false;
+                                ret.Reason = "Your passport expiry date is in less than 7 months.";
+                            }
+
+                        }
+                    }
+                    foreach (Task_Controls date1 in departureDateUI)
+                    {
+                        foreach (Task_Controls date2 in arrivalDateUI)
+                        {
+                            TextBox departureDate = (TextBox)date1.UI_Control;
+                            TextBox arrivalDate = (TextBox)date2.UI_Control;
+                            if (!Utilities.IsValidDateRange(arrivalDate.Text, departureDate.Text))
+                            {
+                                ret.Validated = false;
+                                ret.Reason = "Date of departure should not come before date of arrival";
+                            }
                         }
                     }
                 }

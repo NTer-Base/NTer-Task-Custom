@@ -501,7 +501,7 @@ namespace N_Ter.Customizable.UI
                     }
                     else if (taskInquiryTypes.Exists(x => x.Workflow_Step_Field_ID == 43))
                     {
-                        if (SPFieldsVisa.Contains(rowStepField.Workflow_Step_Field_ID))
+                        if (SPFieldsVisa.Take(5).Concat(SPFieldsVisa.Skip(5).Take(countryCountVal)).Concat(SPFieldsVisa.Skip(25)).Contains(rowStepField.Workflow_Step_Field_ID))
                         {
                             divMainRowControl.Controls.Add(objTskAct.GetTaskObject(objScripts, IsPostBack, objMasterTables, objSes.Currency_Sbl, dsWorkflow, dsTasks, rowStepField, ref _ControlsSet, ref strRequiredFieldValidation, ref strOldFieldValidation, ref rowWidth, ControlIndex, "GetHelp", false, true));
                             if (rowStepField.Help_Text.Trim() != "")
