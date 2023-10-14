@@ -544,6 +544,31 @@ namespace N_Ter.MySQL.Customizable
                              "}\r\n" +
                          "}\r\n";
             }
+            if (ds.tbltasks[0].Current_Step_ID == 86)
+            {
+                List<DS_Tasks.tbltask_historyRow> taskHistoryMatch = ds.tbltask_history.Where(x => x.Workflow_Step_ID == 86 && x.Task_ID == ds.tbltasks[0].Task_ID)
+                            .OrderByDescending(o => o.Task_Update_ID)
+                            .ToList();
+
+                List<DS_Tasks.tbltask_update_fieldsRow> taskInquiryHolidayType = ds.tbltask_update_fields.Where(x => x.Task_Update_ID == taskHistoryMatch[0].Task_Update_ID && x.Workflow_Step_Field_ID == 42 && x.Field_Value == "Yes")
+                                .OrderBy(y => y.Task_Update_Field_ID)
+                                .ToList();
+
+                ret = "init.push(function () {\r\n" +
+                                "IsVisaChecked();\r\n" +
+                        "});\r\n" +
+                        "$('#Field_ID_43').change(function() {\r\n" +
+                                "IsVisaChecked();\r\n" +
+                        "});\r\n" +
+                        "function IsVisaChecked() {\r\n" +
+                             "if ($('#Field_ID_43').is(\":checked\")){\r\n" +
+                                 "$('#ControlContainer_420').removeClass('hide');\r\n" +
+                             "}\r\n" +
+                             "else {\r\n" +
+                                 "$('#ControlContainer_420').addClass('hide');\r\n" +
+                             "}\r\n" +
+                         "}\r\n";
+            }
             if (ds.tbltasks[0].Current_Step_ID == 88)
             {
                 List<DS_Tasks.tbltask_historyRow> taskHistoryMatch = ds.tbltask_history.Where(x => x.Workflow_Step_ID == 86 && x.Task_ID == ds.tbltasks[0].Task_ID)
@@ -742,13 +767,13 @@ namespace N_Ter.MySQL.Customizable
                             .OrderByDescending(o => o.Task_Update_ID)
                             .ToList();
 
-                int[] countrySPFieldIDs = { 385, 386, 387, 388, 389, 390, 391, 392, 393, 394, 395, 396, 397, 398, 399, 400, 401, 402, 403, 404, 405, 406, 407, 408, 409, 410, 411, 412, 413, 414 };
+                int[] countrySPFieldIDs = { 421, 422, 423, 424, 425, 426, 427, 428, 429, 430, 431, 432, 433, 434, 435, 436, 437, 438, 439, 440 };
 
-                List<DS_Tasks.tbltask_update_fieldsRow> taskCountrySelected = ds.tbltask_update_fields.Where(x => x.Task_Update_ID == taskHistoryMatch[0].Task_Update_ID && countrySPFieldIDs.Contains(x.Workflow_Step_Field_ID) && x.Field_Value == "Yes")
+                List<DS_Tasks.tbltask_update_fieldsRow> taskCountrySelected = ds.tbltask_update_fields.Where(x => x.Task_Update_ID == taskHistoryMatch[0].Task_Update_ID && countrySPFieldIDs.Contains(x.Workflow_Step_Field_ID) && x.Field_Value != "")
                                 .OrderBy(y => y.Task_Update_Field_ID)
                                 .ToList();
 
-                string fieldNames = string.Join(", ", taskCountrySelected.Select(x => x.Field_Name));
+                string fieldNames = string.Join(", ", taskCountrySelected.Select(x => x.Field_Value));
 
                 ret = "$('#Field_ID_106').val('" + fieldNames + "');\r\n";
             }
@@ -830,6 +855,7 @@ namespace N_Ter.MySQL.Customizable
             {
                 //Validate pax count
                 List<Task_Controls> paxCountUI = objControlsList.Controls.Where(x => x.UI_Type == UI_Types.TextBoxes && x.Field_ID == 126).ToList();
+                List<Task_Controls> countryCountUI = objControlsList.Controls.Where(x => x.UI_Type == UI_Types.TextBoxes && x.Field_ID == 420).ToList();
                 foreach (Task_Controls ctrl in paxCountUI)
                 {
                     TextBox paxCount = (TextBox)ctrl.UI_Control;
@@ -837,6 +863,15 @@ namespace N_Ter.MySQL.Customizable
                     {
                         ret.Validated = false;
                         ret.Reason = "Pax count is not a valid number";
+                    }
+                }
+                foreach (Task_Controls ctrl in countryCountUI)
+                {
+                    TextBox countryCount = (TextBox)ctrl.UI_Control;
+                    if (!Utilities.IsValidInteger(countryCount.Text))
+                    {
+                        ret.Validated = false;
+                        ret.Reason = "No of countries should be a valid number";
                     }
                 }
             }
