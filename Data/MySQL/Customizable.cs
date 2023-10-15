@@ -326,11 +326,13 @@ namespace N_Ter.MySQL.Customizable
                              "if ($('#Field_ID_379').val() == 'Confirmation of the inquiry'){\r\n" + // Only show the next fields when the quotation status is
                                  "$('#ControlContainer_381').removeClass('hide');\r\n" +             // confirmation of inquiry
                                  "$('#ControlContainer_382').removeClass('hide');\r\n" +
+                                 "$('#ControlContainer_447').removeClass('hide');\r\n" +
                              "}\r\n" +
                              "else {\r\n" +
                                  //"$('#ControlContainer_380').addClass('hide');\r\n" +
                                  "$('#ControlContainer_381').addClass('hide');\r\n" +
                                  "$('#ControlContainer_382').addClass('hide');\r\n" +
+                                 "$('#ControlContainer_447').addClass('hide');\r\n" +
                              "}\r\n" +
                          "}\r\n";
                          //"function CheckConfirmationSent() {\r\n" +
@@ -796,7 +798,7 @@ namespace N_Ter.MySQL.Customizable
 
                 ret = "$('#Field_ID_106').val('" + fieldNames + "');\r\n";
             }
-                return ret;
+            return ret;
         }
 
 
