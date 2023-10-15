@@ -61,6 +61,11 @@ namespace N_Ter.Customizable.UI
                 //implement other screens
                 ShowClosingInquiryFields(dsTask, dsWorkflow, objSes, IsPostBack);
             }
+            else if (dsTask.tbltasks[0].Current_Step_ID == 107)
+            {
+                //implement other screens
+                ShowInboundNonSeriesInquiryFields(dsTask, dsWorkflow, objSes, IsPostBack);
+            }
             else
             {
                 LoadTaskDetails(objSes, dsWorkflow, dsTask, IsPostBack);
@@ -1009,6 +1014,168 @@ namespace N_Ter.Customizable.UI
                             divMainRowControl.Attributes.Add("class", "row padding-xs-hr");
                             rowWidth = 0;
                         }
+                    }
+                }
+            }
+            if (rowWidth > 0)
+            {
+                _Display.Controls.Add(divMainRowControl);
+            }
+
+            if (blnValidateOldFieds == true)
+            {
+                if (strOldFieldValidation.Length > 0)
+                {
+                    strOldFieldValidation = strOldFieldValidation.Substring(5);
+                    _PostElements.OldFieldsValidationScript = _PostElements.OldFieldsValidationScript + strOldFieldValidation + "else {" + "\r\n" +
+                                                                                                "return true;" + "\r\n" +
+                                                                                           "}" + "\r\n" +
+                                                                                       "}";
+                }
+                else
+                {
+                    _PostElements.OldFieldsValidationScript = _PostElements.OldFieldsValidationScript + "return true;" + "\r\n" +
+                                                              "}";
+                }
+            }
+
+            _PostElements.RequiredFieldsValidationScript = _PostElements.RequiredFieldsValidationScript + strRequiredFieldValidation + "return ret;" + "\r\n" +
+                                                                "}";
+
+            if (Help_Texts.Count > 0)
+            {
+                _PostElements.HaveHelpText = true;
+                objScripts.LoadHelpScripts(ref _HelpScript, ref _HelpPanelResizeScript, Help_Texts);
+            }
+
+            ObjectCreatorCustom.GetCustomizable(objSes.Connection, objSes.DB_Type).CustomTaskPostFormAdjustments(dsTask, ref _ControlsSet, objSes.PhysicalRoot, objSes.WebRoot, objSes.EnableReading);
+
+            objScripts.LoadFormulaScripts(ref _LoadingScript, ref _FormulaFieldsScript, objTskAct.GetControlNamePrefix(FieldOrigin.Task_Field), dsWorkflow.tblworkflow_formulas);
+            objScripts.LoadNextStepScript(ref _NextStepScript, _PostElements.Task_ID, _PostElements.Workflow_ID, _PostElements.CurrentStep_ID, dsWorkflow, _ControlsSet);
+        }
+        #endregion
+
+        #region Show Inbound (Non-Series) Inquiry Fields
+        protected void ShowInboundNonSeriesInquiryFields(DS_Tasks dsTask, DS_Workflow dsWorkflow, SessionObject objSes, bool IsPostBack)
+        {
+            _PostElements.ShowSubmitFooter = true;
+            _PostElements.ShowSaveFields = true;
+
+            bool blnValidateOldFieds = false;
+            string strOldFieldValidation = "";
+
+            Script_Generator objScripts = new Script_Generator();
+            if (dsWorkflow.tblworkflow_step_fields.Where(x => x.Validate_With_Field_ID > 0).Count() > 0)
+            {
+                blnValidateOldFieds = true;
+                _PostElements.OldFieldsValidationScript = "function ValidateWithOldField() {" + "\r\n";
+            }
+            else
+            {
+                _PostElements.OldFieldsValidationScript = "function ValidateWithOldField() {" + "\r\n" +
+                                                                "return true;" + "\r\n" +
+                                                          "}";
+            }
+
+            string strRequiredFieldValidation = "";
+            if (_PostElements.AddNewEL2 == true)
+            {
+                _PostElements.RequiredFieldsValidationScript = "function ValidatRequiredFields() {" + "\r\n" +
+                                                                    "remove_field_erros();" + "\r\n" +
+                                                                    "var ret = checkEL2()" + "\r\n";
+            }
+            else
+            {
+                _PostElements.RequiredFieldsValidationScript = "function ValidatRequiredFields() {" + "\r\n" +
+                                                                    "remove_field_erros();" + "\r\n" +
+                                                                    "var ret = true;" + "\r\n";
+            }
+
+            _PostElements.RequiredFieldsValidationScript = _PostElements.RequiredFieldsValidationScript + ObjectCreatorCustom.GetCustomizable(objSes.Connection, objSes.DB_Type).CustomTaskPostScripts(dsTask, objSes.PhysicalRoot, objSes.WebRoot, objSes.EnableReading);
+
+            _ControlsSet.Task_ID = dsTask.tbltasks[0].Task_ID;
+            _ControlsSet.Current_Step_ID = dsTask.tbltasks[0].Current_Step_ID;
+
+            int ControlIndex = 0;
+            List<string> Help_Texts = new List<string>();
+
+            N_Ter.Customizable.Master_Tables objMasterTables = new N_Ter.Customizable.Master_Tables(objSes.Connection, objSes.DB_Type);
+            Common_Task_Actions objTskAct = new Common_Task_Actions();
+
+            List<DS_Tasks> dsTasks = new List<DS_Tasks>();
+            dsTasks.Add(dsTask);
+
+            System.Web.UI.HtmlControls.HtmlGenericControl divMainRowControl = new System.Web.UI.HtmlControls.HtmlGenericControl("div");
+            divMainRowControl.Attributes.Add("class", "row padding-xs-hr");
+            int rowWidth = 0;
+
+            List<DS_Tasks.tbltask_historyRow> taskHistoryMatch = dsTask.tbltask_history.Where(x => x.Workflow_Step_ID == 123 && x.Task_ID == dsTask.tbltasks[0].Task_ID)
+                            .OrderByDescending(o => o.Task_Update_ID)
+                            .ToList();
+
+            List<DS_Tasks.tbltask_update_fieldsRow> hotelCount = dsTask.tbltask_update_fields.Where(x => x.Task_Update_ID == taskHistoryMatch[0].Task_Update_ID && x.Workflow_Step_Field_ID == 447)
+                            .OrderBy(y => y.Task_Update_Field_ID)
+                            .ToList();
+
+            int hotelCountVal = 0;
+            if (hotelCount.Count > 0)
+            {
+                hotelCountVal = int.Parse(hotelCount[0].Field_Value);
+            }
+
+            int[] SPFieldsHotels = { 322, 448, 449, 450, 451, 452, 453, 454, 455, 456, 457, 458, 459, 460, 461 };
+            int[] SPFieldsHotelAvailable = { 323, 462, 463, 464, 465, 466, 467, 468, 469, 470, 471, 472, 473, 474, 475 };
+            int[] SPFieldsCommon = { 324, 325, 326, 327 };
+
+            _Display.CssClass = "row";
+            foreach (DS_Workflow.tblworkflow_step_fieldsRow rowStepField in dsWorkflow.tblworkflow_step_fields)
+            {
+                if (SPFieldsCommon.Contains(rowStepField.Workflow_Step_Field_ID))
+                {
+                    divMainRowControl.Controls.Add(objTskAct.GetTaskObject(objScripts, IsPostBack, objMasterTables, objSes.Currency_Sbl, dsWorkflow, dsTasks, rowStepField, ref _ControlsSet, ref strRequiredFieldValidation, ref strOldFieldValidation, ref rowWidth, ControlIndex, "GetHelp", false, true));
+                    if (rowStepField.Help_Text.Trim() != "")
+                    {
+                        Help_Texts.Add(rowStepField.Field_Name + "|" + rowStepField.Help_Text);
+                        ControlIndex++;
+                    }
+                    if (rowWidth == 12)
+                    {
+                        _Display.Controls.Add(divMainRowControl);
+                        divMainRowControl = new System.Web.UI.HtmlControls.HtmlGenericControl("div");
+                        divMainRowControl.Attributes.Add("class", "row padding-xs-hr");
+                        rowWidth = 0;
+                    }
+                }
+                if (SPFieldsHotels.Take(hotelCountVal).Contains(rowStepField.Workflow_Step_Field_ID))
+                {
+                    divMainRowControl.Controls.Add(objTskAct.GetTaskObject(objScripts, IsPostBack, objMasterTables, objSes.Currency_Sbl, dsWorkflow, dsTasks, rowStepField, ref _ControlsSet, ref strRequiredFieldValidation, ref strOldFieldValidation, ref rowWidth, ControlIndex, "GetHelp", false, true));
+                    if (rowStepField.Help_Text.Trim() != "")
+                    {
+                        Help_Texts.Add(rowStepField.Field_Name + "|" + rowStepField.Help_Text);
+                        ControlIndex++;
+                    }
+                    if (rowWidth == 12)
+                    {
+                        _Display.Controls.Add(divMainRowControl);
+                        divMainRowControl = new System.Web.UI.HtmlControls.HtmlGenericControl("div");
+                        divMainRowControl.Attributes.Add("class", "row padding-xs-hr");
+                        rowWidth = 0;
+                    }
+                }
+                if (SPFieldsHotelAvailable.Take(hotelCountVal).Contains(rowStepField.Workflow_Step_Field_ID))
+                {
+                    divMainRowControl.Controls.Add(objTskAct.GetTaskObject(objScripts, IsPostBack, objMasterTables, objSes.Currency_Sbl, dsWorkflow, dsTasks, rowStepField, ref _ControlsSet, ref strRequiredFieldValidation, ref strOldFieldValidation, ref rowWidth, ControlIndex, "GetHelp", false, true));
+                    if (rowStepField.Help_Text.Trim() != "")
+                    {
+                        Help_Texts.Add(rowStepField.Field_Name + "|" + rowStepField.Help_Text);
+                        ControlIndex++;
+                    }
+                    if (rowWidth == 12)
+                    {
+                        _Display.Controls.Add(divMainRowControl);
+                        divMainRowControl = new System.Web.UI.HtmlControls.HtmlGenericControl("div");
+                        divMainRowControl.Attributes.Add("class", "row padding-xs-hr");
+                        rowWidth = 0;
                     }
                 }
             }
