@@ -798,6 +798,13 @@ namespace N_Ter.MySQL.Customizable
 
                 ret = "$('#Field_ID_106').val('" + fieldNames + "');\r\n";
             }
+            ret += "$('[id^=\"ControlContainer_\"]').each(function() {\r\n" +
+                   "  $(this).find('span').each(function() {\r\n" +
+                   "    var innerHTML = $(this).html();\r\n" +
+                   "    innerHTML = innerHTML.replace('*', '<span style=\"color: red\">*</span>');\r\n" +
+                   "    $(this).html(innerHTML);\r\n" +
+                   "  });\r\n" +
+                   "});\r\n";
             return ret;
         }
 
