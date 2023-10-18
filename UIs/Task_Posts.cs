@@ -351,7 +351,7 @@ namespace N_Ter.Customizable.UI
             }
 
             int countryCountVal = 0;
-            if (countryCount.Count > 0)
+            if (countryCount[0].Field_Value != "")
             {
                 countryCountVal = int.Parse(countryCount[0].Field_Value);
             }

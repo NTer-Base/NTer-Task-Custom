@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI.WebControls;
 using DevExpress.ClipboardSource.SpreadsheetML;
+using DevExpress.XtraPrinting.Shape.Native;
 using N_Ter.Common;
 using N_Ter.Structures;
 using N_Ter_Task_Custom.Data.MySQL;
 using N_Ter_Task_Data_Structures.DataSets;
+using Org.BouncyCastle.Asn1.X509;
 
 namespace N_Ter.MySQL.Customizable
 {
@@ -587,6 +589,7 @@ namespace N_Ter.MySQL.Customizable
                              "}\r\n" +
                              "else {\r\n" +
                                  "$('#ControlContainer_420').addClass('hide');\r\n" +
+                                 "$('#Field_ID_420').val('');\r\n" +
                              "}\r\n" +
                          "}\r\n";
             }
@@ -798,6 +801,28 @@ namespace N_Ter.MySQL.Customizable
 
                 ret = "$('#Field_ID_106').val('" + fieldNames + "');\r\n";
             }
+            if (ds.tbltasks[0].Current_Step_ID == 120)
+            {
+                List<DS_Tasks.tbltask_historyRow> taskHistoryMatch = ds.tbltask_history.Where(x => x.Workflow_Step_ID == 115 && x.Task_ID == ds.tbltasks[0].Task_ID)
+                            .OrderByDescending(o => o.Task_Update_ID)
+                            .ToList();
+
+                List<DS_Tasks.tbltask_update_fieldsRow> sharedFolderLink = ds.tbltask_update_fields.Where(x => x.Task_Update_ID == taskHistoryMatch[0].Task_Update_ID && x.Workflow_Step_Field_ID == 476)
+                                .OrderBy(y => y.Task_Update_Field_ID)
+                .ToList();
+
+                string sharedFolderLinkVal = "";
+                if (sharedFolderLink.Count > 0)
+                {
+                    sharedFolderLinkVal = sharedFolderLink[0].Field_Value;
+                }
+
+                string textToFind = "Click here for the link to the shared folder";
+
+                ret = "$('.col-md-12.h4:contains(\"" + textToFind + "\")')\r\n" +
+                        ".html('<a href=\"" + sharedFolderLinkVal + "\" target=\"_blank\">" + textToFind + "</a>');\r\n";
+
+            }
             return ret;
         }
 
@@ -886,15 +911,22 @@ namespace N_Ter.MySQL.Customizable
                         ret.Reason = "Pax count is not a valid number";
                     }
                 }
-                foreach (Task_Controls ctrl in countryCountUI)
+                if (countryCountUI.Count > 0)
                 {
-                    TextBox countryCount = (TextBox)ctrl.UI_Control;
-                    if (!Utilities.IsValidInteger(countryCount.Text))
+                    foreach (Task_Controls ctrl in countryCountUI)
                     {
-                        ret.Validated = false;
-                        ret.Reason = "No of countries should be a valid number";
+                        TextBox countryCount = (TextBox)ctrl.UI_Control;
+                        if(countryCount.Text != "")
+                        {
+                            if (!Utilities.IsValidInteger(countryCount.Text))
+                            {
+                                ret.Validated = false;
+                                ret.Reason = "No of countries should be a valid number";
+                            }
+                        }                      
                     }
                 }
+                
             }
             if (Current_Step_ID == 87)
             {

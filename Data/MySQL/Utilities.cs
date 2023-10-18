@@ -70,8 +70,9 @@ namespace N_Ter_Task_Custom.Data.MySQL
                 DateTime.TryParseExact(travelStartDateStr, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out travelStartDate))
             {
                 TimeSpan gap = travelStartDate - ppExipryDate;
+                TimeSpan absoluteGap = TimeSpan.FromTicks(Math.Abs(gap.Ticks));
 
-                return gap.TotalDays > 7 * 30;
+                return absoluteGap.TotalDays > 7 * 30;
             }
 
             return false;
