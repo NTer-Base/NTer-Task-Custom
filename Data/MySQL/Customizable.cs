@@ -593,6 +593,8 @@ namespace N_Ter.MySQL.Customizable
                              "}\r\n" +
                          "}\r\n";
             }
+
+            //3.1 Payment Process
             if (ds.tbltasks[0].Current_Step_ID == 88)
             {
                 List<DS_Tasks.tbltask_historyRow> taskHistoryMatch = ds.tbltask_history.Where(x => x.Workflow_Step_ID == 86 && x.Task_ID == ds.tbltasks[0].Task_ID)
@@ -615,10 +617,10 @@ namespace N_Ter.MySQL.Customizable
                         "$('#Field_ID_73').change(function() {\r\n" +
                                 "DisplayCashFields();\r\n" +
                         "});\r\n" +
-                        "$('#Field_ID_74').change(function() {\r\n" +
+                        "$('#Field_ID_74').change(function() {\r\n" + 
                                 "DisplayVoucherField();\r\n" +
                         "});\r\n" +
-                        "$('#Field_ID_78').change(function() {\r\n" +
+                        "$('#Field_ID_78').change(function() {\r\n" + 
                                 "DisplayCreditFields();\r\n" +
                         "});\r\n" +
                         "function CheckPaymentType() {\r\n" +
@@ -644,9 +646,9 @@ namespace N_Ter.MySQL.Customizable
                              "}\r\n" +
                              "else if ($('#Field_ID_71').val() == 'Credit'){\r\n" +
                                  "$('#ControlContainer_78').removeClass('hide');\r\n" +
+                                 "$('#ControlContainer_74').removeClass('hide');\r\n" +
                                  "$('#ControlContainer_72').addClass('hide');\r\n" +
                                  "$('#ControlContainer_73').addClass('hide');\r\n" +
-                                 "$('#ControlContainer_74').addClass('hide');\r\n" +
                                  "$('#ControlContainer_75').addClass('hide');\r\n" +
                                  "$('#ControlContainer_79').addClass('hide');\r\n" +
                                  "$('#ControlContainer_80').addClass('hide');\r\n" +
@@ -721,7 +723,7 @@ namespace N_Ter.MySQL.Customizable
                              //"$('#Field_ID_75').val('');\r\n" +
                              "}\r\n" +
                          "}\r\n" +
-                         "function DisplayCreditFields() {\r\n" +
+                         "function DisplayCreditFields() {\r\n" + 
                              "if ($('#Field_ID_78').is(\":checked\")){\r\n" +
                                  "$('#ControlContainer_79').removeClass('hide');\r\n" +
                                  "$('#ControlContainer_74').removeClass('hide');\r\n" +
@@ -730,8 +732,8 @@ namespace N_Ter.MySQL.Customizable
                              //"$('#Field_ID_75').val('');\r\n" +
                              "}\r\n" +
                              "else {\r\n" +
+                                 "$('#ControlContainer_74').removeClass('hide');\r\n" +
                                  "$('#ControlContainer_79').addClass('hide');\r\n" +
-                                 "$('#ControlContainer_74').addClass('hide');\r\n" +
                                  "$('#ControlContainer_75').addClass('hide');\r\n" +
                                  "$('#ControlContainer_416').addClass('hide');\r\n" +
                              //"$('#Field_ID_74').prop('checked', false);\r\n" +
