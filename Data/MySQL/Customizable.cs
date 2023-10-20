@@ -9,6 +9,7 @@ using N_Ter.Structures;
 using N_Ter_Task_Custom.Data.MySQL;
 using N_Ter_Task_Data_Structures.DataSets;
 using Org.BouncyCastle.Asn1.X509;
+using static Google.Protobuf.Reflection.UninterpretedOption.Types;
 
 namespace N_Ter.MySQL.Customizable
 {
@@ -551,6 +552,19 @@ namespace N_Ter.MySQL.Customizable
             }
             if (ds.tbltasks[0].Current_Step_ID == 83)
             {
+                Users objUser = new Users(_strConnectionString);
+                DS_Users dsUsr = objUser.ReadForGroup(4); // Reading Outbound Team User Group
+
+                List<DS_Users.tblusersRow> assignedUserRow = dsUsr.tblusers
+                                    .ToList();
+
+                //var userOptions = "$('<option></option>').attr('value', '-').text('-');\r\n";
+
+                //foreach (var user in assignedUserRow)
+                //{
+                //    userOptions += "$('<option></option>').attr('value', '" + user.Full_Name + "').text('" + user.Full_Name + "');\r\n";
+                //}
+
                 ret = "init.push(function () {\r\n" +
                                 "DisplayPhoneNumber();\r\n" +
                         "});\r\n" +
@@ -564,8 +578,14 @@ namespace N_Ter.MySQL.Customizable
                                 "else {\r\n" +
                                     "$('#ControlContainer_34').addClass('hide');\r\n" +
                                 "}\r\n" +
-                                "console.log($('#Field_ID_441').val())\r\n" +
                         "}\r\n";
+                ret += "$('#Field_ID_745').empty();\r\n" +
+                       "$('<option></option>').attr('value', '-').text('-').appendTo('#Field_ID_745');\r\n";
+
+                foreach (var user in assignedUserRow)
+                {
+                    ret += "$('<option></option>').attr('value', '" + user.Full_Name + "').text('" + user.Full_Name + "').appendTo('#Field_ID_745');\r\n";
+                }
             }
             if (ds.tbltasks[0].Current_Step_ID == 86)
             {
@@ -851,6 +871,46 @@ namespace N_Ter.MySQL.Customizable
         public override void CustomTaskPostActions(DS_Tasks dsTS, int User_ID, string PhysicalRootFolder, string WebRootFolder, bool AtBeginingOfStep, string CurrencySymbol, bool ReadContent)
         {
             //content
+            Users objUser = new Users(_strConnectionString);
+            DS_Users dsUsr = objUser.ReadForGroup(4); // Reading Outbound Team User Group
+
+            Tasks objTask = new Tasks(_strConnectionString, PhysicalRootFolder, WebRootFolder, ReadContent);
+            //DS_Users dS_Users = new DS_Users();
+
+            if (!AtBeginingOfStep)
+            {
+                if (dsTS.tbltasks[0].Current_Step_ID == 83)
+                {
+
+                    List<DS_Tasks.tbltask_historyRow> taskHistoryMatch = dsTS.tbltask_history.Where(x => x.Workflow_Step_ID == 83 && x.Task_ID == dsTS.tbltasks[0].Task_ID)
+                           .OrderByDescending(o => o.Task_Update_ID)
+                           .ToList();
+
+                    List<DS_Tasks.tbltask_update_fieldsRow> taskAssigneeField = dsTS.tbltask_update_fields.Where(x => x.Task_Update_ID == taskHistoryMatch[0].Task_Update_ID && x.Workflow_Step_Field_ID == 745)
+                                    .OrderBy(y => y.Task_Update_Field_ID)
+                                    .ToList();
+
+                    string assigneeFullName = "";
+                    if (taskAssigneeField.Count() > 0)
+                    {
+                        assigneeFullName = taskAssigneeField[0].Field_Value;
+                    }
+
+                    List<DS_Users.tblusersRow> assignedUserRow = dsUsr.tblusers.Where(x => x.Full_Name == assigneeFullName)
+                                    .ToList();
+
+                    DS_Tasks.tbltasksRow activeTask = dsTS.tbltasks.FirstOrDefault(x => x.Task_ID == dsTS.tbltasks[0].Task_ID);
+
+                    bool isTaskedAssigned = false;
+
+                    if (activeTask != null && assignedUserRow.Count>0)
+                    {
+                        isTaskedAssigned = objTask.Update_Task_Lock(dsTS.tbltasks[0].Task_ID, taskHistoryMatch[0].Task_Update_ID, assignedUserRow[0].User_ID);
+                    }
+
+                    if (isTaskedAssigned) dsTS.AcceptChanges();
+                }
+            }
         }
 
         /// <summary>
@@ -932,7 +992,6 @@ namespace N_Ter.MySQL.Customizable
             }
             if (Current_Step_ID == 87)
             {
-                //Validate date of exipiry
                 int[] contactNoArray = { 49, 89, 133, 146, 159, 172, 185, 211, 224, 237, 250, 263, 276, 289, 301 };
                 int[] emailArray = { 51, 91, 135, 148, 161, 174, 187, 213, 226, 239, 252, 265, 278, 291, 303 };
                 int[] passportIssueDateArray = { 47, 87, 131, 144, 158, 170, 183, 209, 222, 235, 248, 261, 272, 287, 299 };
@@ -985,7 +1044,7 @@ namespace N_Ter.MySQL.Customizable
                 }
                 if (departureDateUI.Count > 0)
                 {
-                    foreach (Task_Controls date1 in arrivalDateUI)
+                    foreach (Task_Controls date1 in departureDateUI)
                     {
                         foreach (Task_Controls date2 in passportExpiryDateUI)
                         {
@@ -1005,10 +1064,10 @@ namespace N_Ter.MySQL.Customizable
                         {
                             TextBox departureDate = (TextBox)date1.UI_Control;
                             TextBox arrivalDate = (TextBox)date2.UI_Control;
-                            if (!Utilities.IsValidDateRange(arrivalDate.Text, departureDate.Text))
+                            if (!Utilities.IsValidDateRange(departureDate.Text, arrivalDate.Text))
                             {
                                 ret.Validated = false;
-                                ret.Reason = "Date of departure should not come before date of arrival";
+                                ret.Reason = "Date of arrival should not come before date of departure";
                             }
                         }
                     }
