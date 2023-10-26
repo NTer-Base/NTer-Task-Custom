@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web.UI.WebControls;
 using DevExpress.ClipboardSource.SpreadsheetML;
 using DevExpress.XtraPrinting.Shape.Native;
@@ -558,18 +559,14 @@ namespace N_Ter.MySQL.Customizable
                 List<DS_Users.tblusersRow> assignedUserRow = dsUsr.tblusers
                                     .ToList();
 
-                //var userOptions = "$('<option></option>').attr('value', '-').text('-');\r\n";
-
-                //foreach (var user in assignedUserRow)
-                //{
-                //    userOptions += "$('<option></option>').attr('value', '" + user.Full_Name + "').text('" + user.Full_Name + "');\r\n";
-                //}
-
                 ret = "init.push(function () {\r\n" +
                                 "DisplayPhoneNumber();\r\n" +
                         "});\r\n" +
                         "$('#Field_ID_441').change(function() {\r\n" +
                                 "DisplayPhoneNumber();\r\n" +
+                        "});\r\n" +
+                        "$('#Field_ID_745').change(function() {\r\n" +
+                                "AppendEmail();\r\n" +
                         "});\r\n" +
                         "function DisplayPhoneNumber() {\r\n" +
                                 "if ($('#Field_ID_441').val() != '-'){\r\n" +
@@ -578,13 +575,18 @@ namespace N_Ter.MySQL.Customizable
                                 "else {\r\n" +
                                     "$('#ControlContainer_34').addClass('hide');\r\n" +
                                 "}\r\n" +
+                        "}\r\n" +
+                        "function AppendEmail() {\r\n" +
+                                "var username = $('#Field_ID_745 option:selected').text().split(' - ')[1];\r\n" +
+                                "$('#Field_ID_757').val(username);\r\n" +
                         "}\r\n";
-                ret += "$('#Field_ID_745').empty();\r\n" +
+                ret += "$('#ControlContainer_757').addClass('hide');\r\n" +
+                       "$('#Field_ID_745').empty();\r\n" +
                        "$('<option></option>').attr('value', '-').text('-').appendTo('#Field_ID_745');\r\n";
 
                 foreach (var user in assignedUserRow)
                 {
-                    ret += "$('<option></option>').attr('value', '" + user.Full_Name + "').text('" + user.Full_Name + "').appendTo('#Field_ID_745');\r\n";
+                    ret += "$('<option></option>').attr('value', '" + user.Full_Name + "').text('" + user.Full_Name + " - " + user.Username + "').appendTo('#Field_ID_745');\r\n";
                 }
             }
             if (ds.tbltasks[0].Current_Step_ID == 86)
@@ -823,6 +825,22 @@ namespace N_Ter.MySQL.Customizable
 
                 ret = "$('#Field_ID_106').val('" + fieldNames + "');\r\n";
             }
+            if (ds.tbltasks[0].Current_Step_ID == 125)
+            {
+                List<DS_Tasks.tbltask_historyRow> taskHistoryMatch = ds.tbltask_history.Where(x => x.Workflow_Step_ID == 87 && x.Task_ID == ds.tbltasks[0].Task_ID)
+                            .OrderByDescending(o => o.Task_Update_ID)
+                            .ToList();
+
+                int[] countrySPFieldIDs = { 421, 422, 423, 424, 425, 426, 427, 428, 429, 430, 431, 432, 433, 434, 435, 436, 437, 438, 439, 440 };
+
+                List<DS_Tasks.tbltask_update_fieldsRow> taskCountrySelected = ds.tbltask_update_fields.Where(x => x.Task_Update_ID == taskHistoryMatch[0].Task_Update_ID && countrySPFieldIDs.Contains(x.Workflow_Step_Field_ID) && x.Field_Value != "")
+                                .OrderBy(y => y.Task_Update_Field_ID)
+                                .ToList();
+
+                string fieldNames = string.Join(", ", taskCountrySelected.Select(x => x.Field_Value));
+
+                ret = "$('#Field_ID_685').val('" + fieldNames + "');\r\n";
+            }
             if (ds.tbltasks[0].Current_Step_ID == 120)
             {
                 List<DS_Tasks.tbltask_historyRow> taskHistoryMatch = ds.tbltask_history.Where(x => x.Workflow_Step_ID == 115 && x.Task_ID == ds.tbltasks[0].Task_ID)
@@ -844,6 +862,76 @@ namespace N_Ter.MySQL.Customizable
                 ret = "$('.col-md-12.h4:contains(\"" + textToFind + "\")')\r\n" +
                         ".html('<a href=\"" + sharedFolderLinkVal + "\" target=\"_blank\">" + textToFind + "</a>');\r\n";
 
+            }
+            if (ds.tbltasks[0].Current_Step_ID == 121)
+            {
+                ret = "init.push(function() {\r\n" +
+                                "ConfirmQuotation();\r\n" +
+                       "});\r\n" +
+                      "$('#Field_ID_375').change(function() {\r\n" +
+                                "ConfirmQuotation();\r\n" +
+                      "});\r\n" +
+                      "function ConfirmQuotation() {\r\n" +
+                          "if (!$('#Field_ID_375').is(':checked')) {\r\n" +
+                                "$('#contBody_contBody_contBody_cmdSubmit').click(function(){\r\n" +
+                                        "var answer = confirm('Are you sure you want to close the booking?');\r\n" +
+                                        "if (!answer) { return false; }\r\n" +
+                                "});\r\n" +
+                          "} else {\r\n" +
+                                "$('#contBody_contBody_contBody_cmdSubmit').off('click');\r\n" +
+                          "}\r\n" +
+                      "}";
+            }
+            if (ds.tbltasks[0].Current_Step_ID == 122)
+            {
+                ret = "init.push(function() {\r\n" +
+                                "ConfirmQuotation();\r\n" +
+                       "});\r\n" +
+                      "$('#Field_ID_376').change(function() {\r\n" +
+                                "ConfirmQuotation();\r\n" +
+                      "});\r\n" +
+                      "function ConfirmQuotation() {\r\n" +
+                          "if (!$('#Field_ID_376').is(':checked')) {\r\n" +
+                                "$('#contBody_contBody_contBody_cmdSubmit').click(function(){\r\n" +
+                                        "var answer = confirm('Are you sure you want to close the booking?');\r\n" +
+                                        "if (!answer) { return false; }\r\n" +
+                                "});\r\n" +
+                          "} else {\r\n" +
+                                "$('#contBody_contBody_contBody_cmdSubmit').off('click');\r\n" +
+                          "}\r\n" +
+                      "}";
+            }
+            if (ds.tbltasks[0].Current_Step_ID == 100)
+            {
+                ret = "init.push(function() {\r\n" +
+                                "$('#contBody_contBody_contBody_cmdSubmit').click(function(){\r\n" +
+                                        "var answer = confirm('Are you sure you want to send the email?');\r\n" +
+                                        "if (!answer) { return false; }\r\n" +
+                                "});\r\n" +
+                       "});\r\n";
+            }
+            if (ds.tbltasks[0].Current_Step_ID == 101)
+            {
+                ret = "init.push(function() {\r\n" +
+                                "CloseBooking();\r\n" +
+                       "});\r\n" +
+                      "$('#Field_ID_116').change(function() {\r\n" +
+                                "CloseBooking();\r\n" +
+                      "});\r\n" +
+                      "$('#Field_ID_125').change(function() {\r\n" +
+                                "CloseBooking();\r\n" +
+                      "});\r\n" +
+
+                      "function CloseBooking() {\r\n" +
+                          "if ((!$('#Field_ID_116').is(':checked')) && (!$('#Field_ID_125').is(':checked'))) {\r\n" +
+                                "$('#contBody_contBody_contBody_cmdSubmit').click(function(){\r\n" +
+                                        "var answer = confirm('Are you sure you want to close the booking?');\r\n" +
+                                        "if (!answer) { return false; }\r\n" +
+                                "});\r\n" +
+                          "} else {\r\n" +
+                                "$('#contBody_contBody_contBody_cmdSubmit').off('click');\r\n" +
+                          "}\r\n" +
+                      "}";
             }
             return ret;
         }
