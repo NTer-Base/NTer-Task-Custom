@@ -933,6 +933,30 @@ namespace N_Ter.MySQL.Customizable
                           "}\r\n" +
                       "}";
             }
+            if (ds.tbltasks[0].Current_Step_ID == 103)
+            {
+                Users objUser = new Users(_strConnectionString);
+                DS_Users dsUsr = objUser.ReadForGroup(8); // Reading Outbound Team User Group
+
+                List<DS_Users.tblusersRow> assignedUserRow = dsUsr.tblusers
+                                    .ToList();
+
+                ret = "$('#Field_ID_759').change(function() {\r\n" +
+                              "AppendEmail();\r\n" +
+                      "});\r\n" +
+                      "function AppendEmail() {\r\n" +
+                              "var username = $('#Field_ID_759 option:selected').text().split(' - ')[1];\r\n" +
+                              "$('#Field_ID_761').val(username);\r\n" +
+                      "}\r\n" +
+                      "$('#ControlContainer_761').addClass('hide');\r\n" +
+                      "$('#Field_ID_759').empty();\r\n" +
+                      "$('<option></option>').attr('value', '-').text('-').appendTo('#Field_ID_759');\r\n";
+
+                foreach (var user in assignedUserRow)
+                {
+                    ret += "$('<option></option>').attr('value', '" + user.Full_Name + "').text('" + user.Full_Name + " - " + user.Username + "').appendTo('#Field_ID_759');\r\n";
+                }
+            }
             return ret;
         }
 
