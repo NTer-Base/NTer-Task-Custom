@@ -37,16 +37,6 @@ namespace N_Ter.Customizable
         {
             DS_Extra_Sections ds = new DS_Extra_Sections();
             DS_Extra_Sections.tblCategoriesRow dr = ds.tblCategories.NewtblCategoriesRow();
-            dr.Category_ID = 1;
-            dr.Category_Name = "Section 1";
-            dr.Icon_CSS = "fa-cogs";
-            ds.tblCategories.Rows.Add(dr);
-
-            dr = ds.tblCategories.NewtblCategoriesRow();
-            dr.Category_ID = 2;
-            dr.Category_Name = "Section 2";
-            dr.Icon_CSS = "fa-cogs";
-            ds.tblCategories.Rows.Add(dr);
 
             return ds;
         }
