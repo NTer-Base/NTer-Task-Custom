@@ -1014,7 +1014,7 @@ namespace N_Ter.MySQL.Customizable
             {
                 int[] contactNoArray = { 49, 89, 133, 146, 159, 172, 185, 211, 224, 237, 250, 263, 276, 289, 301 };
                 int[] emailArray = { 51, 91, 135, 148, 161, 174, 187, 213, 226, 239, 252, 265, 278, 291, 303 };
-                int[] passportIssueDateArray = { 47, 87, 131, 144, 158, 170, 183, 209, 222, 235, 248, 261, 272, 287, 299 };
+                int[] passportIssueDateArray = { 47, 131, 144, 157, 170, 183, 196, 209, 222, 235, 248, 261, 274, 287, 299 };
                 int[] passportExpiryDateArray = { 48, 132, 145, 158, 171, 184, 197, 210, 223, 236, 249, 262, 275, 288, 300 };
 
                 List<Task_Controls> emailUI = objControlsList.Controls.Where(x => x.UI_Type == UI_Types.TextBoxes && emailArray.Contains(x.Field_ID)).ToList();
