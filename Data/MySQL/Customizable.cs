@@ -619,18 +619,31 @@ namespace N_Ter.MySQL.Customizable
             //3.1 Payment Process
             if (ds.tbltasks[0].Current_Step_ID == 88)
             {
-                List<DS_Tasks.tbltask_historyRow> taskHistoryMatch = ds.tbltask_history.Where(x => x.Workflow_Step_ID == 86 && x.Task_ID == ds.tbltasks[0].Task_ID)
-                            .OrderByDescending(o => o.Task_Update_ID)
-                            .ToList();
+                Users objUser = new Users(_strConnectionString);
+                DS_Users dsUsr = objUser.ReadForGroup(8); // Reading Outbound Team User Group
 
-                List<DS_Tasks.tbltask_update_fieldsRow> taskInquiryHolidayType = ds.tbltask_update_fields.Where(x => x.Task_Update_ID == taskHistoryMatch[0].Task_Update_ID && x.Workflow_Step_Field_ID == 42 && x.Field_Value == "Yes")
-                                .OrderBy(y => y.Task_Update_Field_ID)
-                                .ToList();
+                List<DS_Users.tblusersRow> assignedUserRow = dsUsr.tblusers
+                                    .ToList();
 
+                ret = "$('#Field_ID_763').change(function() {\r\n" +
+                              "AppendEmail();\r\n" +
+                      "});\r\n" +
+                      "function AppendEmail() {\r\n" +
+                              "var username = $('#Field_ID_763 option:selected').text().split(' - ')[1];\r\n" +
+                              "$('#Field_ID_765').val(username);\r\n" +
+                      "}\r\n" +
+                      "$('#ControlContainer_765').addClass('hide');\r\n" +
+                      "$('#Field_ID_763').empty();\r\n" +
+                      "$('<option></option>').attr('value', '-').text('-').appendTo('#Field_ID_763');\r\n";
+
+                foreach (var user in assignedUserRow)
+                {
+                    ret += "$('<option></option>').attr('value', '" + user.Full_Name + "').text('" + user.Full_Name + " - " + user.Username + "').appendTo('#Field_ID_763');\r\n";
+                }
+            }
+            if (ds.tbltasks[0].Current_Step_ID == 128)
+            {
                 ret = "init.push(function () {\r\n" +
-                                "CheckPaymentType();\r\n" +
-                        "});\r\n" +
-                        "$('#Field_ID_71').change(function() {\r\n" +
                                 "CheckPaymentType();\r\n" +
                         "});\r\n" +
                         "$('#Field_ID_72').change(function() {\r\n" +
@@ -639,78 +652,22 @@ namespace N_Ter.MySQL.Customizable
                         "$('#Field_ID_73').change(function() {\r\n" +
                                 "DisplayCashFields();\r\n" +
                         "});\r\n" +
-                        "$('#Field_ID_74').change(function() {\r\n" + 
+                        "$('#Field_ID_74').change(function() {\r\n" +
                                 "DisplayVoucherField();\r\n" +
                         "});\r\n" +
-                        "$('#Field_ID_78').change(function() {\r\n" + 
+                        "$('#Field_ID_78').change(function() {\r\n" +
                                 "DisplayCreditFields();\r\n" +
                         "});\r\n" +
+                        "$('#Field_ID_81').change(function() {\r\n" +
+                                "DisplayTTField();\r\n" +
+                        "});\r\n" +
                         "function CheckPaymentType() {\r\n" +
-                             "if ($('#Field_ID_71').val() == 'Cash'){\r\n" +
-                                 "$('#ControlContainer_72').removeClass('hide');\r\n" +
-                                 "$('#ControlContainer_73').addClass('hide');\r\n" +
-                                 "$('#ControlContainer_74').addClass('hide');\r\n" +
-                                 "$('#ControlContainer_75').addClass('hide');\r\n" +
-                                 "$('#ControlContainer_78').addClass('hide');\r\n" +
-                                 "$('#ControlContainer_79').addClass('hide');\r\n" +
-                                 "$('#ControlContainer_80').addClass('hide');\r\n" +
-                                 "$('#ControlContainer_81').addClass('hide');\r\n" +
-                                 "$('#ControlContainer_416').addClass('hide');\r\n" +
-                             //"$('#Field_ID_78').prop('checked', false);\r\n" +
-                             //"$('#Field_ID_74').prop('checked', false);\r\n" +
-                             //"$('#Field_ID_81').prop('checked', false);\r\n" +
-                             //"$('#Field_ID_78').parent().removeClass('checked');\r\n" +
-                             //"$('#Field_ID_74').parent().removeClass('checked');\r\n" +
-                             //"$('#Field_ID_81').parent().removeClass('checked');\r\n" +
-                             //"$('#Field_ID_79').val('');\r\n" +
-                             //"$('#Field_ID_75').val('');\r\n" +
-                             //"$('#Field_ID_80').val('');\r\n" +
-                             "}\r\n" +
-                             "else if ($('#Field_ID_71').val() == 'Credit'){\r\n" +
-                                 "$('#ControlContainer_78').removeClass('hide');\r\n" +
-                                 "$('#ControlContainer_74').removeClass('hide');\r\n" +
-                                 "$('#ControlContainer_72').addClass('hide');\r\n" +
-                                 "$('#ControlContainer_73').addClass('hide');\r\n" +
-                                 "$('#ControlContainer_75').addClass('hide');\r\n" +
-                                 "$('#ControlContainer_79').addClass('hide');\r\n" +
-                                 "$('#ControlContainer_80').addClass('hide');\r\n" +
-                                 "$('#ControlContainer_81').addClass('hide');\r\n" +
-                                 "$('#ControlContainer_416').addClass('hide');\r\n" +
-                             //"$('#Field_ID_72').prop('checked', false);\r\n" +
-                             //"$('#Field_ID_73').prop('checked', false);\r\n" +
-                             //"$('#Field_ID_74').prop('checked', false);\r\n" +
-                             //"$('#Field_ID_81').prop('checked', false);\r\n" +
-                             //"$('#Field_ID_72').parent().removeClass('checked');\r\n" +
-                             //"$('#Field_ID_73').parent().removeClass('checked');\r\n" +
-                             //"$('#Field_ID_74').parent().removeClass('checked');\r\n" +
-                             //"$('#Field_ID_81').parent().removeClass('checked');\r\n" +
-                             //"$('#Field_ID_75').val('');\r\n" +
-                             //"$('#Field_ID_80').val('');\r\n" +
-                             "}\r\n" +
-                             "else {\r\n" +
-                                 "$('#ControlContainer_72').addClass('hide');\r\n" +
-                                 "$('#ControlContainer_73').addClass('hide');\r\n" +
-                                 "$('#ControlContainer_74').addClass('hide');\r\n" +
-                                 "$('#ControlContainer_75').addClass('hide');\r\n" +
-                                 "$('#ControlContainer_78').addClass('hide');\r\n" +
-                                 "$('#ControlContainer_79').addClass('hide');\r\n" +
-                                 "$('#ControlContainer_80').addClass('hide');\r\n" +
-                                 "$('#ControlContainer_81').addClass('hide');\r\n" +
-                                 "$('#ControlContainer_416').addClass('hide');\r\n" +
-                             //"$('#Field_ID_72').prop('checked', false);\r\n" +
-                             //"$('#Field_ID_73').prop('checked', false);\r\n" +
-                             //"$('#Field_ID_78').prop('checked', false);\r\n" +
-                             //"$('#Field_ID_74').prop('checked', false);\r\n" +
-                             //"$('#Field_ID_81').prop('checked', false);\r\n" +
-                             //"$('#Field_ID_72').parent().removeClass('checked');\r\n" +
-                             //"$('#Field_ID_73').parent().removeClass('checked');\r\n" +
-                             //"$('#Field_ID_78').parent().removeClass('checked');\r\n" +
-                             //"$('#Field_ID_74').parent().removeClass('checked');\r\n" +
-                             //"$('#Field_ID_81').parent().removeClass('checked');\r\n" +
-                             //"$('#Field_ID_79').val('');\r\n" +
-                             //"$('#Field_ID_75').val('');\r\n" +
-                             //"$('#Field_ID_80').val('');\r\n" +
-                             "}\r\n" +
+                             "$('#ControlContainer_72').removeClass('hide');\r\n" +
+                             "$('#ControlContainer_73').addClass('hide');\r\n" +
+                             "$('#ControlContainer_78').removeClass('hide');\r\n" +
+                             "$('#ControlContainer_79').addClass('hide');\r\n" +
+                             "$('#ControlContainer_80').addClass('hide');\r\n" +
+                             "$('#ControlContainer_81').removeClass('hide');\r\n" +
                          "}\r\n" +
                          "function DisplayCashFields() {\r\n" +
                              "if ($('#Field_ID_72').is(\":checked\")){\r\n" +
@@ -719,95 +676,36 @@ namespace N_Ter.MySQL.Customizable
                              "else {\r\n" +
                                  "$('#ControlContainer_73').addClass('hide');\r\n" +
                              "}\r\n" +
-                             "if ($('#Field_ID_72').is(\":checked\") && $('#Field_ID_73').is(\":checked\")){\r\n" +
-                                 "$('#ControlContainer_74').removeClass('hide');\r\n" +
+                             "if (!$('#Field_ID_72').is(\":checked\") || !$('#Field_ID_73').is(\":checked\")){\r\n" +
+                                 "$('#contBody_contBody_contBody_cmdSubmit').addClass('hide');\r\n" +
                              "}\r\n" +
                              "else {\r\n" +
-                                 "$('#ControlContainer_74').addClass('hide');\r\n" +
-                             "}\r\n" +
-                             "if (!$('#Field_ID_72').is(\":checked\")){\r\n" +
-                                 "$('#ControlContainer_73').addClass('hide');\r\n" +
-                                 "$('#ControlContainer_74').addClass('hide');\r\n" +
-                                 "$('#ControlContainer_75').addClass('hide');\r\n" +
-                                 "$('#ControlContainer_416').addClass('hide');\r\n" +
-                             //"$('#Field_ID_73').prop('checked', false);\r\n" +
-                             //"$('#Field_ID_74').prop('checked', false);\r\n" +
-                             //"$('#Field_ID_73').parent().removeClass('checked');\r\n" +
-                             //"$('#Field_ID_74').parent().removeClass('checked');\r\n" +
-                             //"$('#Field_ID_75').val('');\r\n" +
-                             "}\r\n" +
-                             "if (!$('#Field_ID_73').is(\":checked\")){\r\n" +
-                                 "$('#ControlContainer_74').addClass('hide');\r\n" +
-                                 "$('#ControlContainer_75').addClass('hide');\r\n" +
-                                 "$('#ControlContainer_416').addClass('hide');\r\n" +
-                             //"$('#Field_ID_74').prop('checked', false);\r\n" +
-                             //"$('#Field_ID_74').parent().removeClass('checked');\r\n" +
-                             //"$('#Field_ID_75').val('');\r\n" +
+                                 "$('#contBody_contBody_contBody_cmdSubmit').removeClass('hide');\r\n" +
                              "}\r\n" +
                          "}\r\n" +
-                         "function DisplayCreditFields() {\r\n" + 
+                         "function DisplayCreditFields() {\r\n" +
                              "if ($('#Field_ID_78').is(\":checked\")){\r\n" +
                                  "$('#ControlContainer_79').removeClass('hide');\r\n" +
-                                 "$('#ControlContainer_74').removeClass('hide');\r\n" +
-                                 "$('#ControlContainer_75').addClass('hide');\r\n" +
-                                 "$('#ControlContainer_416').addClass('hide');\r\n" +
-                             //"$('#Field_ID_75').val('');\r\n" +
                              "}\r\n" +
                              "else {\r\n" +
-                                 "$('#ControlContainer_74').removeClass('hide');\r\n" +
                                  "$('#ControlContainer_79').addClass('hide');\r\n" +
-                                 "$('#ControlContainer_75').addClass('hide');\r\n" +
-                                 "$('#ControlContainer_416').addClass('hide');\r\n" +
-                             //"$('#Field_ID_74').prop('checked', false);\r\n" +
-                             //"$('#Field_ID_74').parent().removeClass('checked');\r\n" +
-                             //"$('#Field_ID_79').val('');\r\n" +
-                             //"$('#Field_ID_75').val('');\r\n" +
                              "}\r\n" +
+                         "}\r\n" +
+                         "function DisplayTTField() {\r\n" +
+                           "if ($('#Field_ID_81').is(\":checked\")){\r\n" +
+                               "$('#ControlContainer_80').removeClass('hide');\r\n" +
+                           "}\r\n" +
+                           "else {\r\n" +
+                               "$('#ControlContainer_80').addClass('hide');\r\n" +
+                           "}\r\n" +
+                         "}\r\n" +
+                         "if (!$('#Field_ID_72').is(\":checked\") || !$('#Field_ID_73').is(\":checked\")){\r\n" +
+                             "$('#contBody_contBody_contBody_cmdSubmit').addClass('hide');\r\n" +
+                         "}\r\n" +
+                         "else {\r\n" +
+                             "$('#contBody_contBody_contBody_cmdSubmit').removeClass('hide');\r\n" +
                          "}\r\n";
 
-                if (taskInquiryHolidayType.Count > 0)
-                {
-                    ret += "function DisplayVoucherField() {\r\n" +
-                             "if ($('#Field_ID_74').is(\":checked\")){\r\n" +
-                                 "$('#ControlContainer_75').removeClass('hide');\r\n" +
-                                 "$('#ControlContainer_81').removeClass('hide');\r\n" +
-                                 "$('#ControlContainer_416').removeClass('hide');\r\n" +
-                             "}\r\n" +
-                             "else {\r\n" +
-                                 "$('#ControlContainer_75').addClass('hide');\r\n" +
-                                 "$('#ControlContainer_81').addClass('hide');\r\n" +
-                                 "$('#ControlContainer_416').addClass('hide');\r\n" +
-                             //"$('#Field_ID_75').val('');\r\n" +
-                             //"$('#Field_ID_81').prop('checked', false);\r\n" +
-                             //"$('#Field_ID_81').parent().removeClass('checked');\r\n" +
-                             "}\r\n" +
-                           "}\r\n" +
-                           "$('#Field_ID_81').change(function() {\r\n" +
-                                "DisplayTTField();\r\n" +
-                           "});\r\n" +
-                           "function DisplayTTField() {\r\n" +
-                             "if ($('#Field_ID_81').is(\":checked\")){\r\n" +
-                                 "$('#ControlContainer_80').removeClass('hide');\r\n" +
-                             "}\r\n" +
-                             "else {\r\n" +
-                                 "$('#ControlContainer_80').addClass('hide');\r\n" +
-                             "}\r\n" +
-                           "}\r\n";
-                }
-                else
-                {
-                    ret += "function DisplayVoucherField() {\r\n" +
-                             "if ($('#Field_ID_74').is(\":checked\")){\r\n" +
-                                 "$('#ControlContainer_75').removeClass('hide');\r\n" +
-                                 "$('#ControlContainer_416').removeClass('hide');\r\n" +
-                             "}\r\n" +
-                             "else {\r\n" +
-                                 "$('#ControlContainer_75').addClass('hide');\r\n" +
-                                 "$('#ControlContainer_416').addClass('hide');\r\n" +
-                             //"$('#Field_ID_75').val('');\r\n" +
-                             "}\r\n" +
-                         "}\r\n";
-                }                
             }
             if (ds.tbltasks[0].Current_Step_ID == 99)
             {
@@ -839,7 +737,17 @@ namespace N_Ter.MySQL.Customizable
 
                 string fieldNames = string.Join(", ", taskCountrySelected.Select(x => x.Field_Value));
 
-                ret = "$('#Field_ID_685').val('" + fieldNames + "');\r\n";
+                ret = "$('#Field_ID_685').val('" + fieldNames + "');\r\n" +
+                      "$('#Field_ID_74').change(function() {\r\n" +
+                             "if ($('#Field_ID_74').is(\":checked\")){\r\n" +
+                                 "$('#ControlContainer_75').removeClass('hide');\r\n" +
+                                 "$('#ControlContainer_416').removeClass('hide');\r\n" +
+                             "}\r\n" +
+                             "else {\r\n" +
+                                 "$('#ControlContainer_75').addClass('hide');\r\n" +
+                                 "$('#ControlContainer_416').addClass('hide');\r\n" +
+                             "}\r\n" +
+                      "});\r\n";
             }
             if (ds.tbltasks[0].Current_Step_ID == 120)
             {
@@ -932,6 +840,30 @@ namespace N_Ter.MySQL.Customizable
                                 "$('#contBody_contBody_contBody_cmdSubmit').off('click');\r\n" +
                           "}\r\n" +
                       "}";
+            }
+            if (ds.tbltasks[0].Current_Step_ID == 103)
+            {
+                Users objUser = new Users(_strConnectionString);
+                DS_Users dsUsr = objUser.ReadForGroup(8); // Reading Outbound Team User Group
+
+                List<DS_Users.tblusersRow> assignedUserRow = dsUsr.tblusers
+                                    .ToList();
+
+                ret = "$('#Field_ID_760').change(function() {\r\n" +
+                              "AppendEmail();\r\n" +
+                      "});\r\n" +
+                      "function AppendEmail() {\r\n" +
+                              "var username = $('#Field_ID_760 option:selected').text().split(' - ')[1];\r\n" +
+                              "$('#Field_ID_762').val(username);\r\n" +
+                      "}\r\n" +
+                      "$('#ControlContainer_762').addClass('hide');\r\n" +
+                      "$('#Field_ID_760').empty();\r\n" +
+                      "$('<option></option>').attr('value', '-').text('-').appendTo('#Field_ID_760');\r\n";
+
+                foreach (var user in assignedUserRow)
+                {
+                    ret += "$('<option></option>').attr('value', '" + user.Full_Name + "').text('" + user.Full_Name + " - " + user.Username + "').appendTo('#Field_ID_760');\r\n";
+                }
             }
             return ret;
         }
