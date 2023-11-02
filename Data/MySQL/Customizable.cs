@@ -754,7 +754,20 @@ namespace N_Ter.MySQL.Customizable
 
                 string fieldNames = string.Join(", ", taskCountrySelected.Select(x => x.Field_Value));
 
-                ret = "$('#Field_ID_685').val('" + fieldNames + "');\r\n" +
+                ret = "init.push(function () {\r\n" +
+                             "CheckIssueTicket();\r\n" +
+                      "});\r\n" +
+                      "function CheckIssueTicket() {\r\n" +
+                             "$('#ControlContainer_74').removeClass('hide');\r\n" +
+                             "$('#ControlContainer_75').addClass('hide');\r\n" +
+                             "$('#ControlContainer_416').addClass('hide');\r\n" +
+
+                             "if ($('#Field_ID_74').is(\":checked\")){\r\n" +
+                                 "$('#ControlContainer_75').removeClass('hide');\r\n" +
+                                 "$('#ControlContainer_416').removeClass('hide');\r\n" +
+                             "}\r\n" +
+                      "}\r\n" +
+                      "$('#Field_ID_685').val('" + fieldNames + "');\r\n" +
                       "$('#Field_ID_74').change(function() {\r\n" +
                              "if ($('#Field_ID_74').is(\":checked\")){\r\n" +
                                  "$('#ControlContainer_75').removeClass('hide');\r\n" +
@@ -763,6 +776,8 @@ namespace N_Ter.MySQL.Customizable
                              "else {\r\n" +
                                  "$('#ControlContainer_75').addClass('hide');\r\n" +
                                  "$('#ControlContainer_416').addClass('hide');\r\n" +
+                                 "$('#Field_ID_75').val('');\r\n" +
+                                 "$('#Field_ID_416').val('');\r\n" +
                              "}\r\n" +
                       "});\r\n";
             }
