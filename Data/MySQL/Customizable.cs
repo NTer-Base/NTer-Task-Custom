@@ -710,7 +710,10 @@ namespace N_Ter.MySQL.Customizable
                                "$('#ControlContainer_80').addClass('hide');\r\n" +
                            "}\r\n" +
                          "}\r\n" +
-                         "if (!$('#Field_ID_72').is(\":checked\") || !$('#Field_ID_73').is(\":checked\")){\r\n" +
+                         "if ($('#Field_ID_78').length) {\r\n" +
+                             "$('#contBody_contBody_contBody_cmdSubmit').removeClass('hide');\r\n" +
+                         "}\r\n" +
+                         "else if (!$('#Field_ID_72').is(\":checked\") || !$('#Field_ID_73').is(\":checked\")) {\r\n" +
                              "$('#contBody_contBody_contBody_cmdSubmit').addClass('hide');\r\n" +
                          "}\r\n" +
                          "else {\r\n" +
