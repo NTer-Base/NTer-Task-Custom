@@ -686,6 +686,8 @@ namespace N_Ter.MySQL.Customizable
                              "}\r\n" +
                              "else {\r\n" +
                                  "$('#ControlContainer_73').addClass('hide');\r\n" +
+                                 "$('#Field_ID_73').prop('checked', false);\r\n" +
+                                 "$('#Field_ID_73').parent().removeClass('checked');\r\n" +
                              "}\r\n" +
                              "if (!$('#Field_ID_72').is(\":checked\") || !$('#Field_ID_73').is(\":checked\")){\r\n" +
                                  "$('#contBody_contBody_contBody_cmdSubmit').addClass('hide');\r\n" +
@@ -700,6 +702,7 @@ namespace N_Ter.MySQL.Customizable
                              "}\r\n" +
                              "else {\r\n" +
                                  "$('#ControlContainer_79').addClass('hide');\r\n" +
+                                 "$('#Field_ID_79').val('');\r\n" +
                              "}\r\n" +
                          "}\r\n" +
                          "function DisplayTTField() {\r\n" +
