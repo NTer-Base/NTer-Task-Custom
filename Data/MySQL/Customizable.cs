@@ -668,6 +668,17 @@ namespace N_Ter.MySQL.Customizable
                              "$('#ControlContainer_79').addClass('hide');\r\n" +
                              "$('#ControlContainer_80').addClass('hide');\r\n" +
                              "$('#ControlContainer_81').removeClass('hide');\r\n" +
+
+                             "if ($('#Field_ID_72').is(\":checked\")){\r\n" +
+                                 "$('#ControlContainer_73').removeClass('hide');\r\n" +
+                             "}\r\n" +
+
+                             "if ($('#Field_ID_78').is(\":checked\")){\r\n" +
+                                 "$('#ControlContainer_79').removeClass('hide');\r\n" +
+                             "}\r\n" +
+                             "if ($('#Field_ID_81').is(\":checked\")){\r\n" +
+                                 "$('#ControlContainer_80').removeClass('hide');\r\n" +
+                             "}\r\n" +
                          "}\r\n" +
                          "function DisplayCashFields() {\r\n" +
                              "if ($('#Field_ID_72').is(\":checked\")){\r\n" +
