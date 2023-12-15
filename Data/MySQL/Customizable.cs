@@ -5,6 +5,7 @@ using System.Text.RegularExpressions;
 using System.Web.UI.WebControls;
 using DevExpress.ClipboardSource.SpreadsheetML;
 using DevExpress.XtraPrinting.Shape.Native;
+using MySql.Data.MySqlClient;
 using N_Ter.Common;
 using N_Ter.Structures;
 using N_Ter_Task_Custom.Data.MySQL;
@@ -961,6 +962,39 @@ namespace N_Ter.MySQL.Customizable
                     }
 
                     if (isTaskedAssigned) dsTS.AcceptChanges();
+                }
+            }
+            else
+            {
+                if (dsTS.tbltasks[0].Current_Step_ID == 121)
+                {
+                    MySqlConnection con = new MySqlConnection(_strConnectionString);
+                    //string cmdText = "UPDATE INTO tbltask_docs (Task_ID, Doc_Number, Doc_Path, Uploaded_Date, Uploaded_By, Task_Doc_Type, Access_Level, Doc_Content, Is_Re_Upload, Is_Result) VALUES (" + Task_ID + ", '" + GetNextDocNumber() + "', '" + objComDB.ClearSQLText(Doc_Path) + "', @Uploaded_Date, " + Uploaded_By + ", '" + objComDB.ClearSQLText(Doc_Type) + "', " + Access_Level + ", '', " + (Is_Re_Upload ? 1 : 0) + ", " + (Is_Result ? 1 : 0) + ")";
+                    string cmdText = "UPDATE tbltask_docs SET Task_Doc_Type = 'Short Quotation History' WHERE Task_Doc_Type = 'Short Quotation Latest' AND Task_ID = " + dsTS.tbltasks[0].Task_ID;
+                    MySqlCommand cmd = new MySqlCommand(cmdText, con);
+                    con.Open();
+                    try
+                    {
+                        cmd.ExecuteNonQuery();
+                    }
+                    catch (Exception)
+                    {
+                    }
+                }
+                if (dsTS.tbltasks[0].Current_Step_ID == 122)
+                {
+                    MySqlConnection con = new MySqlConnection(_strConnectionString);
+                    //string cmdText = "UPDATE INTO tbltask_docs (Task_ID, Doc_Number, Doc_Path, Uploaded_Date, Uploaded_By, Task_Doc_Type, Access_Level, Doc_Content, Is_Re_Upload, Is_Result) VALUES (" + Task_ID + ", '" + GetNextDocNumber() + "', '" + objComDB.ClearSQLText(Doc_Path) + "', @Uploaded_Date, " + Uploaded_By + ", '" + objComDB.ClearSQLText(Doc_Type) + "', " + Access_Level + ", '', " + (Is_Re_Upload ? 1 : 0) + ", " + (Is_Result ? 1 : 0) + ")";
+                    string cmdText = "UPDATE tbltask_docs SET Task_Doc_Type = 'Detailed Quotation History' WHERE Task_Doc_Type = 'Detailed Quotation Latest' AND Task_ID = " + dsTS.tbltasks[0].Task_ID;
+                    MySqlCommand cmd = new MySqlCommand(cmdText, con);
+                    con.Open();
+                    try
+                    {
+                        cmd.ExecuteNonQuery();
+                    }
+                    catch (Exception)
+                    {
+                    }
                 }
             }
         }
